@@ -1,0 +1,21 @@
+# ninja log v5
+0	11	1717187623437990483	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-mkdir	6d395d44e6e9efb
+0	11	1717187623437990483	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-mkdir	6d395d44e6e9efb
+11	18685	1717187642112143575	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-download	389434ecc0d8e2db
+11	18685	1717187642112143575	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-download	389434ecc0d8e2db
+18685	18720	0	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-update	79552b90c41f1ccc
+18685	18720	0	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-update	79552b90c41f1ccc
+18720	18731	1717187642157849327	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-patch	ef5b7a66812ff9c
+18720	18731	1717187642157849327	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-patch	ef5b7a66812ff9c
+18731	18740	1717187642167349740	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-configure	a8140070274ba8c4
+18731	18740	1717187642167349740	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-configure	a8140070274ba8c4
+18740	18751	1717187642177629249	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-build	2f8ab12dcfc91f66
+18740	18751	1717187642177629249	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-build	2f8ab12dcfc91f66
+18751	18761	1717187642187821096	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-install	c97ed8f8ea554fcc
+18751	18761	1717187642187821096	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-install	c97ed8f8ea554fcc
+18761	18771	1717187642197708828	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-test	850e941a308503f4
+18761	18771	1717187642197708828	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-test	850e941a308503f4
+18771	18785	1717187642212268061	CMakeFiles/fmt-populate-complete	8b23179a8423b90b
+18771	18785	1717187642212268061	fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-done	8b23179a8423b90b
+18771	18785	1717187642212268061	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/CMakeFiles/fmt-populate-complete	8b23179a8423b90b
+18771	18785	1717187642212268061	/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-subbuild/fmt-populate-prefix/src/fmt-populate-stamp/fmt-populate-done	8b23179a8423b90b

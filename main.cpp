@@ -1,6 +1,19 @@
-#include <iostream>
+#include "Game.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+auto main() -> int {
+
+    // ----- creating game object --------------------------------------------------------------------------------------
+    auto game = Game();
+
+    // ----- game loop -------------------------------------------------------------------------------------------------
+    while (game.isRunning()) {
+
+        //update game state
+        game.updateState();
+
+        //render game
+        game.render();
+
+    }
+
 }
