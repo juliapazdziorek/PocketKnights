@@ -31,7 +31,7 @@ auto Game::updateKnight() -> void {
 Game::Game() {
 
     //window
-    this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "Pocket Knights", sf::Style::Titlebar | sf::Style::Close);
+    this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "Pocket Knight", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
 
     //assets

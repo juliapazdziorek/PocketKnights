@@ -215,9 +215,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "PocketKnights::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-PocketKnights-Debug-a2db6c476e5fc6b15d1f.json",
-					"name" : "PocketKnights",
+					"id" : "PocketKnight::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PocketKnight-Debug-c30b1059830ccc6c545f.json",
+					"name" : "PocketKnight",
 					"projectIndex" : 0
 				},
 				{

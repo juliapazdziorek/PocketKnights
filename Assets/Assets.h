@@ -8,7 +8,7 @@ class Assets {
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
-    static inline sf::Texture knightOriginal = sf::Texture();
+    static inline sf::Texture knightOriginal;
 
     // ----- public methods --------------------------------------------------------------------------------------------
     static auto createKnightOriginal() -> void;

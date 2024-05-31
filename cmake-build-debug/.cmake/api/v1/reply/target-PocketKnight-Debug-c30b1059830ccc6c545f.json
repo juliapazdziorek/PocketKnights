@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "PocketKnights"
+			"path" : "PocketKnight"
 		}
 	],
 	"backtrace" : 1,
@@ -120,7 +120,7 @@
 			"id" : "fmt::@976f4f0bee90b99ecdb6"
 		}
 	],
-	"id" : "PocketKnights::@6890427a1f51a3e7e1df",
+	"id" : "PocketKnight::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -160,8 +160,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "PocketKnights",
-	"nameOnDisk" : "PocketKnights",
+	"name" : "PocketKnight",
+	"nameOnDisk" : "PocketKnight",
 	"paths" : 
 	{
 		"build" : ".",

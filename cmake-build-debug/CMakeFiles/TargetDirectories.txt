@@ -1,4 +1,4 @@
-/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/CMakeFiles/PocketKnights.dir
+/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/CMakeFiles/PocketKnight.dir
 /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/CMakeFiles/package.dir
 /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/CMakeFiles/package_source.dir
 /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/CMakeFiles/edit_cache.dir
