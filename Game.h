@@ -3,6 +3,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
+#include "Assets/Assets.h"
 #include "Knight.h"
 
 
@@ -12,7 +14,8 @@ private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::RenderWindow* window;
-    sf::Vector2f scale;
+
+    Assets assets;
     Knight knight;
 
 
@@ -29,7 +32,7 @@ public:
     Game();
     ~Game();
 
-    // ----- public methods ----------------------------------------------------------------------------------------------
+    // ----- public methods --------------------------------------------------------------------------------------------
     auto isRunning() -> bool;
     auto updateState() -> void;
     auto render() -> void;

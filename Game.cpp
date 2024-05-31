@@ -34,9 +34,8 @@ Game::Game() {
     this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "Pocket Knights", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
 
-    this->scale = sf::Vector2f(0.5, 0.5);
-
-    //knight
+    //assets
+    this->assets = Assets();
     this->knight = Knight();
 
 }

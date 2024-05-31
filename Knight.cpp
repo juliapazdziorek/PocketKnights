@@ -1,10 +1,8 @@
-#include <fmt/ranges.h>
-
 #include "Knight.h"
 
 //private:
 
-// ----- event updating -------------------------------------------------------------------------------------------------
+// ----- event updating ------------------------------------------------------------------------------------------------
 
 auto Knight::updateEvents() -> void {
 
@@ -24,19 +22,15 @@ auto Knight::updateEvents() -> void {
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
 Knight::Knight() {
-    if (!Knight::texture.loadFromFile("TinySwords/Fractions/Knights/Troops/Warrior/Original/Warrior_Blue1.png")) {
-        fmt::println("File can not load from file: TinySwords/Fractions/Knights/Troops/Warrior/Original/Warrior_Blue1.png");
-    }
-    Knight::texture.setSmooth(true);
-    this->knight.setTexture(Knight::texture);
-    this->knight.setScale(0.5f, 0.5f);
-    this->movingSpeed = 5;
+    this->knight.setTexture(Assets::getKnightOriginal());
+    this->knight.setScale(sf::Vector2f(0.5f, 0.5f));
+    this->movingSpeed = 3;
 }
 
 Knight::~Knight() = default;
 
 
-// ----- public methods --------------------------------------------------------------------------------------------------
+// ----- public methods ------------------------------------------------------------------------------------------------
 
 auto Knight::updateState() -> void {
     updateEvents();

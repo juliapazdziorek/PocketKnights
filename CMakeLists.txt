@@ -20,7 +20,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SFML)
 FetchContent_MakeAvailable(fmt)
 
-add_executable(CppGra main.cpp
+add_executable(PocketKnights main.cpp
         Game.cpp
+        Assets/Assets.cpp
         Knight.cpp)
-target_link_libraries(CppGra fmt sfml-graphics)
+
+target_link_libraries(PocketKnights fmt sfml-graphics)

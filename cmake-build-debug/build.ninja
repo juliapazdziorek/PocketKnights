@@ -41,54 +41,62 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target CppGra
+# Object build statements for EXECUTABLE target PocketKnights
 
 
 #############################################
-# Order-only phony target for CppGra
+# Order-only phony target for PocketKnights
 
-build cmake_object_order_depends_target_CppGra: phony || cmake_object_order_depends_target_fmt cmake_object_order_depends_target_sfml-graphics cmake_object_order_depends_target_sfml-system cmake_object_order_depends_target_sfml-window
+build cmake_object_order_depends_target_PocketKnights: phony || cmake_object_order_depends_target_fmt cmake_object_order_depends_target_sfml-graphics cmake_object_order_depends_target_sfml-system cmake_object_order_depends_target_sfml-window
 
-build CMakeFiles/CppGra.dir/main.cpp.o: CXX_COMPILER__CppGra_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/main.cpp || cmake_object_order_depends_target_CppGra
+build CMakeFiles/PocketKnights.dir/main.cpp.o: CXX_COMPILER__PocketKnights_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/main.cpp || cmake_object_order_depends_target_PocketKnights
   DEFINES = -DFMT_SHARED
-  DEP_FILE = CMakeFiles/CppGra.dir/main.cpp.o.d
+  DEP_FILE = CMakeFiles/PocketKnights.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-src/include -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/sfml-src/include
-  OBJECT_DIR = CMakeFiles/CppGra.dir
-  OBJECT_FILE_DIR = CMakeFiles/CppGra.dir
+  OBJECT_DIR = CMakeFiles/PocketKnights.dir
+  OBJECT_FILE_DIR = CMakeFiles/PocketKnights.dir
 
-build CMakeFiles/CppGra.dir/Game.cpp.o: CXX_COMPILER__CppGra_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Game.cpp || cmake_object_order_depends_target_CppGra
+build CMakeFiles/PocketKnights.dir/Game.cpp.o: CXX_COMPILER__PocketKnights_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Game.cpp || cmake_object_order_depends_target_PocketKnights
   DEFINES = -DFMT_SHARED
-  DEP_FILE = CMakeFiles/CppGra.dir/Game.cpp.o.d
+  DEP_FILE = CMakeFiles/PocketKnights.dir/Game.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-src/include -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/sfml-src/include
-  OBJECT_DIR = CMakeFiles/CppGra.dir
-  OBJECT_FILE_DIR = CMakeFiles/CppGra.dir
+  OBJECT_DIR = CMakeFiles/PocketKnights.dir
+  OBJECT_FILE_DIR = CMakeFiles/PocketKnights.dir
 
-build CMakeFiles/CppGra.dir/Knight.cpp.o: CXX_COMPILER__CppGra_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Knight.cpp || cmake_object_order_depends_target_CppGra
+build CMakeFiles/PocketKnights.dir/Assets/Assets.cpp.o: CXX_COMPILER__PocketKnights_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Assets/Assets.cpp || cmake_object_order_depends_target_PocketKnights
   DEFINES = -DFMT_SHARED
-  DEP_FILE = CMakeFiles/CppGra.dir/Knight.cpp.o.d
+  DEP_FILE = CMakeFiles/PocketKnights.dir/Assets/Assets.cpp.o.d
   FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-src/include -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/sfml-src/include
-  OBJECT_DIR = CMakeFiles/CppGra.dir
-  OBJECT_FILE_DIR = CMakeFiles/CppGra.dir
+  OBJECT_DIR = CMakeFiles/PocketKnights.dir
+  OBJECT_FILE_DIR = CMakeFiles/PocketKnights.dir/Assets
+
+build CMakeFiles/PocketKnights.dir/Knight.cpp.o: CXX_COMPILER__PocketKnights_unscanned_Debug /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Knight.cpp || cmake_object_order_depends_target_PocketKnights
+  DEFINES = -DFMT_SHARED
+  DEP_FILE = CMakeFiles/PocketKnights.dir/Knight.cpp.o.d
+  FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-src/include -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles/PocketKnights.dir
+  OBJECT_FILE_DIR = CMakeFiles/PocketKnights.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target CppGra
+# Link build statements for EXECUTABLE target PocketKnights
 
 
 #############################################
-# Link the executable CppGra
+# Link the executable PocketKnights
 
-build CppGra: CXX_EXECUTABLE_LINKER__CppGra_Debug CMakeFiles/CppGra.dir/main.cpp.o CMakeFiles/CppGra.dir/Game.cpp.o CMakeFiles/CppGra.dir/Knight.cpp.o | _deps/fmt-build/libfmtd.10.2.1.dylib _deps/sfml-build/lib/libsfml-graphics-d.2.6.1.dylib _deps/sfml-build/lib/libsfml-window-d.2.6.1.dylib _deps/sfml-build/lib/libsfml-system-d.2.6.1.dylib || _deps/fmt-build/libfmtd.dylib _deps/sfml-build/lib/libsfml-graphics-d.dylib _deps/sfml-build/lib/libsfml-system-d.dylib _deps/sfml-build/lib/libsfml-window-d.dylib _deps/fmt-build/libfmtd.dylib _deps/sfml-build/lib/libsfml-graphics-d.dylib _deps/sfml-build/lib/libsfml-window-d.dylib _deps/sfml-build/lib/libsfml-system-d.dylib
+build PocketKnights: CXX_EXECUTABLE_LINKER__PocketKnights_Debug CMakeFiles/PocketKnights.dir/main.cpp.o CMakeFiles/PocketKnights.dir/Game.cpp.o CMakeFiles/PocketKnights.dir/Assets/Assets.cpp.o CMakeFiles/PocketKnights.dir/Knight.cpp.o | _deps/fmt-build/libfmtd.10.2.1.dylib _deps/sfml-build/lib/libsfml-graphics-d.2.6.1.dylib _deps/sfml-build/lib/libsfml-window-d.2.6.1.dylib _deps/sfml-build/lib/libsfml-system-d.2.6.1.dylib || _deps/fmt-build/libfmtd.dylib _deps/sfml-build/lib/libsfml-graphics-d.dylib _deps/sfml-build/lib/libsfml-system-d.dylib _deps/sfml-build/lib/libsfml-window-d.dylib _deps/fmt-build/libfmtd.dylib _deps/sfml-build/lib/libsfml-graphics-d.dylib _deps/sfml-build/lib/libsfml-window-d.dylib _deps/sfml-build/lib/libsfml-system-d.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/fmt-build -Wl,-rpath,/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug/_deps/sfml-build/lib  _deps/fmt-build/libfmtd.10.2.1.dylib  _deps/sfml-build/lib/libsfml-graphics-d.2.6.1.dylib  _deps/sfml-build/lib/libsfml-window-d.2.6.1.dylib  _deps/sfml-build/lib/libsfml-system-d.2.6.1.dylib
-  OBJECT_DIR = CMakeFiles/CppGra.dir
+  OBJECT_DIR = CMakeFiles/PocketKnights.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = CppGra
-  TARGET_PDB = CppGra.dbg
+  TARGET_FILE = PocketKnights
+  TARGET_PDB = PocketKnights.dbg
 
 
 #############################################
@@ -2155,7 +2163,7 @@ build sfml-window: phony _deps/sfml-build/lib/libsfml-window-d.dylib
 #############################################
 # Folder: /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-debug
 
-build all: phony CppGra _deps/sfml-build/all _deps/fmt-build/all
+build all: phony PocketKnights _deps/sfml-build/all _deps/fmt-build/all
 
 # =============================================================================
 

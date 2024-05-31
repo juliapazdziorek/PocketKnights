@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "Assets/Assets.h"
+
 class Knight {
 
 private:
