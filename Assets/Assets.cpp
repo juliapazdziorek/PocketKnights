@@ -2,13 +2,21 @@
 
 //private:
 
-// ----- public methods ------------------------------------------------------------------------------------------------
-auto Assets::createKnightOriginal() -> void {
-    if (!knightOriginal.loadFromFile("TinySwords/Fractions/Knights/Troops/Warrior/Original/Warrior_Blue1.png")) {
-        fmt::println("File can not load from file: TinySwords/Fractions/Knights/Troops/Warrior/Original/Warrior_Blue1.png");
+// ----- private methods ------------------------------------------------------------------------------------------------
+auto Assets::loadTextures() -> void {
+
+    //knightTexture
+    auto knightTexture = sf::Texture();
+    if (!knightTexture.loadFromFile("TinySwords/Fractions/Knights/Troops/Warrior/Warrior_Blue.png")) {
+        fmt::println("File can not load from file: TinySwords/Fractions/Knights/Troops/Warrior/Warrior_Blue.png");
     }
-    knightOriginal.setSmooth(true);
+    knightTexture.setSmooth(true);
+    Assets::textures["knightTexture"] = knightTexture;
+
+
+
 }
+
 
 
 //public:
@@ -16,15 +24,16 @@ auto Assets::createKnightOriginal() -> void {
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
 Assets::Assets() {
-    createKnightOriginal();
+    loadTextures();
 }
 
 
 Assets::~Assets() = default;
 
 
-// ----- public methods --------------------------------------------------------------------------------------------
-auto Assets::getKnightOriginal() -> sf::Texture& {
-    return Assets::knightOriginal;
+// ----- public methods ------------------------------------------------------------------------------------------------
+
+auto Assets::getKnightStanding() -> Animation& {
+    return Assets::knightStanding;
 }
 

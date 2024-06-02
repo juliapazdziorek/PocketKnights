@@ -16,13 +16,18 @@ auto Knight::updateEvents() -> void {
 
 }
 
+auto Knight::updateTexture() -> void {
+    Assets::getKnightStanding().updateFrame();
+    Assets::getKnightStanding().applyTexture(knight);
+}
+
+
 
 //public:
 
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
 Knight::Knight() {
-    this->knight.setTexture(Assets::getKnightOriginal());
     this->knight.setScale(sf::Vector2f(0.5f, 0.5f));
     this->movingSpeed = 3;
 }
@@ -34,6 +39,7 @@ Knight::~Knight() = default;
 
 auto Knight::updateState() -> void {
     updateEvents();
+    updateTexture();
 }
 
 auto Knight::render(sf::RenderTarget* window) -> void {
