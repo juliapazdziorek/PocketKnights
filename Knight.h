@@ -11,14 +11,30 @@ class Knight {
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
-    static inline sf::Texture texture;
     sf::Sprite knight;
+    sf::Vector2f scale;
+    sf::Vector2f position;
     float movingSpeed;
+    sf::Clock animationClock;
+
+    sf::Clock attackClock;
+    bool attacking;
+    sf::Vector2f attackPosition;
+
+    enum class KnightState { KNIGHT_STANDING, KNIGHT_RUNNING_LEFT, KNIGHT_RUNNING_RIGHT, KNIGHT_ATTACKING };
+    KnightState knightState;
+
+    enum class KnightFacing { LEFT, RIGHT, UP, DOWN };
+    KnightFacing knightFacing;
 
 
-    // ----- event updating ---------------------------------------------------------------------------------------------
+    // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
+    auto updateAttack() -> void;
     auto updateTexture() -> void;
+
+    // ----- private methods -------------------------------------------------------------------------------------------
+    auto attack() -> void;
 
 public:
 

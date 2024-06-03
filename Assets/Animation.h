@@ -8,18 +8,17 @@ class Animation {
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
-    sf::Texture& texture; //przechowuje całą teksturę //tam była referencja - może teraz sie cos wyjebac
-    std::vector<sf::IntRect> frames; //przechowuje wymiary klatki
+    sf::Texture& texture;
+    std::vector<sf::IntRect> frames;
     int currentTextureIndex;
-    int width; //przechowuje wysokość tekstury
-    int height; //przechowuje wysokość tekstury
-    int numberOfFrames; //przechowuje ilość klatek
-    int numberOfRows; //przechowuje ilość wierszy (różnych animacji w pgn)
-    int row; //wiersz w teksturze
-    sf::Clock clock;
+    int width;
+    int height;
+    int numberOfFrames;
+    int numberOfRows;
+    int row;
 
     // ----- private methods -------------------------------------------------------------------------------------------
-    auto computeFrames() -> void; //oblicza klatki na podsatwie danych
+    auto computeFrames() -> void;
     auto countCurrentTextureIndex() -> void;
 
 
@@ -30,7 +29,7 @@ public:
     ~Animation();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto applyTexture(sf::Sprite& sprite) -> void; //ustawia animacje spritea na odpowiednią klatkę
-    auto updateFrame() -> void; //zegar stuff ?? i update klatki na kolejną
+    auto applyTexture(sf::Sprite& sprite) -> void;
+    auto updateFrame(sf::Clock& clock) -> void;
 
 };

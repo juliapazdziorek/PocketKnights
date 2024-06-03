@@ -9,7 +9,7 @@ auto Animation::computeFrames() -> void {
     auto recHeight = this->height / this->numberOfRows;
 
     for (int i = 0; i < frames.size(); ++i) {
-        frames[i] = sf::IntRect(i * recWidth, (row - 1) * height, recWidth, recHeight);
+        frames[i] = sf::IntRect(i * recWidth, (row - 1) * recHeight, recWidth, recHeight);
     }
 }
 
@@ -43,16 +43,9 @@ auto Animation::applyTexture(sf::Sprite& sprite) -> void {
     sprite.setTextureRect(frames[currentTextureIndex]);
 }
 
-auto Animation::updateFrame() -> void {
-    while (clock.getElapsedTime() >= sf::seconds(0.2f)) {
+auto Animation::updateFrame(sf::Clock& clock) -> void {
+    while (clock.getElapsedTime() >= sf::seconds(0.1f)) {
         countCurrentTextureIndex();
         clock.restart();
     }
 }
-
-
-
-
-
-
-
