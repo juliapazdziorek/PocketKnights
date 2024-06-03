@@ -13,9 +13,10 @@ private:
     int currentTextureIndex;
     int width;
     int height;
-    int numberOfFrames;
-    int numberOfRows;
-    int row;
+    int numberOfFramesInTexture;
+    int numberOfRowsInTexture;
+    int rowOfAnimation;
+    int framesOfAnimation;
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto computeFrames() -> void;
@@ -25,7 +26,7 @@ private:
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
-    Animation(sf::Texture& texture, int const& width, int const& height, int const& numberOfFrames, int const& numberOfRows, int const& row);
+    Animation(sf::Texture& texture, int const& width, int const& height, int const& numberOfFramesInTexture, int const& numberOfRowsInTexture, int const& rowOfAnimation, int const& framesOfAnimation);
     ~Animation();
 
     // ----- public methods --------------------------------------------------------------------------------------------

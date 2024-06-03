@@ -22,6 +22,9 @@ auto Game::updateKnight() -> void {
     this->knight.updateState();
 }
 
+auto Game::updateGoblin() -> void {
+    this->goblin.updateState();
+}
 
 
 //public
@@ -37,6 +40,7 @@ Game::Game() {
     //assets
     this->assets = Assets();
     this->knight = Knight();
+    this->goblin = Goblin();
 
 }
 
@@ -54,6 +58,7 @@ auto Game::isRunning() -> bool {
 auto Game::updateState() -> void {
     updateEvents();
     updateKnight();
+    updateGoblin();
 
 }
 
@@ -61,6 +66,7 @@ auto Game::render() -> void {
     this->window->clear(sf::Color(71, 171, 169));
 
     this->knight.render(this->window);
+    this->goblin.render(this->window);
 
     this->window->display();
 

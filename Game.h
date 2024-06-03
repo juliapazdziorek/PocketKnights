@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "Assets/Assets.h"
 #include "Knight.h"
+#include "Goblin.h"
 
 
 class Game {
@@ -17,6 +18,7 @@ private:
 
     Assets assets;
     Knight knight;
+    Goblin goblin;
 
 
     // ----- event polling ---------------------------------------------------------------------------------------------
@@ -24,6 +26,7 @@ private:
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto updateKnight() -> void;
+    auto updateGoblin() -> void;
 
 
 public:

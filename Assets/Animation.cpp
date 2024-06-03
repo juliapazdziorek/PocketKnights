@@ -5,16 +5,16 @@
 // ----- private methods -----------------------------------------------------------------------------------------------
 
 auto Animation::computeFrames() -> void {
-    auto recWidth = this->width / this->numberOfFrames;
-    auto recHeight = this->height / this->numberOfRows;
+    auto recWidth = this->width / this->numberOfFramesInTexture;
+    auto recHeight = this->height / this->numberOfRowsInTexture;
 
-    for (int i = 0; i < frames.size(); ++i) {
-        frames[i] = sf::IntRect(i * recWidth, (row - 1) * recHeight, recWidth, recHeight);
+    for (int i = 0; i < this->framesOfAnimation; ++i) {
+        frames[i] = sf::IntRect(i * recWidth, (rowOfAnimation - 1) * recHeight, recWidth, recHeight);
     }
 }
 
 auto Animation::countCurrentTextureIndex() -> void {
-    if (this->currentTextureIndex < this->numberOfFrames - 1) {
+    if (this->currentTextureIndex < this->framesOfAnimation - 1) {
         currentTextureIndex++;
     } else {
         currentTextureIndex = 0;
@@ -27,9 +27,9 @@ auto Animation::countCurrentTextureIndex() -> void {
 
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
-Animation::Animation(sf::Texture& texture, int const& width, int const& height, int const& numberOfFrames, int const& numberOfRows, int const& row)
-    : texture(texture), currentTextureIndex(0), width(width), height(height), numberOfFrames(numberOfFrames), numberOfRows(numberOfRows), row(row) {
-    this->frames = std::vector<sf::IntRect>(this->numberOfFrames);
+Animation::Animation(sf::Texture& texture, int const& width, int const& height, int const& numberOfFramesInTexture, int const& numberOfRowsInTexture, int const& rowOfAnimation, int const& framesOfAnimation)
+    : texture(texture), currentTextureIndex(0), width(width), height(height), numberOfFramesInTexture(numberOfFramesInTexture), numberOfRowsInTexture(numberOfRowsInTexture), rowOfAnimation(rowOfAnimation), framesOfAnimation(framesOfAnimation) {
+    this->frames = std::vector<sf::IntRect>(this->framesOfAnimation);
     computeFrames();
 }
 

@@ -24,6 +24,7 @@ add_executable(PocketKnight main.cpp
         Game.cpp
         Assets/Assets.cpp
         Assets/Animation.cpp
-        Knight.cpp)
+        Knight.cpp
+        Goblin.cpp)
 
 target_link_libraries(PocketKnight fmt sfml-graphics)
