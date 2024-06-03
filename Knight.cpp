@@ -6,34 +6,40 @@
 
 auto Knight::updateEvents() -> void {
 
+    //if not in other animation
     if(!attacking) {
 
-        //moving: left, right
+        //moving left
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            this->knight.move(-this->movingSpeed, 0);
             this->knightState = KnightState::KNIGHT_RUNNING_LEFT;
             this->knightFacing = KnightFacing::LEFT;
+            this->knight.move(-this->movingSpeed, 0);
         }
 
+        //moving right
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            this->knight.move(this->movingSpeed, 0);
             this->knightState = KnightState::KNIGHT_RUNNING_RIGHT;
             this->knightFacing = KnightFacing::RIGHT;
+            this->knight.move(this->movingSpeed, 0);
         };
 
-        //moving up, down
+        //moving up
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            this->knight.move(0, -this->movingSpeed);
             this->knightFacing = KnightFacing::UP;
+            this->knight.move(0, -this->movingSpeed);
 
+            //some animation while moving up
             if (this->knightState == KnightState::KNIGHT_STANDING) {
                 this->knightState = KnightState::KNIGHT_RUNNING_LEFT;
             }
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            this->knight.move(0, this->movingSpeed);
-            this->knightFacing = KnightFacing::DOWN;
 
+        //moving down
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            this->knightFacing = KnightFacing::DOWN;
+            this->knight.move(0, this->movingSpeed);
+
+            //some animation while moving down
             if (this->knightState == KnightState::KNIGHT_STANDING) {
                 this->knightState = KnightState::KNIGHT_RUNNING_RIGHT;
             }
