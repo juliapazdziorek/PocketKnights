@@ -14,6 +14,15 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     static inline std::map<std::string, sf::Texture> textures;
 
+    //mapTile
+    int mapTileSize;
+    std::map<std::string, sf::IntRect> intRectsGrass;
+    std::map<std::string, sf::IntRect> intRectsSand;
+    std::map<std::string, sf::IntRect> intRectsWall;
+    std::map<std::string, sf::IntRect> intRectsStairs;
+    std::map<std::string, sf::IntRect> intRectsBridge;
+
+    //knight animations
     static inline Animation knightStanding = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 1, 6);
     static inline Animation knightRunningRight = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 2, 6);
     static inline Animation knightRunningLeft = Animation(Assets::textures["knightTextureFlipped"], 1152, 1536, 6, 8, 2, 6);
@@ -22,6 +31,7 @@ private:
     static inline Animation knightAttackUp = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 7, 6);
     static inline Animation knightAttackDown = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 5, 6);
 
+    //goblin animations
     static inline Animation goblinStanding = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 1, 6);
     static inline Animation goblinRunningRight = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 2, 6);
     static inline Animation goblinRunningLeft = Animation(Assets::textures["goblinTextureFlipped"], 1152, 960, 6, 5, 2, 6);
@@ -30,8 +40,12 @@ private:
     static inline Animation goblinAttackUp = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 5, 6);
     static inline Animation goblinAttackDown = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 4, 6);
 
+
+
     // ----- private methods -------------------------------------------------------------------------------------------
     static auto loadTextures() -> void;
+    auto initializeMapTileMaps() -> void;
+
 
 public:
 

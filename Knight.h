@@ -12,8 +12,8 @@ private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::Sprite knight;
-    sf::Vector2f scale;
     sf::Vector2f position;
+    sf::Vector2f scale;
     float movingSpeed;
     sf::Clock animationClock;
 

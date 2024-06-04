@@ -153,8 +153,8 @@ Knight::Knight() {
 
     this->knightState = KnightState::KNIGHT_STANDING;
     this->knightFacing = KnightFacing::DOWN;
-    this->scale = sf::Vector2f(0.5f, 0.5f);
     this->position = sf::Vector2f(350, 250);
+    this->scale = sf::Vector2f(0.5f, 0.5f);
     this->movingSpeed = 3;
 
     this->attacking = false;

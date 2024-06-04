@@ -23,7 +23,9 @@ FetchContent_MakeAvailable(fmt)
 add_executable(PocketKnight main.cpp
         Game.cpp
         Assets/Assets.cpp
+        Assets/MapTile.cpp
         Assets/Animation.cpp
+        Map.cpp
         Knight.cpp
         Goblin.cpp)
 
