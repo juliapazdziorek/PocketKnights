@@ -7,13 +7,16 @@ class MapTile {
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
-    sf::Sprite tile;
     sf::Texture* texture;
-    sf::Vector2f position;
-    sf::Vector2f scale;
-    bool isPassable;
 
 public:
+
+    // ----- public properties -----------------------------------------------------------------------------------------
+    sf::Sprite tile;
+    bool isPassable;
+    sf::Vector2f position;
+    sf::Vector2f scale;
+    //should be protected :(
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     MapTile();
@@ -21,6 +24,8 @@ public:
     ~MapTile();
 
     // ----- public methods --------------------------------------------------------------------------------------------
+
+   //setters
     auto setPosition(sf::Vector2f newPosition) -> void;
     auto setScale(sf::Vector2f newScale) -> void;
 

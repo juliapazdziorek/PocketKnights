@@ -1,6 +1,6 @@
 #include "MapTile.h"
 
-//public
+//public:
 
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
@@ -18,6 +18,7 @@ MapTile::~MapTile() = default;
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
+//setters
 auto MapTile::setPosition(sf::Vector2f newPosition) -> void {
     this->position = newPosition;
 }
@@ -25,6 +26,7 @@ auto MapTile::setPosition(sf::Vector2f newPosition) -> void {
 auto MapTile::setScale(sf::Vector2f newScale) -> void {
     this->scale = newScale;
 }
+
 
 auto MapTile::render(sf::RenderTarget* window) -> void {
     window->draw(this->tile);
