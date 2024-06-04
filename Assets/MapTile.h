@@ -2,25 +2,28 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Assets.h"
-
 class MapTile {
 
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::Sprite tile;
-    sf::Texture texture;
+    sf::Texture* texture;
     sf::Vector2f position;
+    sf::Vector2f scale;
+    bool isPassable;
 
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
-    MapTile(sf::Texture& texture, sf::IntRect intRect);
+    MapTile();
+    MapTile(sf::Texture& texture, sf::IntRect intRect, bool isPassable);
     ~MapTile();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto setPosition(float x, float y) -> void;
+    auto setPosition(sf::Vector2f newPosition) -> void;
+    auto setScale(sf::Vector2f newScale) -> void;
+
     auto render(sf::RenderTarget* window) -> void;
 
 };

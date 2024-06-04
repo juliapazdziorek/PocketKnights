@@ -65,8 +65,8 @@ auto Game::updateState() -> void {
 auto Game::render() -> void {
     this->window->clear(sf::Color(71, 171, 169));
 
-    this->knight.render(this->window);
     this->goblin.render(this->window);
+    this->knight.render(this->window);
 
     this->window->display();
 

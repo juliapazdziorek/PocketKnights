@@ -6,6 +6,7 @@
 #include <string>
 
 #include "Animation.h"
+#include "MapTile.h"
 
 class Assets {
 
@@ -14,13 +15,13 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     static inline std::map<std::string, sf::Texture> textures;
 
-    //mapTile
+    //mapTiles
     int mapTileSize;
-    std::map<std::string, sf::IntRect> intRectsGrass;
-    std::map<std::string, sf::IntRect> intRectsSand;
-    std::map<std::string, sf::IntRect> intRectsWall;
-    std::map<std::string, sf::IntRect> intRectsStairs;
-    std::map<std::string, sf::IntRect> intRectsBridge;
+    static inline std::map<std::string, MapTile> MapTilesGrass;
+    static inline std::map<std::string, MapTile> MapTilesSand;
+    static inline std::map<std::string, MapTile> MapTilesWall;
+    static inline std::map<std::string, MapTile> MapTilesStairs;
+    static inline std::map<std::string, MapTile> MapTilesBridge;
 
     //knight animations
     static inline Animation knightStanding = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 1, 6);
@@ -72,5 +73,12 @@ public:
     static auto getGoblinAttackRight() -> Animation&;
     static auto getGoblinAttackUp() -> Animation&;
     static auto getGoblinAttackDown() -> Animation&;
+
+    //mapTile getters
+    static auto getMapTilesGrass() -> std::map<std::string, MapTile>;
+    static auto getMapTilesSand() -> std::map<std::string, MapTile>;
+    static auto getMapTilesWall() -> std::map<std::string, MapTile>;
+    static auto getMapTilesStairs() -> std::map<std::string, MapTile>;
+    static auto getMapTilesBridge() -> std::map<std::string, MapTile>;
 
 };
