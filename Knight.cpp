@@ -176,6 +176,6 @@ auto Knight::updateState() -> void {
     updateTexture();
 }
 
-auto Knight::render(sf::RenderTarget* window) -> void {
-    window->draw(this->knight);
+auto Knight::render(sf::RenderTarget *window) -> void {
+    window->draw(this->knight);;
 }

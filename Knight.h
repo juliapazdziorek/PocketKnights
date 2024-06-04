@@ -3,10 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "Renderable.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
-class Knight {
+class Knight : Renderable {
 
 private:
 
@@ -44,6 +45,6 @@ public:
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto updateState() -> void;
-    auto render(sf::RenderTarget* window) -> void;
+    auto render(sf::RenderTarget* window) -> void override;
 
 };

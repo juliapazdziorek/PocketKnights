@@ -176,6 +176,6 @@ auto Goblin::updateState() -> void {
     updateTexture();
 }
 
-auto Goblin::render(sf::RenderTarget* window) -> void {
+auto Goblin::render(sf::RenderTarget *window) -> void {
     window->draw(this->goblin);
 }
