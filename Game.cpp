@@ -78,12 +78,12 @@ auto Game::updateState() -> void {
 auto Game::render() -> void {
     this->window->clear(sf::Color(71, 171, 169));
 
-    //TO DELETE
-    this->window->draw(grid);
-
     this->map.render(this->window);
     this->goblin.render(this->window);
     this->knight.render(this->window);
+
+    //TO DELETE
+    //this->window->draw(grid);
 
     this->window->display();
 

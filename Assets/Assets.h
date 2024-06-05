@@ -50,7 +50,7 @@ private:
     static inline std::map<std::string, MapTile> MapTilesBridge;
 
     static inline MapTile MapTileShadow;
-    static inline MapTileAnimated MapTileFoam = MapTileAnimated(foam, true);
+    static inline MapTileAnimated MapTileFoam = MapTileAnimated(true);
 
 
 
