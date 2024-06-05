@@ -10,19 +10,16 @@ class MapTileAnimated : public MapTile {
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
+    Animation animation;
     sf::Clock animationClock;
-
-    // ----- private methods -------------------------------------------------------------------------------------------
-    virtual auto updateTexture() -> void = 0;
 
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
-    MapTileAnimated();
-    MapTileAnimated(bool isPassable);
+    MapTileAnimated(Animation animation, bool isPassable);
     ~MapTileAnimated();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto updateState() -> void;
+    auto updateTexture() -> void;
 
 };

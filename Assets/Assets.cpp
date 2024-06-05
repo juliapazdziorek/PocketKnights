@@ -37,7 +37,7 @@ auto Assets::loadTextures() -> void {
     goblinTextureFlipped.setSmooth(true);
     Assets::textures["goblinTextureFlipped"] = goblinTextureFlipped;
 
-    //tileMapGrassSandTexture
+    //tileMapGrassSandTexture //TODO cosmetics: change tileMap -> mapTile
     auto tileMapGrassSandTexture = sf::Texture();
     if (!tileMapGrassSandTexture.loadFromFile("TinySwords/TileMapGrassSand.png")) {
         fmt::println("File can not load from file: TinySwords/TileMapGrassSand.png");
@@ -61,7 +61,24 @@ auto Assets::loadTextures() -> void {
     tileMapBridgeTexture.setSmooth(true);
     Assets::textures["tileMapBridgeTexture"] = tileMapBridgeTexture;
 
+    //tileMapShadowTexture
+    auto tileMapShadowTexture = sf::Texture();
+    if (!tileMapShadowTexture.loadFromFile("TinySwords/Shadow.png")) {
+        fmt::println("File can not load from file: TinySwords/Shadow.png");
+    }
+    tileMapShadowTexture.setSmooth(true);
+    Assets::textures["tileMapShadowTexture"] = tileMapShadowTexture;
+
+    //tileMapFoamTexture
+    auto tileFoamTexture = sf::Texture();
+    if (!tileFoamTexture.loadFromFile("TinySwords/Foam.png")) {
+        fmt::println("File can not load from file: TinySwords/Foam.png");
+    }
+    tileFoamTexture.setSmooth(true);
+    Assets::textures["tileFoamTexture"] = tileFoamTexture;
+
 }
+
 
 auto Assets::initializeMapTileMaps() -> void {
 
@@ -142,6 +159,12 @@ auto Assets::initializeMapTileMaps() -> void {
     MapTilesBridge["MapTileCrushed3"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (1 * mapTileSize,2 * mapTileSize, mapTileSize, mapTileSize), false);
     MapTilesBridge["MapTileEndDown"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (0 * mapTileSize,3 * mapTileSize, mapTileSize, mapTileSize), true);
     MapTilesBridge["MapTileShadow"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (2 * mapTileSize,3 * mapTileSize, mapTileSize, mapTileSize), true);
+
+    //mapTileShadow
+    MapTileShadow = MapTile(Assets::textures["tileMapShadowTexture"], sf::IntRect(0, 0, 82, 82), true);
+
+
+
 
 }
 

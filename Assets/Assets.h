@@ -7,6 +7,7 @@
 
 #include "Animation.h"
 #include "MapTile.h"
+#include "MapTileAnimated.h"
 
 class Assets {
 
@@ -15,13 +16,8 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     static inline std::map<std::string, sf::Texture> textures;
 
-    //mapTiles
-    int mapTileSize;
-    static inline std::map<std::string, MapTile> MapTilesGrass;
-    static inline std::map<std::string, MapTile> MapTilesSand;
-    static inline std::map<std::string, MapTile> MapTilesWall;
-    static inline std::map<std::string, MapTile> MapTilesStairs;
-    static inline std::map<std::string, MapTile> MapTilesBridge;
+    //map animations
+    static inline Animation foam = Animation(Assets::textures["tileFoamTexture"], 1536, 192, 8, 1, 1, 8);
 
     //knight animations
     static inline Animation knightStanding = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 1, 6);
@@ -40,6 +36,18 @@ private:
     static inline Animation goblinAttackLeft = Animation(Assets::textures["goblinTextureFlipped"], 1152, 960, 6, 5, 3, 6);
     static inline Animation goblinAttackUp = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 5, 6);
     static inline Animation goblinAttackDown = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 4, 6);
+
+    //mapTiles
+    int mapTileSize;
+    static inline std::map<std::string, MapTile> MapTilesGrass;
+    static inline std::map<std::string, MapTile> MapTilesSand;
+    static inline std::map<std::string, MapTile> MapTilesWall;
+    static inline std::map<std::string, MapTile> MapTilesStairs;
+    static inline std::map<std::string, MapTile> MapTilesBridge;
+
+    static inline MapTile MapTileShadow;
+    static inline MapTileAnimated MapTileFoam = MapTileAnimated(foam, true);
+
 
 
 

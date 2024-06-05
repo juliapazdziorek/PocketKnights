@@ -4,9 +4,8 @@
 
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
-MapTileAnimated::MapTileAnimated() = default;
-
-MapTileAnimated::MapTileAnimated(bool isPassable) {
+MapTileAnimated::MapTileAnimated(Animation animation, bool isPassable)
+    :  animation(animation) {
     this->isPassable = isPassable;
 }
 
@@ -14,7 +13,8 @@ MapTileAnimated::~MapTileAnimated() = default;
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto MapTileAnimated::updateState() -> void {
-    updateTexture();
+auto MapTileAnimated::updateTexture() -> void {
+    animation.updateFrame(animationClock);
+    animation.applyTexture(tile);
 }
 
