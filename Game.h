@@ -20,6 +20,10 @@ private:
     Knight knight;
     Goblin goblin;
 
+    //TO DELETE
+    sf::Texture gridTexture;
+    sf::Sprite grid;
+
 
     // ----- event polling ---------------------------------------------------------------------------------------------
     auto updateEvents() -> void;

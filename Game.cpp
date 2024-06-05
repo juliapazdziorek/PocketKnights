@@ -42,6 +42,13 @@ Game::Game() {
     this->knight = Knight();
     this->goblin = Goblin();
 
+    //TO DELETE
+    if (!gridTexture.loadFromFile("grid.png")) {
+        fmt::println("File can not load from file: gridpng");
+    }
+    gridTexture.setSmooth(true);
+    grid.setTexture(gridTexture);
+
 }
 
 Game::~Game() {
@@ -64,6 +71,9 @@ auto Game::updateState() -> void {
 
 auto Game::render() -> void {
     this->window->clear(sf::Color(71, 171, 169));
+
+    //TO DELETE
+    this->window->draw(grid);
 
     this->goblin.render(this->window);
     this->knight.render(this->window);
