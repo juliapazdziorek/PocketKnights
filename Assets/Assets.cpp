@@ -37,45 +37,77 @@ auto Assets::loadTextures() -> void {
     goblinTextureFlipped.setSmooth(true);
     Assets::textures["goblinTextureFlipped"] = goblinTextureFlipped;
 
-    //tileMapGrassSandTexture //TODO cosmetics: change tileMap -> mapTile
-    auto tileMapGrassSandTexture = sf::Texture();
-    if (!tileMapGrassSandTexture.loadFromFile("TinySwords/TileMapGrassSand.png")) {
-        fmt::println("File can not load from file: TinySwords/TileMapGrassSand.png");
+    //mapTileGrassSandTexture
+    auto mapTileGrassSandTexture = sf::Texture();
+    if (!mapTileGrassSandTexture.loadFromFile("TinySwords/Terrain/MapTileGrassSand.png")) {
+        fmt::println("File can not load from file: TinySwords/MapTileGrassSand.png");
     }
-    tileMapGrassSandTexture.setSmooth(true);
-    Assets::textures["tileMapGrassSandTexture"] = tileMapGrassSandTexture;
+    mapTileGrassSandTexture.setSmooth(true);
+    Assets::textures["mapTileGrassSandTexture"] = mapTileGrassSandTexture;
 
-    //tileMapWallTexture
-    auto tileMapWallTexture = sf::Texture();
-    if (!tileMapWallTexture.loadFromFile("TinySwords/TileMapWall.png")) {
-        fmt::println("File can not load from file: TinySwords/TileMapWall.png");
+    //mapTileWallTexture
+    auto mapTileWallTexture = sf::Texture();
+    if (!mapTileWallTexture.loadFromFile("TinySwords/Terrain/MapTileWall.png")) {
+        fmt::println("File can not load from file: TinySwords/MapTileWall.png");
     }
-    tileMapWallTexture.setSmooth(true);
-    Assets::textures["tileMapWallTexture"] = tileMapWallTexture;
+    mapTileWallTexture.setSmooth(true);
+    Assets::textures["mapTileWallTexture"] = mapTileWallTexture;
 
-    //tileMapBridgeTexture
-    auto tileMapBridgeTexture = sf::Texture();
-    if (!tileMapBridgeTexture.loadFromFile("TinySwords/TileMapBridge.png")) {
-        fmt::println("File can not load from file: TinySwords/TileMapBridge.png");
+    //mapTileBridgeTexture
+    auto mapTileBridgeTexture = sf::Texture();
+    if (!mapTileBridgeTexture.loadFromFile("TinySwords/Terrain/MapTileBridge.png")) {
+        fmt::println("File can not load from file: TinySwords/MapTileBridge.png");
     }
-    tileMapBridgeTexture.setSmooth(true);
-    Assets::textures["tileMapBridgeTexture"] = tileMapBridgeTexture;
+    mapTileBridgeTexture.setSmooth(true);
+    Assets::textures["mapTileBridgeTexture"] = mapTileBridgeTexture;
 
-    //tileMapShadowTexture
-    auto tileMapShadowTexture = sf::Texture();
-    if (!tileMapShadowTexture.loadFromFile("TinySwords/Shadow.png")) {
+    //mapTileShadowTexture
+    auto mapTileShadowTexture = sf::Texture();
+    if (!mapTileShadowTexture.loadFromFile("TinySwords/Terrain/Shadow.png")) {
         fmt::println("File can not load from file: TinySwords/Shadow.png");
     }
-    tileMapShadowTexture.setSmooth(true);
-    Assets::textures["tileMapShadowTexture"] = tileMapShadowTexture;
+    mapTileShadowTexture.setSmooth(true);
+    Assets::textures["mapTileShadowTexture"] = mapTileShadowTexture;
 
-    //tileMapFoamTexture
+    //tileFoamTexture
     auto tileFoamTexture = sf::Texture();
-    if (!tileFoamTexture.loadFromFile("TinySwords/Foam.png")) {
+    if (!tileFoamTexture.loadFromFile("TinySwords/Terrain/Foam.png")) {
         fmt::println("File can not load from file: TinySwords/Foam.png");
     }
     tileFoamTexture.setSmooth(true);
     Assets::textures["tileFoamTexture"] = tileFoamTexture;
+
+    //smallRockTexture
+    auto smallRockTexture = sf::Texture();
+    if (!smallRockTexture.loadFromFile("TinySwords/Terrain/SmallRock.png")) {
+        fmt::println("File can not load from file: TinySwords/SmallRock.png");
+    }
+    smallRockTexture.setSmooth(true);
+    Assets::textures["smallRockTexture"] = smallRockTexture;
+
+    //mediumRockTexture
+    auto mediumRockTexture = sf::Texture();
+    if (!mediumRockTexture.loadFromFile("TinySwords/Terrain/MediumRock.png")) {
+        fmt::println("File can not load from file: TinySwords/MediumRock.png");
+    }
+    mediumRockTexture.setSmooth(true);
+    Assets::textures["mediumRockTexture"] = mediumRockTexture;
+
+    //bigRockTexture
+    auto bigRockTexture = sf::Texture();
+    if (!bigRockTexture.loadFromFile("TinySwords/Terrain/BigRock.png")) {
+        fmt::println("File can not load from file: TinySwords/BigRock.png");
+    }
+    bigRockTexture.setSmooth(true);
+    Assets::textures["bigRockTexture"] = bigRockTexture;
+
+    //largeRockTexture
+    auto largeRockTexture = sf::Texture();
+    if (!largeRockTexture.loadFromFile("TinySwords/Terrain/LargeRock.png")) {
+        fmt::println("File can not load from file: TinySwords/LargeRock.png");
+    }
+    largeRockTexture.setSmooth(true);
+    Assets::textures["largeRockTexture"] = largeRockTexture;
 
 }
 
@@ -83,85 +115,85 @@ auto Assets::loadTextures() -> void {
 auto Assets::initializeMapTileMaps() -> void {
 
     //mapTileGrass map
-    MapTilesGrass["MapTileGrassCornerLeftUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(0 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize),true);
-    MapTilesGrass["MapTileGrassBorderUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(1 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassCornerRightUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(2 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassEndUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(3 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassWall"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(4 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassBorderLeft"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(0 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassMiddle"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(1 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassBorderRight"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(2 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassBordersLeftRight"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(3 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassCornerLeftDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(0 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassBorderDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(1 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassCornerRightDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(2 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassEndDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(3 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassEndLeft"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(0 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassBordersUpDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(1 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrassEndRight"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(2 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesGrass["MapTileGrass"] = MapTile(Assets::textures["tileMapGrassSandTexture"], sf::IntRect(3 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassCornerLeftUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(0 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize),true);
+    MapTilesGrass["MapTileGrassBorderUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(1 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassCornerRightUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(2 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassEndUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(3 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassWall"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(4 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassBorderLeft"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(0 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassMiddle"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(1 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassBorderRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(2 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassBordersLeftRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(3 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassCornerLeftDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(0 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassBorderDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(1 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassCornerRightDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(2 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassEndDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(3 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassEndLeft"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(0 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassBordersUpDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(1 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrassEndRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(2 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesGrass["MapTileGrass"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(3 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
 
     //mapTileSand map
-    MapTilesSand["MapTileSandCornerLeftUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(5 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandBorderUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(6 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandCornerRightUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(7 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandEndUp"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(8 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandWall"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(9 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandBorderLeft"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(5 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandMiddle"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(6 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandBorderRight"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(7 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandBordersLeftRight"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(8 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandCornerLeftDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(5 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandBorderDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(6 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandCornerRightDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(7 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandEndDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(8 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandEndLeft"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(5 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandBordersUpDown"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(6 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSandEndRight"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(7 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesSand["MapTileSand"] = MapTile(Assets::textures["tileMapGrassSandTexture"],sf::IntRect(8 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandCornerLeftUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(5 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandBorderUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(6 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandCornerRightUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(7 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandEndUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(8 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandWall"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(9 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandBorderLeft"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(5 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandMiddle"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(6 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandBorderRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(7 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandBordersLeftRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(8 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandCornerLeftDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(5 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandBorderDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(6 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandCornerRightDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(7 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandEndDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(8 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandEndLeft"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(5 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandBordersUpDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(6 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSandEndRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(7 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesSand["MapTileSand"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(8 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), true);
 
     //mapTileWall map
-    MapTilesWall["MapTileWallCornerLeftUp"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(0 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallBorderUp"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(1 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallCornerRightUp"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(2 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallEndUp"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(3 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallBorderLeft"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(0 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallMiddle"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(1 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallBorderRight"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(2 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallBordersLeftRight"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(3 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallCornerLeftDown"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(0 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallBorderDown"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(1 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallCornerRightDown"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(2 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallEndDown"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(3 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallEndLeft"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(5 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallBordersUpDown"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(6 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallEndRight"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(7 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWall"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(8 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallWallLeft"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(0 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallWallMiddle"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(1 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallWallRight"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(2 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallWallMiddle"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(3 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallCornerLeftUp"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallBorderUp"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallCornerRightUp"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallEndUp"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallBorderLeft"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallBorderRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallBordersLeftRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 1 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallCornerLeftDown"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallBorderDown"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallCornerRightDown"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallEndDown"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 2 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallEndLeft"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(5 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallBordersUpDown"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(6 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallEndRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(7 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWall"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(8 * mapTileSize, 4 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallWallLeft"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallWallMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallWallRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallWallMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
 
     //mapTileStairs map
-    MapTilesStairs["MapTileStairsLeft"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(0 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesStairs["MapTileStairsMiddle"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(1 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesStairs["MapTileStairsRight"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(2 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesStairs["MapTileStairsMiddle"] = MapTile(Assets::textures["tileMapWallTexture"], sf::IntRect(3 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesStairs["MapTileStairsLeft"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesStairs["MapTileStairsMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesStairs["MapTileStairsRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesStairs["MapTileStairsMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
 
     //mapTileBridge map
-    MapTilesBridge["MapTileEndLeft"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (0 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesBridge["MapTileHorizontal"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (1 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesBridge["MapTileEndRight"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (2 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesBridge["MapTileEndUp"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (0 * mapTileSize,1 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesBridge["MapTileCrushed1"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (1 * mapTileSize,1 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesBridge["MapTileCrushed2"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (2 * mapTileSize,1 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesBridge["MapTileVertical"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (0 * mapTileSize,2 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesBridge["MapTileCrushed3"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (1 * mapTileSize,2 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesBridge["MapTileEndDown"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (0 * mapTileSize,3 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesBridge["MapTileShadow"] = MapTile(Assets::textures["tileMapBridgeTexture"], sf::IntRect (2 * mapTileSize,3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileEndLeft"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (0 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileHorizontal"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (1 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileEndRight"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (2 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileEndUp"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (0 * mapTileSize,1 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileCrushed1"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (1 * mapTileSize,1 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesBridge["MapTileCrushed2"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (2 * mapTileSize,1 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesBridge["MapTileVertical"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (0 * mapTileSize,2 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileCrushed3"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (1 * mapTileSize,2 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesBridge["MapTileEndDown"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (0 * mapTileSize,3 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesBridge["MapTileShadow"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (2 * mapTileSize,3 * mapTileSize, mapTileSize, mapTileSize), true);
 
     //mapTileShadow
-    MapTileShadow = MapTile(Assets::textures["tileMapShadowTexture"], sf::IntRect(0, 0, 82, 82), true);
+    MapTileShadow = MapTile(Assets::textures["mapTileShadowTexture"], sf::IntRect(0, 0, 82, 82), true);
 
 }
 
@@ -184,22 +216,30 @@ Assets::~Assets() = default;
 // ----- public methods ------------------------------------------------------------------------------------------------
 
 //knight animation getters
-auto Assets::getKnightStanding() -> Animation& { return Assets::knightStanding; }
-auto Assets::getKnightRunningLeft() -> Animation& { return Assets::knightRunningLeft; }
-auto Assets::getKnightRunningRight() -> Animation& { return Assets::knightRunningRight; }
-auto Assets::getKnightAttackRight() -> Animation& { return Assets::knightAttackRight; }
-auto Assets::getKnightAttackLeft() -> Animation& { return Assets::knightAttackLeft; }
-auto Assets::getKnightAttackUp() -> Animation& { return Assets::knightAttackUp; }
-auto Assets::getKnightAttackDown() -> Animation& { return Assets::knightAttackDown; }
+auto Assets::getAnimationKnightStanding() -> Animation& { return Assets::knightStanding; }
+auto Assets::getAnimationKnightRunningLeft() -> Animation& { return Assets::knightRunningLeft; }
+auto Assets::getAnimationKnightRunningRight() -> Animation& { return Assets::knightRunningRight; }
+auto Assets::getAnimationKnightAttackRight() -> Animation& { return Assets::knightAttackRight; }
+auto Assets::getAnimationKnightAttackLeft() -> Animation& { return Assets::knightAttackLeft; }
+auto Assets::getAnimationKnightAttackUp() -> Animation& { return Assets::knightAttackUp; }
+auto Assets::getAnimationKnightAttackDown() -> Animation& { return Assets::knightAttackDown; }
 
 //goblin animation getters
-auto Assets::getGoblinStanding() -> Animation& { return Assets::goblinStanding; }
-auto Assets::getGoblinRunningLeft() -> Animation& { return Assets::goblinRunningLeft; }
-auto Assets::getGoblinRunningRight() -> Animation& { return Assets::goblinRunningRight; }
-auto Assets::getGoblinAttackRight() -> Animation& { return Assets::goblinAttackRight; }
-auto Assets::getGoblinAttackLeft() -> Animation& { return Assets::goblinAttackLeft; }
-auto Assets::getGoblinAttackUp() -> Animation& { return Assets::goblinAttackUp; }
-auto Assets::getGoblinAttackDown() -> Animation& { return Assets::goblinAttackDown; }
+auto Assets::getAnimationGoblinStanding() -> Animation& { return Assets::goblinStanding; }
+auto Assets::getAnimationGoblinRunningLeft() -> Animation& { return Assets::goblinRunningLeft; }
+auto Assets::getAnimationGoblinRunningRight() -> Animation& { return Assets::goblinRunningRight; }
+auto Assets::getAnimationGoblinAttackRight() -> Animation& { return Assets::goblinAttackRight; }
+auto Assets::getAnimationGoblinAttackLeft() -> Animation& { return Assets::goblinAttackLeft; }
+auto Assets::getAnimationGoblinAttackUp() -> Animation& { return Assets::goblinAttackUp; }
+auto Assets::getAnimationGoblinAttackDown() -> Animation& { return Assets::goblinAttackDown; }
+
+//mapAnimation getters
+auto Assets::getAnimationFoam() -> Animation& { return Assets::foam; }
+auto Assets::getAnimationSmallRock() -> Animation& { return Assets::smallRock; }
+auto Assets::getAnimationMediumRock() -> Animation& { return Assets::mediumRock; }
+auto Assets::getAnimationBigRock() -> Animation& { return Assets::bigRock; }
+auto Assets::getAnimationLargeRock() -> Animation& { return Assets::largeRock; }
+
 
 //mapTile animation getters
 auto Assets::getMapTilesGrass() -> std::map<std::string, MapTile> { return Assets::MapTilesGrass; }
@@ -210,6 +250,6 @@ auto Assets::getMapTilesBridge() -> std::map<std::string, MapTile> { return Asse
 auto Assets::getMapTileShadow() -> MapTile { return Assets::MapTileShadow; }
 auto Assets::getMapTileFoam() -> MapTileAnimated { return Assets::MapTileFoam; }
 
-auto Assets::getFoamAnimation() -> Animation& { return Assets::foam; }
+
 
 

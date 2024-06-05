@@ -87,20 +87,20 @@ auto Goblin::updateTexture() -> void {
 
     switch (this->goblinState) {
         case GoblinState::GOBLIN_STANDING: {
-            Assets::getGoblinStanding().updateFrame(animationClock);
-            Assets::getGoblinStanding().applyTexture(goblin);
+            Assets::getAnimationGoblinStanding().updateFrame(animationClock);
+            Assets::getAnimationGoblinStanding().applyTexture(goblin);
             break;
         }
 
         case GoblinState::GOBLIN_RUNNING_RIGHT: {
-            Assets::getGoblinRunningRight().updateFrame(animationClock);
-            Assets::getGoblinRunningRight().applyTexture(goblin);
+            Assets::getAnimationGoblinRunningRight().updateFrame(animationClock);
+            Assets::getAnimationGoblinRunningRight().applyTexture(goblin);
             break;
         }
 
         case GoblinState::GOBLIN_RUNNING_LEFT: {
-            Assets::getGoblinRunningLeft().updateFrame(animationClock);
-            Assets::getGoblinRunningLeft().applyTexture(goblin);
+            Assets::getAnimationGoblinRunningLeft().updateFrame(animationClock);
+            Assets::getAnimationGoblinRunningLeft().applyTexture(goblin);
             break;
         }
 
@@ -108,26 +108,26 @@ auto Goblin::updateTexture() -> void {
         case GoblinState::GOBLIN_ATTACKING: {
             switch (goblinFacing) {
                 case GoblinFacing::RIGHT: {
-                    Assets::getGoblinAttackRight().updateFrame(animationClock);
-                    Assets::getGoblinAttackRight().applyTexture(goblin);
+                    Assets::getAnimationGoblinAttackRight().updateFrame(animationClock);
+                    Assets::getAnimationGoblinAttackRight().applyTexture(goblin);
                     break;
                 }
 
                 case GoblinFacing::LEFT: {
-                    Assets::getGoblinAttackLeft().updateFrame(animationClock);
-                    Assets::getGoblinAttackLeft().applyTexture(goblin);
+                    Assets::getAnimationGoblinAttackLeft().updateFrame(animationClock);
+                    Assets::getAnimationGoblinAttackLeft().applyTexture(goblin);
                     break;
                 }
 
                 case GoblinFacing::UP: {
-                    Assets::getGoblinAttackUp().updateFrame(animationClock);
-                    Assets::getGoblinAttackUp().applyTexture(goblin);
+                    Assets::getAnimationGoblinAttackUp().updateFrame(animationClock);
+                    Assets::getAnimationGoblinAttackUp().applyTexture(goblin);
                     break;
                 }
 
                 case GoblinFacing::DOWN: {
-                    Assets::getGoblinAttackDown().updateFrame(animationClock);
-                    Assets::getGoblinAttackDown().applyTexture(goblin);
+                    Assets::getAnimationGoblinAttackDown().updateFrame(animationClock);
+                    Assets::getAnimationGoblinAttackDown().applyTexture(goblin);
                     break;
                 }
             }

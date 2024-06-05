@@ -17,7 +17,7 @@ auto Map::initializeFoam() -> void {
     mapTiles.push_back(std::move(foam));
 
     auto grass = std::make_unique<MapTile>(Assets::getMapTilesGrass()["MapTileGrass"]);
-    grass->setPosition(sf::Vector2f(64, 0));
+    grass->setPosition(sf::Vector2f(589, 79));
     grass->setScale(scale);
     mapTiles.push_back(std::move(grass));
 
@@ -25,8 +25,8 @@ auto Map::initializeFoam() -> void {
 
 auto Map::updateTextures() -> void {
     for (auto mapTileAnimated : mapTilesAnimated) {
-        Assets::getFoamAnimation().updateFrame(mapTileAnimated->getAnimationClock());
-        Assets::getFoamAnimation().applyTexture(mapTileAnimated->getTile());
+        Assets::getAnimationFoam().updateFrame(mapTileAnimated->getAnimationClock());
+        Assets::getAnimationFoam().applyTexture(mapTileAnimated->getTile());
     }
 }
 

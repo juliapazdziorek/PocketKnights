@@ -9,14 +9,15 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::Texture* texture;
 
-public:
+protected:
 
-    // ----- public properties -----------------------------------------------------------------------------------------
+    // ----- protected properties -----------------------------------------------------------------------------------------
     sf::Sprite tile;
-    bool isPassable;
     sf::Vector2f position;
     sf::Vector2f scale;
-    //should be protected :(
+    bool isPassable;
+
+public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     MapTile();

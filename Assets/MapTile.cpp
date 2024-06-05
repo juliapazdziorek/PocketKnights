@@ -21,6 +21,7 @@ MapTile::~MapTile() = default;
 //setters
 auto MapTile::setPosition(sf::Vector2f newPosition) -> void {
     this->position = newPosition;
+    this->tile.setPosition(position);
 }
 
 auto MapTile::setScale(sf::Vector2f newScale) -> void {

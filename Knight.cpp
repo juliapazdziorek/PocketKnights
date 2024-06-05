@@ -87,20 +87,20 @@ auto Knight::updateTexture() -> void {
 
     switch (this->knightState) {
         case KnightState::KNIGHT_STANDING: {
-            Assets::getKnightStanding().updateFrame(animationClock);
-            Assets::getKnightStanding().applyTexture(knight);
+            Assets::getAnimationKnightStanding().updateFrame(animationClock);
+            Assets::getAnimationKnightStanding().applyTexture(knight);
             break;
         }
 
         case KnightState::KNIGHT_RUNNING_RIGHT: {
-            Assets::getKnightRunningRight().updateFrame(animationClock);
-            Assets::getKnightRunningRight().applyTexture(knight);
+            Assets::getAnimationKnightRunningRight().updateFrame(animationClock);
+            Assets::getAnimationKnightRunningRight().applyTexture(knight);
             break;
         }
 
         case KnightState::KNIGHT_RUNNING_LEFT: {
-            Assets::getKnightRunningLeft().updateFrame(animationClock);
-            Assets::getKnightRunningLeft().applyTexture(knight);
+            Assets::getAnimationKnightRunningLeft().updateFrame(animationClock);
+            Assets::getAnimationKnightRunningLeft().applyTexture(knight);
             break;
         }
 
@@ -108,26 +108,26 @@ auto Knight::updateTexture() -> void {
         case KnightState::KNIGHT_ATTACKING: {
             switch (knightFacing) {
                 case KnightFacing::RIGHT: {
-                    Assets::getKnightAttackRight().updateFrame(animationClock);
-                    Assets::getKnightAttackRight().applyTexture(knight);
+                    Assets::getAnimationKnightAttackRight().updateFrame(animationClock);
+                    Assets::getAnimationKnightAttackRight().applyTexture(knight);
                     break;
                 }
 
                 case KnightFacing::LEFT: {
-                    Assets::getKnightAttackLeft().updateFrame(animationClock);
-                    Assets::getKnightAttackLeft().applyTexture(knight);
+                    Assets::getAnimationKnightAttackLeft().updateFrame(animationClock);
+                    Assets::getAnimationKnightAttackLeft().applyTexture(knight);
                     break;
                 }
 
                 case KnightFacing::UP: {
-                    Assets::getKnightAttackUp().updateFrame(animationClock);
-                    Assets::getKnightAttackUp().applyTexture(knight);
+                    Assets::getAnimationKnightAttackUp().updateFrame(animationClock);
+                    Assets::getAnimationKnightAttackUp().applyTexture(knight);
                     break;
                 }
 
                 case KnightFacing::DOWN: {
-                    Assets::getKnightAttackDown().updateFrame(animationClock);
-                    Assets::getKnightAttackDown().applyTexture(knight);
+                    Assets::getAnimationKnightAttackDown().updateFrame(animationClock);
+                    Assets::getAnimationKnightAttackDown().applyTexture(knight);
                     break;
                 }
             }

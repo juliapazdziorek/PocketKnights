@@ -18,6 +18,10 @@ private:
 
     //map animations
     static inline Animation foam = Animation(Assets::textures["tileFoamTexture"], 1536, 192, 8, 1, 1, 8);
+    static inline Animation smallRock = Animation(Assets::textures["smallRockTexture"], 1024, 128, 8, 1, 1, 8);
+    static inline Animation mediumRock = Animation(Assets::textures["mediumRockTexture"], 1024, 128, 8, 1, 1, 8);
+    static inline Animation bigRock = Animation(Assets::textures["bigRockTexture"], 1024, 128, 8, 1, 1, 8);
+    static inline Animation largeRock = Animation(Assets::textures["largeRockTexture"], 1024, 128, 8, 1, 1, 8);
 
     //knight animations
     static inline Animation knightStanding = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 1, 6);
@@ -51,6 +55,8 @@ private:
 
 
 
+
+
     // ----- private methods -------------------------------------------------------------------------------------------
     static auto loadTextures() -> void;
     auto initializeMapTileMaps() -> void;
@@ -65,25 +71,29 @@ public:
     // ----- public methods --------------------------------------------------------------------------------------------
 
     //knight animation getters
-    static auto getKnightStanding() -> Animation&;
-    static auto getKnightRunningRight() -> Animation&;
-    static auto getKnightRunningLeft() -> Animation&;
-    static auto getKnightAttackLeft() -> Animation&;
-    static auto getKnightAttackRight() -> Animation&;
-    static auto getKnightAttackUp() -> Animation&;
-    static auto getKnightAttackDown() -> Animation&;
+    static auto getAnimationKnightStanding() -> Animation&;
+    static auto getAnimationKnightRunningRight() -> Animation&;
+    static auto getAnimationKnightRunningLeft() -> Animation&;
+    static auto getAnimationKnightAttackLeft() -> Animation&;
+    static auto getAnimationKnightAttackRight() -> Animation&;
+    static auto getAnimationKnightAttackUp() -> Animation&;
+    static auto getAnimationKnightAttackDown() -> Animation&;
 
     //goblin animation getters
-    static auto getGoblinStanding() -> Animation&;
-    static auto getGoblinRunningRight() -> Animation&;
-    static auto getGoblinRunningLeft() -> Animation&;
-    static auto getGoblinAttackLeft() -> Animation&;
-    static auto getGoblinAttackRight() -> Animation&;
-    static auto getGoblinAttackUp() -> Animation&;
-    static auto getGoblinAttackDown() -> Animation&;
+    static auto getAnimationGoblinStanding() -> Animation&;
+    static auto getAnimationGoblinRunningRight() -> Animation&;
+    static auto getAnimationGoblinRunningLeft() -> Animation&;
+    static auto getAnimationGoblinAttackLeft() -> Animation&;
+    static auto getAnimationGoblinAttackRight() -> Animation&;
+    static auto getAnimationGoblinAttackUp() -> Animation&;
+    static auto getAnimationGoblinAttackDown() -> Animation&;
 
     //mapAnimation getters
-    static auto getFoamAnimation() -> Animation&;
+    static auto getAnimationFoam() -> Animation&;
+    static auto getAnimationSmallRock() -> Animation&;
+    static auto getAnimationMediumRock() -> Animation&;
+    static auto getAnimationBigRock() -> Animation&;
+    static auto getAnimationLargeRock() -> Animation&;
 
     //mapTile getters
     static auto getMapTilesGrass() -> std::map<std::string, MapTile>;
