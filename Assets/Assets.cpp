@@ -172,13 +172,13 @@ auto Assets::initializeMapTileMaps() -> void {
     MapTilesWall["MapTileWallWallLeft"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
     MapTilesWall["MapTileWallWallMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
     MapTilesWall["MapTileWallWallRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
-    MapTilesWall["MapTileWallWallMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
+    MapTilesWall["MapTileWallWall"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 3 * mapTileSize, mapTileSize, mapTileSize), false);
 
     //mapTileStairs map
     MapTilesStairs["MapTileStairsLeft"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(0 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
     MapTilesStairs["MapTileStairsMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(1 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
     MapTilesStairs["MapTileStairsRight"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(2 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
-    MapTilesStairs["MapTileStairsMiddle"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
+    MapTilesStairs["MapTileStairs"] = MapTile(Assets::textures["mapTileWallTexture"], sf::IntRect(3 * mapTileSize, 7 * mapTileSize, mapTileSize, mapTileSize), true);
 
     //mapTileBridge map
     MapTilesBridge["MapTileEndLeft"] = MapTile(Assets::textures["mapTileBridgeTexture"], sf::IntRect (0 * mapTileSize,0 * mapTileSize, mapTileSize, mapTileSize), true);
