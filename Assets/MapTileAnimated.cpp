@@ -18,3 +18,6 @@ auto MapTileAnimated::updateTexture() -> void {
     animation.applyTexture(tile);
 }
 
+auto MapTileAnimated::getTile() -> sf::Sprite& { return tile; }
+auto MapTileAnimated::getAnimationClock() -> sf::Clock& { return animationClock; }
+

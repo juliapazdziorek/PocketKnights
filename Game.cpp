@@ -18,6 +18,10 @@ auto Game::updateEvents() -> void {
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
+auto Game::updateMap() -> void {
+    this->map.updateState();
+}
+
 auto Game::updateKnight() -> void {
     this->knight.updateState();
 }
@@ -34,17 +38,18 @@ auto Game::updateGoblin() -> void {
 Game::Game() {
 
     //window
-    this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "Pocket Knight", sf::Style::Titlebar | sf::Style::Close);
+    this->window = new sf::RenderWindow(sf::VideoMode(832, 640), "Pocket Knight", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
 
     //assets
     this->assets = Assets();
+    //this->map = Map();
     this->knight = Knight();
     this->goblin = Goblin();
 
     //TO DELETE
     if (!gridTexture.loadFromFile("grid.png")) {
-        fmt::println("File can not load from file: gridpng");
+        fmt::println("File can not load from file: grid.png");
     }
     gridTexture.setSmooth(true);
     grid.setTexture(gridTexture);
@@ -64,6 +69,7 @@ auto Game::isRunning() -> bool {
 
 auto Game::updateState() -> void {
     updateEvents();
+    updateMap();
     updateKnight();
     updateGoblin();
 
@@ -75,6 +81,7 @@ auto Game::render() -> void {
     //TO DELETE
     this->window->draw(grid);
 
+    this->map.render(this->window);
     this->goblin.render(this->window);
     this->knight.render(this->window);
 

@@ -163,9 +163,6 @@ auto Assets::initializeMapTileMaps() -> void {
     //mapTileShadow
     MapTileShadow = MapTile(Assets::textures["tileMapShadowTexture"], sf::IntRect(0, 0, 82, 82), true);
 
-
-
-
 }
 
 
@@ -210,5 +207,9 @@ auto Assets::getMapTilesSand() -> std::map<std::string, MapTile> { return Assets
 auto Assets::getMapTilesWall() -> std::map<std::string, MapTile> { return Assets::MapTilesWall; }
 auto Assets::getMapTilesStairs() -> std::map<std::string, MapTile> { return Assets::MapTilesStairs; }
 auto Assets::getMapTilesBridge() -> std::map<std::string, MapTile> { return Assets::MapTilesBridge; }
+auto Assets::getMapTileShadow() -> MapTile { return Assets::MapTileShadow; }
+auto Assets::getMapTileFoam() -> MapTileAnimated { return Assets::MapTileFoam; }
+
+auto Assets::getFoamAnimation() -> Animation& { return Assets::foam; }
 
 

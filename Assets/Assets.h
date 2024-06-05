@@ -82,11 +82,16 @@ public:
     static auto getGoblinAttackUp() -> Animation&;
     static auto getGoblinAttackDown() -> Animation&;
 
+    //mapAnimation getters
+    static auto getFoamAnimation() -> Animation&;
+
     //mapTile getters
     static auto getMapTilesGrass() -> std::map<std::string, MapTile>;
     static auto getMapTilesSand() -> std::map<std::string, MapTile>;
     static auto getMapTilesWall() -> std::map<std::string, MapTile>;
     static auto getMapTilesStairs() -> std::map<std::string, MapTile>;
     static auto getMapTilesBridge() -> std::map<std::string, MapTile>;
+    static auto getMapTileShadow() -> MapTile;
+    static auto getMapTileFoam() -> MapTileAnimated;
 
 };

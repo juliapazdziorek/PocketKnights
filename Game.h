@@ -5,6 +5,7 @@
 
 #include "Game.h"
 #include "Assets/Assets.h"
+#include "Map.h"
 #include "Knight.h"
 #include "Goblin.h"
 
@@ -17,6 +18,7 @@ private:
     sf::RenderWindow* window;
 
     Assets assets;
+    Map map;
     Knight knight;
     Goblin goblin;
 
@@ -29,6 +31,7 @@ private:
     auto updateEvents() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
+    auto updateMap() -> void;
     auto updateKnight() -> void;
     auto updateGoblin() -> void;
 

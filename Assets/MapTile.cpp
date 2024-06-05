@@ -25,6 +25,7 @@ auto MapTile::setPosition(sf::Vector2f newPosition) -> void {
 
 auto MapTile::setScale(sf::Vector2f newScale) -> void {
     this->scale = newScale;
+    tile.setScale(scale);
 }
 
 

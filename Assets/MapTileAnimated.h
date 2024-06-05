@@ -21,5 +21,7 @@ public:
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto updateTexture() -> void;
+    auto getTile() -> sf::Sprite&;
+    auto getAnimationClock() -> sf::Clock&;
 
 };

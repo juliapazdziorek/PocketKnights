@@ -21,7 +21,7 @@ public:
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     MapTile();
     MapTile(sf::Texture& texture, sf::IntRect intRect, bool isPassable);
-    ~MapTile();
+    virtual ~MapTile();
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
@@ -29,6 +29,6 @@ public:
     auto setPosition(sf::Vector2f newPosition) -> void;
     auto setScale(sf::Vector2f newScale) -> void;
 
-    auto render(sf::RenderTarget* window) -> void;
+    virtual auto render(sf::RenderTarget* window) -> void;
 
 };
