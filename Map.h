@@ -24,19 +24,21 @@ private:
 
     auto initializeFoam() -> void;
     auto initializeSand() -> void;
+    auto initializeShadowsFirstLayer() -> void;
     auto initializeWallsFirstLayer() -> void;
     auto initializeSandDetail() -> void;
+    auto initializeWallFlorFirstLayer() -> void;
     auto initializeGrassFirstLayer() -> void;
-//    auto initializeWallSecondLayer
-//    auto initializeGrassDetail
-//    auto initializeGrassSecondLayer
-//    auto initializeBridges
+    auto initializeShadowsSecondLayer() -> void;
+    auto initializeGrassDetail() -> void;
+    auto initializeWallSecondLayer() -> void;
+    auto initializeWallFlorSecondLayer() -> void;
+    auto initializeGrassSecondLayer() -> void;
+    auto initializeBridges() -> void;
 
-    //TODO Shadows
-    //TODO wall layer under grass
 
     auto createFoam(float x, float y) -> void;
-    auto createStaticMapTile(float x, float y, MapTile& asset) -> void;
+    auto createStaticMapTile(float x, float y, MapTile asset) -> void;
 
     auto updateTextures() -> void;
 
