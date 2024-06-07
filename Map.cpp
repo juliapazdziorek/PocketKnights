@@ -24,67 +24,71 @@ auto Map::initializeTiles() -> void {
 
 auto Map::initializeFoam() -> void { //maybe nowe clocki dala kazdej pianki
     createFoam(-1, 11);
-//    createFoam(0, 10);
+    createFoam(0, 10);
     createFoam(0, 9);
-//    createFoam(0, 8);
-//    createFoam(0, 7);
-//    createFoam(2, 5);
+    createFoam(0, 8);
+    createFoam(0, 7);
+    createFoam(2, 5);
     createFoam(3, 6);
-//    createFoam(3, 7);
+    createFoam(3, 7);
     createFoam(3, 8);
-//    createFoam(3, 8);
-//    createFoam(4, 9);
+    createFoam(3, 8);
+    createFoam(4, 9);
     createFoam(5, 9);
-//    createFoam(6, 9);
-//    createFoam(7, 10);
+    createFoam(6, 9);
+    createFoam(7, 10);
     createFoam(8, 10);
-//    createFoam(9, 11);
+    createFoam(9, 11);
     createFoam(10, 12);
-//    createFoam(11, 13);
+    createFoam(11, 13);
     createFoam(12, 14);
-//    createFoam(12, 15);
-//    createFoam(13, 16);
-//    createFoam(14, 16);
-//    createFoam(15, 15);
-//    createFoam(16, 15);
-//    createFoam(17, 14);
-//    createFoam(17, 13);
-//    createFoam(17, 12);
+    createFoam(12, 15);
+    createFoam(13, 16);
+    createFoam(14, 16);
+    createFoam(15, 15);
+    createFoam(16, 15);
+    createFoam(17, 14);
+    createFoam(17, 13);
+    createFoam(17, 12);
     createFoam(17, 11);
-//    createFoam(17, 10);/
+    createFoam(17, 10);
     createFoam(18, 9);
-//    createFoam(18, 8);
-//    createFoam(19, 7);
+    createFoam(18, 8);
+    createFoam(19, 7);
     createFoam(19, 6);
-//    createFoam(4, 15);
-//    createFoam(4, 16);
-//    createFoam(5, 17);
-//    createFoam(6, 17);
-//    createFoam(7, 17);
+    createFoam(4, 15);
+    createFoam(4, 16);
+    createFoam(5, 17);
+    createFoam(6, 17);
+    createFoam(7, 17);
     createFoam(8, 17);
-//    createFoam(9, 16);/
-//    createFoam(9, 15);
+    createFoam(9, 16);
+    createFoam(9, 15);
     createFoam(8, 14);
     createFoam(21, 13);
-//    createFoam(22, 14);/
-//    createFoam(22, 15);
-//    createFoam(23, 16);
-//    createFoam(24, 16);
+    createFoam(22, 14);
+    createFoam(22, 15);
+    createFoam(23, 16);
+    createFoam(24, 16);
     createFoam(9, 1);
-//    createFoam(10, 2);
-//    createFoam(10, 3);
-//    createFoam(11, 4);
+    createFoam(10, 2);
+    createFoam(10, 3);
+    createFoam(11, 4);
     createFoam(12, 4);
     createFoam(13, 3);
-//    createFoam(13, 2);
-//    createFoam(13, 1);
+    createFoam(13, 2);
+    createFoam(13, 1);
     createFoam(14, 0);
 }
 
 auto Map::initializeSand() -> void {
+
+    //west island
     createStaticMapTile(0, 12, Assets::getMapTilesSand()["MapTileSandCornerRightDown"]);
     createStaticMapTile(1, 11, Assets::getMapTilesSand()["MapTileSandCornerRightDown"]);
     createStaticMapTile(1, 10, Assets::getMapTilesSand()["MapTileSandBorderRight"]);
+
+    //center island
     createStaticMapTile(4, 9, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(5, 9, Assets::getMapTilesSand()["MapTileSandMiddle"]);
     createStaticMapTile(5, 10, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
@@ -95,6 +99,8 @@ auto Map::initializeSand() -> void {
     createStaticMapTile(12, 14, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(13, 16, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(9, 18, Assets::getMapTilesSand()["MapTileSandCornerRightDown"]);
+
+    //east island
     createStaticMapTile(23, 16, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(24, 17, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(25, 17, Assets::getMapTilesSand()["MapTileSandBorderDown"]);
@@ -609,7 +615,7 @@ auto Map::createFoam(float x, float y) -> void {
     mapTiles.push_back(std::move(foam));
 }
 
-auto Map::createStaticMapTile(float x, float y, MapTile asset) -> void {
+auto Map::createStaticMapTile(float x, float y, MapTile const& asset) -> void {
     auto mapTile = std::make_unique<MapTile>(asset);
     mapTile->setPosition(sf::Vector2f(x * tileSize, y * tileSize));
     mapTile->setScale(scale);
@@ -618,8 +624,7 @@ auto Map::createStaticMapTile(float x, float y, MapTile asset) -> void {
 
 auto Map::updateTextures() -> void {
     for (auto mapTileAnimated : mapTilesAnimated) {
-        Assets::getAnimationFoam().updateFrame(mapTileAnimated->getAnimationClock());
-        Assets::getAnimationFoam().applyTexture(mapTileAnimated->getTile());
+        mapTileAnimated->updateTextures();
     }
 }
 
@@ -650,8 +655,3 @@ auto Map::render(sf::RenderTarget *window) -> void {
         mapTile -> render(window);
     }
 }
-
-
-
-
-

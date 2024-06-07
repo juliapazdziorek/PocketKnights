@@ -41,11 +41,7 @@ Game::Game() {
     this->window = new sf::RenderWindow(sf::VideoMode(832, 640), "Pocket Knight", sf::Style::Titlebar | sf::Style::Close);
     this->window->setFramerateLimit(60);
 
-    //assets
-    this->assets = Assets();
-    //this->map = Map();
-    this->knight = Knight();
-    this->goblin = Goblin();
+    // (assets are created by default)
 
     //TO DELETE
     if (!gridTexture.loadFromFile("grid.png")) {
@@ -82,7 +78,7 @@ auto Game::render() -> void {
     this->goblin.render(this->window);
     this->knight.render(this->window);
 
-    //TO DELETE
+    //TODO TO DELETE
     //this->window->draw(grid);
 
     this->window->display();

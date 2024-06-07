@@ -10,16 +10,18 @@ class MapTileAnimated : public MapTile {
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
+    Animation animation;
     sf::Clock animationClock;
+
 
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
-    MapTileAnimated(bool isPassable);
-    ~MapTileAnimated();
+    MapTileAnimated(Animation& animation, bool isPassable);
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto getTile() -> sf::Sprite&;
     auto getAnimationClock() -> sf::Clock&;
+    auto updateTextures() -> void;
 
 };

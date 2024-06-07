@@ -38,7 +38,7 @@ private:
 
 
     auto createFoam(float x, float y) -> void;
-    auto createStaticMapTile(float x, float y, MapTile asset) -> void;
+    auto createStaticMapTile(float x, float y, MapTile const& asset) -> void;
 
     auto updateTextures() -> void;
 

@@ -7,7 +7,7 @@
 MapTile::MapTile() = default;
 
 MapTile::MapTile(sf::Texture& texture, sf::IntRect intRect, bool isPassable)
-    : texture(&texture), isPassable(isPassable) {
+    : texture(texture), isPassable(isPassable) {
     this->tile.setTexture(texture);
     this->tile.setTextureRect(intRect);
 }

@@ -31,6 +31,7 @@ Animation::Animation(sf::Texture& texture, int const& width, int const& height, 
     : texture(texture), currentTextureIndex(0), width(width), height(height), numberOfFramesInTexture(numberOfFramesInTexture), numberOfRowsInTexture(numberOfRowsInTexture), rowOfAnimation(rowOfAnimation), framesOfAnimation(framesOfAnimation) {
     this->frames = std::vector<sf::IntRect>(this->framesOfAnimation);
     computeFrames();
+
 }
 
 Animation::~Animation() = default;
@@ -39,7 +40,7 @@ Animation::~Animation() = default;
 // ----- public methods ------------------------------------------------------------------------------------------------
 
 auto Animation::applyTexture(sf::Sprite& sprite) -> void {
-    sprite.setTexture(this->texture);
+    sprite.setTexture(this->texture);//TODO teksturana sprite i tu tylkozmiana intrect
     sprite.setTextureRect(frames[currentTextureIndex]);
 }
 

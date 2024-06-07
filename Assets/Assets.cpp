@@ -112,7 +112,7 @@ auto Assets::loadTextures() -> void {
 }
 
 
-auto Assets::initializeMapTileMaps() -> void {
+auto Assets::initializeMapTileMaps() const -> void {
 
     //mapTileGrass map
     MapTilesGrass["MapTileGrassCornerLeftUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"],sf::IntRect(0 * mapTileSize, 0 * mapTileSize, mapTileSize, mapTileSize),true);

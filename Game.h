@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -19,6 +20,7 @@ private:
 
     Assets assets;
     Map map;
+
     Knight knight;
     Goblin goblin;
 

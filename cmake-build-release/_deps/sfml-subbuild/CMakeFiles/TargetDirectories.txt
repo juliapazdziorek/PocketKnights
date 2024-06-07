@@ -1,0 +1,3 @@
+/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
+/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
+/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir
