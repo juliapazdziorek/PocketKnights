@@ -21,7 +21,6 @@ private:
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto initializeTiles() -> void;
-
     auto initializeFoam() -> void;
     auto initializeSand() -> void;
     auto initializeShadowsFirstLayer() -> void;
@@ -35,7 +34,6 @@ private:
     auto initializeWallFlorSecondLayer() -> void;
     auto initializeGrassSecondLayer() -> void;
     auto initializeBridges() -> void;
-
 
     auto createFoam(float x, float y) -> void;
     auto createStaticMapTile(float x, float y, MapTile const& asset) -> void;
@@ -53,6 +51,8 @@ public:
     // ----- public methods --------------------------------------------------------------------------------------------
     auto updateState() -> void;
     auto render(sf::RenderTarget* window) -> void;
+
+    auto getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>&;
 
 };
 

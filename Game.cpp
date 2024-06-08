@@ -12,6 +12,11 @@ auto Game::updateEvents() -> void {
             window->close();
         }
 
+        // key pressing //TODO
+        /*if (event.type == sf::Event::KeyPressed) {
+
+        }*/
+
     }
 }
 
@@ -26,34 +31,26 @@ auto Game::updateKnight() -> void {
     this->knight.updateState();
 }
 
-auto Game::updateGoblin() -> void {
-    this->goblin.updateState();
-}
 
 
 //public
 
 // ----- constructor / destructor --------------------------------------------------------------------------------------
 
-Game::Game() {
+Game::Game(sf::RenderWindow& window) {
 
-    //window
-    this->window = new sf::RenderWindow(sf::VideoMode(832, 640), "Pocket Knight", sf::Style::Titlebar | sf::Style::Close);
-    this->window->setFramerateLimit(60);
+    // window
+    this->window = &window;
 
     // (assets are created by default)
 
-    //TO DELETE
-    if (!gridTexture.loadFromFile("grid.png")) {
+    //TODO TO DELETE
+    /*if (!gridTexture.loadFromFile("grid.png")) {
         fmt::println("File can not load from file: grid.png");
     }
     gridTexture.setSmooth(true);
-    grid.setTexture(gridTexture);
+    grid.setTexture(gridTexture);*/
 
-}
-
-Game::~Game() {
-    delete this->window;
 }
 
 
@@ -67,20 +64,21 @@ auto Game::updateState() -> void {
     updateEvents();
     updateMap();
     updateKnight();
-    updateGoblin();
-
 }
 
 auto Game::render() -> void {
+
+    // render window
     this->window->clear(sf::Color(71, 171, 169));
 
+    // render map
     this->map.render(this->window);
-    this->goblin.render(this->window);
+
+    // render entities //TODO in vector maybe
     this->knight.render(this->window);
 
     //TODO TO DELETE
     //this->window->draw(grid);
 
     this->window->display();
-
 }

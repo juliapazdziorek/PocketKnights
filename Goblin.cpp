@@ -6,57 +6,54 @@
 
 auto Goblin::updateEvents() -> void {
 
-    //if not in other animation
+    // if not in other animation
     if(!attacking) {
 
-        //moving left
+        // moving left
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             this->goblinState = GoblinState::GOBLIN_RUNNING_LEFT;
             this->goblinFacing = GoblinFacing::LEFT;
             this->goblin.move(-this->movingSpeed, 0);
         }
 
-            //moving right
+        // moving right
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
             this->goblinState = GoblinState::GOBLIN_RUNNING_RIGHT;
             this->goblinFacing = GoblinFacing::RIGHT;
             this->goblin.move(this->movingSpeed, 0);
         }
 
-        //moving up
+        // moving up
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
             this->goblinFacing = GoblinFacing::UP;
             this->goblin.move(0, -this->movingSpeed);
 
-            //some animation while moving up
+            // some animation while moving up
             if (this->goblinState == GoblinState::GOBLIN_STANDING) {
                 this->goblinState = GoblinState::GOBLIN_RUNNING_LEFT;
             }
         }
 
-            //moving down
+            // moving down
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
             this->goblinFacing = GoblinFacing::DOWN;
             this->goblin.move(0, this->movingSpeed);
 
-            //some animation while moving down
+            // some animation while moving down
             if (this->goblinState == GoblinState::GOBLIN_STANDING) {
                 this->goblinState = GoblinState::GOBLIN_RUNNING_RIGHT;
             }
         }
 
-        //attack
+        // attack
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
             this->goblinState = GoblinState::GOBLIN_ATTACKING;
             this->attacking = true;
             this->attackClock.restart();
             this->attackPosition = sf::Vector2f(this->position);
-
-            //attack();
-
         }
 
-        //standing
+        // standing
         if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
             this->goblinState = GoblinState::GOBLIN_STANDING;
         }
@@ -69,12 +66,12 @@ auto Goblin::updateEvents() -> void {
 auto Goblin::updateAttack() -> void {
     if(this->attacking) {
 
-        //not moving while attack
+        // not moving while attack
         while (attackClock.getElapsedTime() <= sf::seconds(0.1f)) {
             this->goblin.setPosition(attackPosition);
         }
 
-        //move on after attacking
+        // move on after attacking
         if (attackClock.getElapsedTime() >= sf::seconds(0.6f)) {
             this->attacking = false;
         }
@@ -158,7 +155,7 @@ Goblin::Goblin() {
     this->movingSpeed = 3;
 
     this->attacking = false;
-    this->attackPosition = position;
+    this->attackPosition = position;        
 
     this->goblin.setScale(this->scale);
     this->goblin.setPosition(this->position);

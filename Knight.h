@@ -3,11 +3,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
-#include "Renderable.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
-class Knight : Renderable {
+class Knight  {
 
 private:
 
@@ -15,6 +14,7 @@ private:
     sf::Sprite knight;
     sf::Vector2f position;
     sf::Vector2f scale;
+    sf::FloatRect bounds;
     float movingSpeed;
     sf::Clock animationClock;
 
@@ -28,6 +28,8 @@ private:
     enum class KnightFacing { LEFT, RIGHT, UP, DOWN };
     KnightFacing knightFacing;
 
+    //TODO TO DELETE
+    sf::RectangleShape hitBox;
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
@@ -45,6 +47,6 @@ public:
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto updateState() -> void;
-    auto render(sf::RenderTarget* window) -> void override;
+    auto render(sf::RenderTarget* window) -> void;
 
 };

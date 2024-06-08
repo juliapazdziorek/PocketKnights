@@ -5,7 +5,7 @@
 // ----- private methods -----------------------------------------------------------------------------------------------
 
 auto Map::initializeTiles() -> void {
-    initializeFoam(); //TODO jakoś żeby ta paiana tak nie flickeringowała !
+    initializeFoam();
     initializeSand();
     initializeShadowsFirstLayer();
     initializeWallsFirstLayer();
@@ -22,7 +22,7 @@ auto Map::initializeTiles() -> void {
 
 //initialize mapTiles vector
 
-auto Map::initializeFoam() -> void { //maybe nowe clocki dala kazdej pianki
+auto Map::initializeFoam() -> void {
     createFoam(-1, 11);
     createFoam(0, 10);
     createFoam(0, 9);
@@ -83,12 +83,12 @@ auto Map::initializeFoam() -> void { //maybe nowe clocki dala kazdej pianki
 
 auto Map::initializeSand() -> void {
 
-    //west island
+    // west island
     createStaticMapTile(0, 12, Assets::getMapTilesSand()["MapTileSandCornerRightDown"]);
     createStaticMapTile(1, 11, Assets::getMapTilesSand()["MapTileSandCornerRightDown"]);
     createStaticMapTile(1, 10, Assets::getMapTilesSand()["MapTileSandBorderRight"]);
 
-    //center island
+    // center island
     createStaticMapTile(4, 9, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(5, 9, Assets::getMapTilesSand()["MapTileSandMiddle"]);
     createStaticMapTile(5, 10, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
@@ -100,7 +100,7 @@ auto Map::initializeSand() -> void {
     createStaticMapTile(13, 16, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(9, 18, Assets::getMapTilesSand()["MapTileSandCornerRightDown"]);
 
-    //east island
+    // east island
     createStaticMapTile(23, 16, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(24, 17, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(25, 17, Assets::getMapTilesSand()["MapTileSandBorderDown"]);
@@ -583,7 +583,6 @@ auto Map::initializeGrassSecondLayer() -> void {
     createStaticMapTile(17, 6, Assets::getMapTilesGrass()["MapTileGrassCornerRightUp"]);
     createStaticMapTile(17, 7, Assets::getMapTilesGrass()["MapTileGrassBorderDown"]);
     createStaticMapTile(18, 7, Assets::getMapTilesGrass()["MapTileGrassEndRight"]);
-
 }
 
 auto Map::initializeBridges() -> void {
@@ -638,10 +637,7 @@ Map::Map()
     initializeTiles();
 }
 
-Map::~Map() {
-
-}
-
+Map::~Map() = default;
 
 
 // ----- public methods --------------------------------------------------------------------------------------------
@@ -654,4 +650,9 @@ auto Map::render(sf::RenderTarget *window) -> void {
     for (auto& mapTile : mapTiles) {
         mapTile -> render(window);
     }
+}
+
+
+auto Map::getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>& {
+    return mapTiles;
 }

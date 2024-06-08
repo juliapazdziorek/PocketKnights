@@ -16,14 +16,14 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     static inline std::map<std::string, sf::Texture> textures;
 
-    // ( textures loaded in cpp file )
-
     //map animations
     static inline Animation foam = Animation(Assets::textures["tileFoamTexture"], 1536, 192, 8, 1, 1, 8);
     static inline Animation smallRock = Animation(Assets::textures["smallRockTexture"], 1024, 128, 8, 1, 1, 8);
     static inline Animation mediumRock = Animation(Assets::textures["mediumRockTexture"], 1024, 128, 8, 1, 1, 8);
     static inline Animation bigRock = Animation(Assets::textures["bigRockTexture"], 1024, 128, 8, 1, 1, 8);
     static inline Animation largeRock = Animation(Assets::textures["largeRockTexture"], 1024, 128, 8, 1, 1, 8);
+
+    //TODO mapy do knight i cos tam animations, ogolnie mapy do tego bo jest syf w ch
 
     //knight animations
     static inline Animation knightStanding = Animation(Assets::textures["knightTexture"], 1152, 1536, 6, 8, 1, 6);
@@ -44,7 +44,7 @@ private:
     static inline Animation goblinAttackDown = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 4, 6);
 
     //mapTiles
-    int mapTileSize;
+    int mapTileSizeInTexture;
     static inline std::map<std::string, MapTile> MapTilesGrass;
     static inline std::map<std::string, MapTile> MapTilesSand;
     static inline std::map<std::string, MapTile> MapTilesWall;
@@ -68,7 +68,7 @@ public:
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
-    //knight animation getters
+    //knight animation getters //TODO gettery tylko do map z tymi animacjami bo ociepieje
     static auto getAnimationKnightStanding() -> Animation&;
     static auto getAnimationKnightRunningRight() -> Animation&;
     static auto getAnimationKnightRunningLeft() -> Animation&;

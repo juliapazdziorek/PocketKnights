@@ -22,7 +22,8 @@ FetchContent_MakeAvailable(fmt)
 
 add_executable(PocketKnight main.cpp
         Game.cpp
-        Renderable.cpp
+        Engine/Entity.cpp
+        Engine/Collidable.cpp
         Assets/Assets.cpp
         Assets/MapTile.cpp
         Assets/MapTileAnimated.cpp

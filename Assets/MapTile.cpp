@@ -29,7 +29,6 @@ auto MapTile::setScale(sf::Vector2f newScale) -> void {
     tile.setScale(scale);
 }
 
-
 auto MapTile::render(sf::RenderTarget* window) -> void {
     window->draw(this->tile);
 }

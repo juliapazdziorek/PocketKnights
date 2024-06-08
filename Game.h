@@ -1,10 +1,10 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "Game.h"
 #include "Assets/Assets.h"
 #include "Map.h"
 #include "Knight.h"
@@ -22,11 +22,10 @@ private:
     Map map;
 
     Knight knight;
-    Goblin goblin;
 
-    //TO DELETE
-    sf::Texture gridTexture;
-    sf::Sprite grid;
+    //TODO TO DELETE
+    /*sf::Texture gridTexture;
+    sf::Sprite grid;*/
 
 
     // ----- event polling ---------------------------------------------------------------------------------------------
@@ -35,17 +34,17 @@ private:
     // ----- private methods -------------------------------------------------------------------------------------------
     auto updateMap() -> void;
     auto updateKnight() -> void;
-    auto updateGoblin() -> void;
 
 
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
-    Game();
-    ~Game();
+    explicit Game(sf::RenderWindow& window);
+    ~Game() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto isRunning() -> bool;
+    //auto handleCollision() -> void;
     auto updateState() -> void;
     auto render() -> void;
 

@@ -2,12 +2,14 @@
 
 #include <SFML/Graphics.hpp>
 
-class MapTile {
+//: public Collidable
+class MapTile  {
 
 private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::Texture texture;
+
 
 protected:
 
