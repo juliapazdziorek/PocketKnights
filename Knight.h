@@ -3,10 +3,11 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
+#include "Engine/Collidable.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
-class Knight  {
+class Knight : Collidable {
 
 private:
 
@@ -22,7 +23,7 @@ private:
     bool attacking;
     sf::Vector2f attackPosition;
 
-    enum class KnightState { KNIGHT_STANDING, KNIGHT_RUNNING_LEFT, KNIGHT_RUNNING_RIGHT, KNIGHT_ATTACKING };
+    enum class KnightState { STANDING, RUNNING_LEFT, RUNNING_RIGHT, ATTACKING };
     KnightState knightState;
 
     enum class KnightFacing { LEFT, RIGHT, UP, DOWN };
@@ -37,16 +38,17 @@ private:
     auto updateTexture() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
+    auto getGlobalBounds() const -> sf::FloatRect override;
     auto attack() -> void;
 
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     Knight();
-    ~Knight();
+    ~Knight() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto updateState() -> void;
+    auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
 
 };

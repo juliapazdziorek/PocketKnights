@@ -11,53 +11,53 @@ auto Knight::updateEvents() -> void {
 
         // moving left
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            this->knightState = KnightState::KNIGHT_RUNNING_LEFT;
-            this->knightFacing = KnightFacing::LEFT;
-            this->knight.move(-this->movingSpeed, 0);
+            knightState = KnightState::RUNNING_LEFT;
+            knightFacing = KnightFacing::LEFT;
+            knight.move(-movingSpeed, 0);
         }
 
         // moving right
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            this->knightState = KnightState::KNIGHT_RUNNING_RIGHT;
-            this->knightFacing = KnightFacing::RIGHT;
-            this->knight.move(this->movingSpeed, 0);
+            knightState = KnightState::RUNNING_RIGHT;
+            knightFacing = KnightFacing::RIGHT;
+            knight.move(movingSpeed, 0);
         };
 
         // moving up
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            this->knightFacing = KnightFacing::UP;
-            this->knight.move(0, -this->movingSpeed);
+            knightFacing = KnightFacing::UP;
+            knight.move(0, -movingSpeed);
 
             // some animation while moving up
-            if (this->knightState == KnightState::KNIGHT_STANDING) {
-                this->knightState = KnightState::KNIGHT_RUNNING_LEFT;
+            if (knightState == KnightState::STANDING) {
+                knightState = KnightState::RUNNING_LEFT;
             }
         }
 
         // moving down
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            this->knightFacing = KnightFacing::DOWN;
-            this->knight.move(0, this->movingSpeed);
+            knightFacing = KnightFacing::DOWN;
+            knight.move(0, movingSpeed);
 
             // some animation while moving down
-            if (this->knightState == KnightState::KNIGHT_STANDING) {
-                this->knightState = KnightState::KNIGHT_RUNNING_RIGHT;
+            if (knightState == KnightState::STANDING) {
+                knightState = KnightState::RUNNING_RIGHT;
             }
         }
 
         // attack
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            this->knightState = KnightState::KNIGHT_ATTACKING;
-            this->attacking = true;
-            this->attackClock.restart();
-            this->attackPosition = sf::Vector2f(this->position);
+            knightState = KnightState::ATTACKING;
+            attacking = true;
+            attackClock.restart();
+            attackPosition = sf::Vector2f(position);
             //attack();
 
         }
 
         // standing
         if(!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            this->knightState = KnightState::KNIGHT_STANDING;
+            knightState = KnightState::STANDING;
         }
 
     }
@@ -66,16 +66,16 @@ auto Knight::updateEvents() -> void {
 
 
 auto Knight::updateAttack() -> void {
-    if(this->attacking) {
+    if(attacking) {
 
         // not moving while attack
         while (attackClock.getElapsedTime() <= sf::seconds(0.1f)) {
-            this->knight.setPosition(attackPosition);
+            knight.setPosition(attackPosition);
         }
 
         // move on after attacking
         if (attackClock.getElapsedTime() >= sf::seconds(0.6f)) {
-            this->attacking = false;
+            attacking = false;
         }
 
     }
@@ -84,27 +84,27 @@ auto Knight::updateAttack() -> void {
 
 auto Knight::updateTexture() -> void {
 
-    switch (this->knightState) {
-        case KnightState::KNIGHT_STANDING: {
+    switch (knightState) {
+        case KnightState::STANDING: {
             Assets::getAnimationKnightStanding().updateFrame(animationClock);
             Assets::getAnimationKnightStanding().applyTexture(knight);
             break;
         }
 
-        case KnightState::KNIGHT_RUNNING_RIGHT: {
+        case KnightState::RUNNING_RIGHT: {
             Assets::getAnimationKnightRunningRight().updateFrame(animationClock);
             Assets::getAnimationKnightRunningRight().applyTexture(knight);
             break;
         }
 
-        case KnightState::KNIGHT_RUNNING_LEFT: {
+        case KnightState::RUNNING_LEFT: {
             Assets::getAnimationKnightRunningLeft().updateFrame(animationClock);
             Assets::getAnimationKnightRunningLeft().applyTexture(knight);
             break;
         }
 
 
-        case KnightState::KNIGHT_ATTACKING: {
+        case KnightState::ATTACKING: {
             switch (knightFacing) {
                 case KnightFacing::RIGHT: {
                     Assets::getAnimationKnightAttackRight().updateFrame(animationClock);
@@ -139,10 +139,19 @@ auto Knight::updateTexture() -> void {
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
+auto Knight::getGlobalBounds() const -> sf::FloatRect {
+    auto tempBounds = sf::FloatRect(
+            sf::Vector2f(position.x + 36, position.y + 56),
+            sf::Vector2f(24, 10));
+
+    return tempBounds;
+}
+
+
+
 auto Knight::attack() -> void {
 
 }
-
 
 //public:
 
@@ -150,28 +159,29 @@ auto Knight::attack() -> void {
 
 Knight::Knight() {
 
-    this->knightState = KnightState::KNIGHT_STANDING;
-    this->knightFacing = KnightFacing::DOWN;
-    this->position = sf::Vector2f(350, 250);
-    this->scale = sf::Vector2f(0.5f, 0.5f);
-    this->movingSpeed = 3;
+    knightState = KnightState::STANDING;
+    knightFacing = KnightFacing::DOWN;
 
-    this->attacking = false;
-    this->attackPosition = position;
+    position = sf::Vector2f(350, 250);
+    scale = sf::Vector2f(0.5f, 0.5f);
+    bounds = getGlobalBounds();
+    movingSpeed = 3;
 
-    this->knight.setScale(this->scale);
-    this->knight.setPosition(this->position);
+    attacking = false;
+    attackPosition = position;
 
+    knight.setScale(this->scale);
+    knight.setPosition(this->position);
+    bounds = knight.getGlobalBounds();
+
+    //TODO to delete
     this->hitBox.setOutlineColor(sf::Color::Red);
-    this->hitBox.setOutlineThickness(5);
+    this->hitBox.setOutlineThickness(1);
     this->hitBox.setSize(bounds.getSize());
     this->hitBox.setPosition(bounds.getPosition());
     this->hitBox.setFillColor(sf::Color::Transparent);
-    //this->hitBox.setScale(scale);
 
 }
-
-Knight::~Knight() = default;
 
 
 // ----- public methods ------------------------------------------------------------------------------------------------
@@ -182,13 +192,17 @@ auto Knight::updateState() -> void {
     updateAttack();
     updateTexture();
 
-    this->bounds = knight.getGlobalBounds();
-    this->hitBox.setSize(bounds.getSize());
-    this->hitBox.setPosition(bounds.getPosition());
+    bounds = getGlobalBounds();
+
+    //TODO to delete
+    hitBox.setSize(bounds.getSize());
+    hitBox.setPosition(bounds.getPosition());
 }
 
 auto Knight::render(sf::RenderTarget *window) -> void {
     window->draw(this->knight);
+
+    //TODO to delete
     window->draw(this->hitBox);
 }
 

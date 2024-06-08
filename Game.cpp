@@ -12,11 +12,6 @@ auto Game::updateEvents() -> void {
             window->close();
         }
 
-        // key pressing //TODO
-        /*if (event.type == sf::Event::KeyPressed) {
-
-        }*/
-
     }
 }
 

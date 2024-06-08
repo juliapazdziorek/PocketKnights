@@ -2,8 +2,6 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "../Game.h"
-
 class Entity {
 
 protected:
@@ -20,7 +18,7 @@ public:
     // ---- public methods ---------------------------------------------------------------------------------------------
 
     // update state
-    virtual auto updateState(Game& game) -> void = 0;
+    virtual auto updateState() -> void = 0;
 
     // lifespan
     auto checkIfAlive() const -> bool; //co on tu podkreśla da fq
