@@ -23,12 +23,14 @@ private:
     Assets assets;
     Map map;
 
-    //std::unique_ptr<Knight> knight;
     Knight knight;
+    std::vector<Goblin> goblins;
 
     std::vector<Collidable*> movingCollidables;
     std::vector<std::unique_ptr<Collidable>> mapBorders;
     std::vector<std::unique_ptr<Collidable>> collidables;
+
+    enum class
 
     //TODO TO DELETE
     /*sf::Texture gridTexture;

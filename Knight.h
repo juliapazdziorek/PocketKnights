@@ -62,6 +62,5 @@ public:
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
-    auto setIsColliding(bool isCollidnig) -> void;
 
 };
