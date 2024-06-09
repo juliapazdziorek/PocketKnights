@@ -20,7 +20,7 @@ auto Game::updateEvents() -> void {
 
 auto Game::handleCollision() -> void {
     for (auto const& movingCollidable : movingCollidables) {
-       for (auto const& mapBorder : mapBorders) {
+       for (auto const& mapBorder : map.getMapBorders()) {
             if (movingCollidable->isCollidingWith(*mapBorder)) {
                 movingCollidable->onCollisionWith(*mapBorder);
             }
@@ -34,11 +34,11 @@ auto Game::handleCollision() -> void {
 }
 
 auto Game::updateMap() -> void {
-    this->map.updateState();
+    map.updateState();
 }
 
 auto Game::updateKnight() -> void {
-    this->knight.updateState();
+    knight.updateState();
 }
 
 
@@ -53,9 +53,10 @@ Game::Game(sf::RenderWindow& window) {
     this->window = &window;
 
     // (assets are created by default)
-    mapBorders.insert(mapBorders.end(), map.getMapBorders().begin(), map.getMapBorders().end());
 
     movingCollidables.push_back(&knight);
+
+
 
     //TODO TO DELETE
     /*if (!gridTexture.loadFromFile("grid.png")) {
@@ -70,7 +71,7 @@ Game::Game(sf::RenderWindow& window) {
 // ----- public methods ------------------------------------------------------------------------------------------------
 
 auto Game::isRunning() -> bool {
-    return this->window->isOpen();
+    return window->isOpen();
 }
 
 auto Game::updateState() -> void {
@@ -83,17 +84,17 @@ auto Game::updateState() -> void {
 auto Game::render() -> void {
 
     // render window
-    this->window->clear(sf::Color(71, 171, 169));
+    window->clear(sf::Color(71, 171, 169));
 
     // render map
-    this->map.render(this->window);
+    map.render(window);
 
     // render entities //TODO in vector maybe
-    this->knight.render(this->window);
+    knight.render(window);
 
     //TODO TO DELETE
     //this->window->draw(grid);
 
-    this->window->display();
+    window->display();
 }
 

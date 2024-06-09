@@ -17,8 +17,8 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     float tileSize;
     sf::Vector2f scale;
-    std::vector<Collidable*> mapBorders;
-    std::vector<MapBorder> mapBordersToRender;
+    std::vector<std::unique_ptr<Collidable>> mapBorders;
+    std::vector<MapBorder*> mapBordersToRender;
     std::vector<std::unique_ptr<MapTile>> mapTiles;
     std::vector<MapTileAnimated*> mapTilesAnimated;
 
@@ -59,7 +59,7 @@ public:
     auto render(sf::RenderTarget* window) -> void;
 
     auto getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>&;
-    auto getMapBorders() -> std::vector<Collidable*>&;
+    auto getMapBorders() -> std::vector<std::unique_ptr<Collidable>>&;
 
 };
 

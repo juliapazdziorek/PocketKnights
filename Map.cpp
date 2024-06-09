@@ -7,7 +7,7 @@
 auto Map::initializeMapBorders() -> void {
 
     // horizontal borders
-    createMapBorder(1 * tileSize, 1, 0 * tileSize, 6 * tileSize);
+    createMapBorder(1 * tileSize, 1, 0 * tileSize, 6 * tileSize); //TODO to do gry bo cos za chj nie dziala
     createMapBorder(5 * tileSize, 1, 1 * tileSize, 7 * tileSize);
     createMapBorder(1 * tileSize, 1, 1 * tileSize, 9 * tileSize);
     createMapBorder(1 * tileSize, 1, 0 * tileSize, 11 * tileSize);
@@ -724,9 +724,9 @@ auto Map::initializeBridges() -> void {
 }
 
 auto Map::createMapBorder(float width, float height, float x, float y) -> void {
-    auto border = MapBorder(width, height, x, y);
-    mapBorders.push_back(&border);
-    mapBordersToRender.push_back(border);
+    auto border = std::make_unique<MapBorder>(width, height, x, y);
+    mapBordersToRender.push_back(border.get()); //TU UNIQE POITERY
+    mapBorders.push_back(std::move(border));
 }
 
 auto Map::createFoam(float x, float y) -> void {
@@ -775,7 +775,7 @@ auto Map::render(sf::RenderTarget *window) -> void {
         mapTile -> render(window);
     }
     for (auto& mapBorder : mapBordersToRender) {
-        mapBorder.render(window);
+        mapBorder->render(window);
     }
 }
 
@@ -784,6 +784,6 @@ auto Map::getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>& {
     return mapTiles;
 }
 
-auto Map::getMapBorders() -> std::vector<Collidable*> & {
+auto Map::getMapBorders() -> std::vector<std::unique_ptr<Collidable>> & {
     return mapBorders;
 }
