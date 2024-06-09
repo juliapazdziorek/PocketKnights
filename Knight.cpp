@@ -13,21 +13,41 @@ auto Knight::updateEvents() -> void {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             knightState = KnightState::RUNNING_LEFT;
             knightFacing = KnightFacing::LEFT;
-            knight.move(-movingSpeed, 0);
-            nextPosition.x = knight.getRotation() - movingSpeed; //TODOJBWGWIBW
+            velocity.x = -movingSpeed;
+            velocity.y = 0;
+            if (!isColliding) knight.move(velocity);
+
+            updatePosition();
+            updateBounds();
+            nextPositionBounds.left = bounds.left - movingSpeed;
+            nextPositionBounds.top = bounds.top;
         }
 
         // moving right
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             knightState = KnightState::RUNNING_RIGHT;
             knightFacing = KnightFacing::RIGHT;
-            knight.move(movingSpeed, 0);
+            velocity.x = movingSpeed;
+            velocity.y = 0;
+            if (!isColliding) knight.move(velocity);
+
+            updatePosition();
+            updateBounds();
+            nextPositionBounds.left = bounds.left + movingSpeed;
+            nextPositionBounds.top = bounds.top;
         };
 
         // moving up
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             knightFacing = KnightFacing::UP;
-            knight.move(0, -movingSpeed);
+            velocity.x = 0;
+            velocity.y = -movingSpeed;
+            if (!isColliding) knight.move(velocity);
+
+            updatePosition();
+            updateBounds();
+            nextPositionBounds.left = bounds.left;
+            nextPositionBounds.top = bounds.top- movingSpeed;
 
             // some animation while moving up
             if (knightState == KnightState::STANDING) {
@@ -38,7 +58,14 @@ auto Knight::updateEvents() -> void {
         // moving down
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
             knightFacing = KnightFacing::DOWN;
-            knight.move(0, movingSpeed);
+            velocity.x = 0;
+            velocity.y = movingSpeed;
+            if (!isColliding) knight.move(velocity);
+
+            updatePosition();
+            updateBounds();
+            nextPositionBounds.left = bounds.left;
+            nextPositionBounds.top = bounds.top + movingSpeed;
 
             // some animation while moving down
             if (knightState == KnightState::STANDING) {
@@ -51,7 +78,7 @@ auto Knight::updateEvents() -> void {
             knightState = KnightState::ATTACKING;
             attacking = true;
             attackClock.restart();
-            attackPosition = sf::Vector2f(position);
+            attackPosition = position;
             //attack();
 
         }
@@ -64,6 +91,21 @@ auto Knight::updateEvents() -> void {
     }
 
 }
+
+auto Knight::updateCollision() -> void {
+
+    for (auto const& collidable : collidables) {
+        if (!this->isCollidingWith(*collidable)) {
+            collidables.erase(std::remove(collidables.begin(), collidables.end(), collidable), collidables.end());
+        }
+    }
+
+    if (collidables.empty()) {
+        isColliding = false;
+    }
+}
+
+
 
 
 auto Knight::updateAttack() -> void {
@@ -137,6 +179,10 @@ auto Knight::updateTexture() -> void {
 
 }
 
+auto Knight::updatePosition() -> void {
+    position = knight.getPosition();
+}
+
 auto Knight::updateBounds() -> void {
     bounds.left = position.x + 38;
     bounds.top = position.y + 56;
@@ -166,8 +212,11 @@ Knight::Knight() {
 
     position = sf::Vector2f(350, 250);
     scale = sf::Vector2f(0.5f, 0.5f);
-    bounds = sf::FloatRect(sf::Vector2f(position.x + 38, position.y + 56),sf::Vector2f(20, 10));
+    bounds = sf::FloatRect(sf::Vector2f(position.x + 38, position.y + 56) ,sf::Vector2f(20, 10));
+    nextPositionBounds = bounds;
+    velocity = sf::Vector2f(0, 0);
     movingSpeed = 3;
+    isColliding = false;
 
     attacking = false;
     attackPosition = position;
@@ -182,25 +231,39 @@ Knight::Knight() {
     this->hitBox.setPosition(bounds.getPosition());
     this->hitBox.setFillColor(sf::Color::Transparent);
 
+    this->nextPositionHitBox.setOutlineColor(sf::Color::Blue);
+    this->nextPositionHitBox.setOutlineThickness(1);
+    this->nextPositionHitBox.setSize(bounds.getSize());
+    this->nextPositionHitBox.setPosition(bounds.getPosition());
+    this->nextPositionHitBox.setFillColor(sf::Color::Transparent);
+
 }
 
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
+auto Knight::isCollidingWith(Collidable &other) -> bool {
+    return nextPositionBounds.intersects(other.getGlobalBounds());
+}
+
 auto Knight::onCollisionWith(Collidable &other) -> void {
     fmt::println("COLLISION");
+    isColliding = true;
+    collidables.push_back(&other);
 }
 
 auto Knight::updateState() -> void {
-    position = knight.getPosition();
-
     updateEvents();
     updateAttack();
     updateTexture();
-    updateBounds();
+
+    if(isColliding) {
+        updateCollision();
+    }
 
     //TODO to delete
     hitBox.setPosition(bounds.getPosition());
+    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
 }
 
 auto Knight::render(sf::RenderTarget *window) -> void {
@@ -208,7 +271,17 @@ auto Knight::render(sf::RenderTarget *window) -> void {
 
     //TODO to delete
     window->draw(this->hitBox);
+    window->draw(this->nextPositionHitBox);
 }
+
+auto Knight::setIsColliding(bool isCollidnig) -> void {
+    this->isColliding = isCollidnig;
+}
+
+
+
+
+
 
 
 

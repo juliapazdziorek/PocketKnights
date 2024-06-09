@@ -16,10 +16,12 @@ private:
     sf::Vector2f position;
     sf::Vector2f scale;
     sf::FloatRect bounds;
+    sf::FloatRect nextPositionBounds;
+    sf::Vector2f velocity;
     float movingSpeed;
-    sf::Clock animationClock;
+    bool isColliding;
 
-    sf::Vector2f  nextPosition;
+    sf::Clock animationClock;
 
     sf::Clock attackClock;
     bool attacking;
@@ -31,13 +33,18 @@ private:
     enum class KnightFacing { LEFT, RIGHT, UP, DOWN };
     KnightFacing knightFacing;
 
+    std::vector<Collidable*> collidables;
+
     //TODO TO DELETE
     sf::RectangleShape hitBox;
+    sf::RectangleShape nextPositionHitBox;
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
     auto updateAttack() -> void;
     auto updateTexture() -> void;
+    auto updateCollision() -> void;
+    auto updatePosition() -> void;
     auto updateBounds() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
@@ -51,8 +58,10 @@ public:
     ~Knight() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
+    auto isCollidingWith(Collidable& other) -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
+    auto setIsColliding(bool isCollidnig) -> void;
 
 };

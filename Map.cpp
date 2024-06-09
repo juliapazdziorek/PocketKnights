@@ -774,9 +774,9 @@ auto Map::render(sf::RenderTarget *window) -> void {
     for (auto& mapTile : mapTiles) {
         mapTile -> render(window);
     }
-    for (auto& mapBorder : mapBordersToRender) {
+/*    for (auto& mapBorder : mapBordersToRender) {
         mapBorder->render(window);
-    }
+    }*/
 }
 
 

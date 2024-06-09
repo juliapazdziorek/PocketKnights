@@ -24,12 +24,12 @@ auto Game::handleCollision() -> void {
             if (movingCollidable->isCollidingWith(*mapBorder)) {
                 movingCollidable->onCollisionWith(*mapBorder);
             }
-        } /*
+        }
         for (auto const& collidable : collidables ) {
             if (movingCollidable->isCollidingWith(*collidable)) {
                 movingCollidable->onCollisionWith(*collidable);
             }
-        }*/
+        }
     }
 }
 
@@ -77,8 +77,10 @@ auto Game::isRunning() -> bool {
 auto Game::updateState() -> void {
     updateEvents();
     handleCollision();
-    updateMap();
+
     updateKnight();
+    updateMap();
+
 }
 
 auto Game::render() -> void {
