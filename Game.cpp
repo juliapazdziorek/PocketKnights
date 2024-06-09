@@ -18,6 +18,21 @@ auto Game::updateEvents() -> void {
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
+auto Game::handleCollision() -> void {
+    for (auto const& movingCollidable : movingCollidables) {
+       for (auto const& mapBorder : mapBorders) {
+            if (movingCollidable->isCollidingWith(*mapBorder)) {
+                movingCollidable->onCollisionWith(*mapBorder);
+            }
+        } /*
+        for (auto const& collidable : collidables ) {
+            if (movingCollidable->isCollidingWith(*collidable)) {
+                movingCollidable->onCollisionWith(*collidable);
+            }
+        }*/
+    }
+}
+
 auto Game::updateMap() -> void {
     this->map.updateState();
 }
@@ -38,6 +53,9 @@ Game::Game(sf::RenderWindow& window) {
     this->window = &window;
 
     // (assets are created by default)
+    mapBorders.insert(mapBorders.end(), map.getMapBorders().begin(), map.getMapBorders().end());
+
+    movingCollidables.push_back(&knight);
 
     //TODO TO DELETE
     /*if (!gridTexture.loadFromFile("grid.png")) {
@@ -57,6 +75,7 @@ auto Game::isRunning() -> bool {
 
 auto Game::updateState() -> void {
     updateEvents();
+    handleCollision();
     updateMap();
     updateKnight();
 }
@@ -77,3 +96,4 @@ auto Game::render() -> void {
 
     this->window->display();
 }
+

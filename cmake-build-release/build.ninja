@@ -89,6 +89,14 @@ build CMakeFiles/PocketKnight.dir/Assets/Assets.cpp.o: CXX_COMPILER__PocketKnigh
   OBJECT_DIR = CMakeFiles/PocketKnight.dir
   OBJECT_FILE_DIR = CMakeFiles/PocketKnight.dir/Assets
 
+build CMakeFiles/PocketKnight.dir/Assets/MapBorder.cpp.o: CXX_COMPILER__PocketKnight_unscanned_Release /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Assets/MapBorder.cpp || cmake_object_order_depends_target_PocketKnight
+  DEFINES = -DFMT_SHARED
+  DEP_FILE = CMakeFiles/PocketKnight.dir/Assets/MapBorder.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/fmt-src/include -I/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles/PocketKnight.dir
+  OBJECT_FILE_DIR = CMakeFiles/PocketKnight.dir/Assets
+
 build CMakeFiles/PocketKnight.dir/Assets/MapTile.cpp.o: CXX_COMPILER__PocketKnight_unscanned_Release /Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/Assets/MapTile.cpp || cmake_object_order_depends_target_PocketKnight
   DEFINES = -DFMT_SHARED
   DEP_FILE = CMakeFiles/PocketKnight.dir/Assets/MapTile.cpp.o.d
@@ -145,7 +153,7 @@ build CMakeFiles/PocketKnight.dir/Goblin.cpp.o: CXX_COMPILER__PocketKnight_unsca
 #############################################
 # Link the executable PocketKnight
 
-build PocketKnight: CXX_EXECUTABLE_LINKER__PocketKnight_Release CMakeFiles/PocketKnight.dir/main.cpp.o CMakeFiles/PocketKnight.dir/Game.cpp.o CMakeFiles/PocketKnight.dir/Engine/Entity.cpp.o CMakeFiles/PocketKnight.dir/Engine/Collidable.cpp.o CMakeFiles/PocketKnight.dir/Assets/Assets.cpp.o CMakeFiles/PocketKnight.dir/Assets/MapTile.cpp.o CMakeFiles/PocketKnight.dir/Assets/MapTileAnimated.cpp.o CMakeFiles/PocketKnight.dir/Assets/Animation.cpp.o CMakeFiles/PocketKnight.dir/Map.cpp.o CMakeFiles/PocketKnight.dir/Knight.cpp.o CMakeFiles/PocketKnight.dir/Goblin.cpp.o | _deps/fmt-build/libfmt.10.2.1.dylib _deps/sfml-build/lib/libsfml-graphics.2.6.1.dylib _deps/sfml-build/lib/libsfml-window.2.6.1.dylib _deps/sfml-build/lib/libsfml-system.2.6.1.dylib || _deps/fmt-build/libfmt.dylib _deps/sfml-build/lib/libsfml-graphics.dylib _deps/sfml-build/lib/libsfml-system.dylib _deps/sfml-build/lib/libsfml-window.dylib _deps/fmt-build/libfmt.dylib _deps/sfml-build/lib/libsfml-graphics.dylib _deps/sfml-build/lib/libsfml-window.dylib _deps/sfml-build/lib/libsfml-system.dylib
+build PocketKnight: CXX_EXECUTABLE_LINKER__PocketKnight_Release CMakeFiles/PocketKnight.dir/main.cpp.o CMakeFiles/PocketKnight.dir/Game.cpp.o CMakeFiles/PocketKnight.dir/Engine/Entity.cpp.o CMakeFiles/PocketKnight.dir/Engine/Collidable.cpp.o CMakeFiles/PocketKnight.dir/Assets/Assets.cpp.o CMakeFiles/PocketKnight.dir/Assets/MapBorder.cpp.o CMakeFiles/PocketKnight.dir/Assets/MapTile.cpp.o CMakeFiles/PocketKnight.dir/Assets/MapTileAnimated.cpp.o CMakeFiles/PocketKnight.dir/Assets/Animation.cpp.o CMakeFiles/PocketKnight.dir/Map.cpp.o CMakeFiles/PocketKnight.dir/Knight.cpp.o CMakeFiles/PocketKnight.dir/Goblin.cpp.o | _deps/fmt-build/libfmt.10.2.1.dylib _deps/sfml-build/lib/libsfml-graphics.2.6.1.dylib _deps/sfml-build/lib/libsfml-window.2.6.1.dylib _deps/sfml-build/lib/libsfml-system.2.6.1.dylib || _deps/fmt-build/libfmt.dylib _deps/sfml-build/lib/libsfml-graphics.dylib _deps/sfml-build/lib/libsfml-system.dylib _deps/sfml-build/lib/libsfml-window.dylib _deps/fmt-build/libfmt.dylib _deps/sfml-build/lib/libsfml-graphics.dylib _deps/sfml-build/lib/libsfml-window.dylib _deps/sfml-build/lib/libsfml-system.dylib
   FLAGS = -O3 -DNDEBUG -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/fmt-build -Wl,-rpath,/Users/juliapazdziorek/CLionProjects/2324L_19_s29852_FK/cmake-build-release/_deps/sfml-build/lib  _deps/fmt-build/libfmt.10.2.1.dylib  _deps/sfml-build/lib/libsfml-graphics.2.6.1.dylib  _deps/sfml-build/lib/libsfml-window.2.6.1.dylib  _deps/sfml-build/lib/libsfml-system.2.6.1.dylib
   OBJECT_DIR = CMakeFiles/PocketKnight.dir

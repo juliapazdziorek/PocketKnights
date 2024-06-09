@@ -25,6 +25,7 @@ add_executable(PocketKnight main.cpp
         Engine/Entity.cpp
         Engine/Collidable.cpp
         Assets/Assets.cpp
+        Assets/MapBorder.cpp
         Assets/MapTile.cpp
         Assets/MapTileAnimated.cpp
         Assets/Animation.cpp

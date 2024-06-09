@@ -7,7 +7,7 @@
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
-class Knight : Collidable {
+class Knight : public Collidable {
 
 private:
 
@@ -18,6 +18,8 @@ private:
     sf::FloatRect bounds;
     float movingSpeed;
     sf::Clock animationClock;
+
+    sf::Vector2f  nextPosition;
 
     sf::Clock attackClock;
     bool attacking;
@@ -36,6 +38,7 @@ private:
     auto updateEvents() -> void;
     auto updateAttack() -> void;
     auto updateTexture() -> void;
+    auto updateBounds() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto getGlobalBounds() const -> sf::FloatRect override;
@@ -48,6 +51,7 @@ public:
     ~Knight() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
+    auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
 

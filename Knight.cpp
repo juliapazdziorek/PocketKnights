@@ -14,6 +14,7 @@ auto Knight::updateEvents() -> void {
             knightState = KnightState::RUNNING_LEFT;
             knightFacing = KnightFacing::LEFT;
             knight.move(-movingSpeed, 0);
+            nextPosition.x = knight.getRotation() - movingSpeed; //TODOJBWGWIBW
         }
 
         // moving right
@@ -136,15 +137,16 @@ auto Knight::updateTexture() -> void {
 
 }
 
+auto Knight::updateBounds() -> void {
+    bounds.left = position.x + 38;
+    bounds.top = position.y + 56;
+}
+
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
 auto Knight::getGlobalBounds() const -> sf::FloatRect {
-    auto tempBounds = sf::FloatRect(
-            sf::Vector2f(position.x + 36, position.y + 56),
-            sf::Vector2f(24, 10));
-
-    return tempBounds;
+    return bounds;
 }
 
 
@@ -164,15 +166,14 @@ Knight::Knight() {
 
     position = sf::Vector2f(350, 250);
     scale = sf::Vector2f(0.5f, 0.5f);
-    bounds = getGlobalBounds();
+    bounds = sf::FloatRect(sf::Vector2f(position.x + 38, position.y + 56),sf::Vector2f(20, 10));
     movingSpeed = 3;
 
     attacking = false;
     attackPosition = position;
 
-    knight.setScale(this->scale);
-    knight.setPosition(this->position);
-    bounds = knight.getGlobalBounds();
+    knight.setScale(scale);
+    knight.setPosition(position);
 
     //TODO to delete
     this->hitBox.setOutlineColor(sf::Color::Red);
@@ -186,16 +187,19 @@ Knight::Knight() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
+auto Knight::onCollisionWith(Collidable &other) -> void {
+    fmt::println("COLLISION");
+}
+
 auto Knight::updateState() -> void {
-    this->position = knight.getPosition();
+    position = knight.getPosition();
+
     updateEvents();
     updateAttack();
     updateTexture();
-
-    bounds = getGlobalBounds();
+    updateBounds();
 
     //TODO to delete
-    hitBox.setSize(bounds.getSize());
     hitBox.setPosition(bounds.getPosition());
 }
 
@@ -205,5 +209,6 @@ auto Knight::render(sf::RenderTarget *window) -> void {
     //TODO to delete
     window->draw(this->hitBox);
 }
+
 
 

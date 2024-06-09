@@ -13,6 +13,6 @@ public:
 
     virtual auto getGlobalBounds() const -> sf::FloatRect = 0;
     auto isCollidingWith(Collidable& other) const -> bool;
-    auto onCollisionWith(Collidable& other) -> void;
+    virtual auto onCollisionWith(Collidable& other) -> void;
 
 };

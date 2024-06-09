@@ -4,6 +4,7 @@
 #include <fmt/ranges.h>
 #include <map>
 #include <string>
+#include <vector>
 
 #include "Animation.h"
 #include "MapTile.h"
@@ -45,14 +46,14 @@ private:
 
     //mapTiles
     int mapTileSizeInTexture;
-    static inline std::map<std::string, MapTile> MapTilesGrass;
-    static inline std::map<std::string, MapTile> MapTilesSand;
-    static inline std::map<std::string, MapTile> MapTilesWall;
-    static inline std::map<std::string, MapTile> MapTilesStairs;
-    static inline std::map<std::string, MapTile> MapTilesBridge;
+    static inline std::map<std::string, MapTile> mapTilesGrass;
+    static inline std::map<std::string, MapTile> mapTilesSand;
+    static inline std::map<std::string, MapTile> mapTilesWall;
+    static inline std::map<std::string, MapTile> mapTilesStairs;
+    static inline std::map<std::string, MapTile> mapTilesBridge;
 
-    static inline MapTile MapTileShadow;
-    static inline MapTileAnimated MapTileFoam = MapTileAnimated(Assets::foam, true);
+    static inline MapTile mapTileShadow;
+    static inline MapTileAnimated mapTileFoam = MapTileAnimated(Assets::foam, true);
 
 
     // ----- private methods -------------------------------------------------------------------------------------------

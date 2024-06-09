@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 #include <memory>
 
+#include "Assets/MapBorder.h"
 #include "Assets/MapTile.h"
 #include "Assets/MapTileAnimated.h"
 #include "Assets/Assets.h"
@@ -16,10 +17,14 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     float tileSize;
     sf::Vector2f scale;
+    std::vector<Collidable*> mapBorders;
+    std::vector<MapBorder> mapBordersToRender;
     std::vector<std::unique_ptr<MapTile>> mapTiles;
     std::vector<MapTileAnimated*> mapTilesAnimated;
 
     // ----- private methods -------------------------------------------------------------------------------------------
+    auto initializeMapBorders() -> void;
+
     auto initializeTiles() -> void;
     auto initializeFoam() -> void;
     auto initializeSand() -> void;
@@ -35,6 +40,7 @@ private:
     auto initializeGrassSecondLayer() -> void;
     auto initializeBridges() -> void;
 
+    auto createMapBorder(float width, float height, float x, float y) -> void;
     auto createFoam(float x, float y) -> void;
     auto createStaticMapTile(float x, float y, MapTile const& asset) -> void;
 
@@ -53,6 +59,7 @@ public:
     auto render(sf::RenderTarget* window) -> void;
 
     auto getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>&;
+    auto getMapBorders() -> std::vector<Collidable*>&;
 
 };
 

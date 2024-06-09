@@ -5,7 +5,9 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "Engine/Collidable.h"
 #include "Assets/Assets.h"
+#include "Assets/MapBorder.h"
 #include "Map.h"
 #include "Knight.h"
 #include "Goblin.h"
@@ -22,6 +24,10 @@ private:
     Map map;
 
     Knight knight;
+
+    std::vector<Collidable*> movingCollidables;
+    std::vector<Collidable*> collidables;
+    std::vector<Collidable*> mapBorders;
 
     //TODO TO DELETE
     /*sf::Texture gridTexture;
@@ -44,7 +50,7 @@ public:
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto isRunning() -> bool;
-    //auto handleCollision() -> void;
+    auto handleCollision() -> void;
     auto updateState() -> void;
     auto render() -> void;
 

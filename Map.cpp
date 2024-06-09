@@ -4,6 +4,124 @@
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
+auto Map::initializeMapBorders() -> void {
+
+    // horizontal borders
+    createMapBorder(1 * tileSize, 1, 0 * tileSize, 6 * tileSize);
+    createMapBorder(5 * tileSize, 1, 1 * tileSize, 7 * tileSize);
+    createMapBorder(1 * tileSize, 1, 1 * tileSize, 9 * tileSize);
+    createMapBorder(1 * tileSize, 1, 0 * tileSize, 11 * tileSize);
+    createMapBorder(3 * tileSize, 1, 2 * tileSize, 8 * tileSize);
+    createMapBorder(1 * tileSize, 1, 6 * tileSize, 6 * tileSize);
+    createMapBorder(1 * tileSize, 1, 7 * tileSize, 5 * tileSize);
+    createMapBorder(1 * tileSize, 1, 8 * tileSize, 4 * tileSize);
+    createMapBorder(1 * tileSize, 1, 9 * tileSize, 6 * tileSize);
+    createMapBorder(2 * tileSize, 1, 10 * tileSize, 7 * tileSize);
+    createMapBorder(1 * tileSize, 1, 11 * tileSize, 4 * tileSize);
+    createMapBorder(1 * tileSize, 1, 11 * tileSize, 2 * tileSize);
+    createMapBorder(2 * tileSize, 1, 10 * tileSize, 1 * tileSize);
+    createMapBorder(1 * tileSize, 1, 14 * tileSize, 1 * tileSize);
+    createMapBorder(2 * tileSize, 1, 13 * tileSize, 2 * tileSize);
+    createMapBorder(1 * tileSize, 1, 13 * tileSize, 3 * tileSize);
+    createMapBorder(1 * tileSize, 1, 14 * tileSize, 4 * tileSize);
+    createMapBorder(1 * tileSize, 1, 13 * tileSize, 5 * tileSize);
+    createMapBorder(3 * tileSize, 1, 13 * tileSize, 7 * tileSize);
+    createMapBorder(1 * tileSize, 1, 16 * tileSize, 6 * tileSize);
+    createMapBorder(3 * tileSize, 1, 17 * tileSize, 5 * tileSize);
+    createMapBorder(1 * tileSize, 1, 20 * tileSize, 6 * tileSize);
+    createMapBorder(1 * tileSize, 1, 20 * tileSize, 7 * tileSize);
+    createMapBorder(1 * tileSize, 1, 19 * tileSize, 8 * tileSize);
+    createMapBorder(2 * tileSize, 1, 15 * tileSize, 8 * tileSize);
+    createMapBorder(1 * tileSize, 1, 19 * tileSize, 10 * tileSize);
+    createMapBorder(3 * tileSize, 1, 19 * tileSize, 13 * tileSize);
+    createMapBorder(1 * tileSize, 1, 22 * tileSize, 12 * tileSize);
+    createMapBorder(2 * tileSize, 1, 23 * tileSize, 11 * tileSize);
+    createMapBorder(1 * tileSize, 1, 25 * tileSize, 10 * tileSize);
+    createMapBorder(4 * tileSize, 1, 19 * tileSize, 14 * tileSize);
+    createMapBorder(1 * tileSize, 1, 23 * tileSize, 15 * tileSize);
+    createMapBorder(2 * tileSize, 1, 24 * tileSize, 16 * tileSize);
+    createMapBorder(1 * tileSize, 1, 18 * tileSize, 15 * tileSize);
+    createMapBorder(2 * tileSize, 1, 16 * tileSize, 16 * tileSize);
+    createMapBorder(2 * tileSize, 1, 14 * tileSize, 17 * tileSize);
+    createMapBorder(1 * tileSize, 1, 13 * tileSize, 15 * tileSize);
+    createMapBorder(1 * tileSize, 1, 12 * tileSize, 13 * tileSize);
+    createMapBorder(1 * tileSize, 1, 11 * tileSize, 12 * tileSize);
+    createMapBorder(2 * tileSize, 1, 9 * tileSize, 11 * tileSize);
+    createMapBorder(3 * tileSize, 1, 5 * tileSize, 11 * tileSize);
+    createMapBorder(1 * tileSize, 1, 6 * tileSize, 10 * tileSize);
+    createMapBorder(1 * tileSize, 1, 6 * tileSize, 9 * tileSize);
+    createMapBorder(1 * tileSize, 1, 4 * tileSize, 9 * tileSize);
+    createMapBorder(1 * tileSize, 1, 4 * tileSize, 10 * tileSize);
+    createMapBorder(2 * tileSize, 1, 15 * tileSize, 9 * tileSize);
+    createMapBorder(1 * tileSize, 1, 19 * tileSize, 9 * tileSize);
+    createMapBorder(1 * tileSize, 1, 7 * tileSize, 13 * tileSize);
+    createMapBorder(1 * tileSize, 1, 6 * tileSize, 14 * tileSize);
+    createMapBorder(1 * tileSize, 1, 5 * tileSize, 15 * tileSize);
+    createMapBorder(1 * tileSize, 1, 5 * tileSize, 17 * tileSize);
+    createMapBorder(3 * tileSize, 1, 6 * tileSize, 18 * tileSize);
+    createMapBorder(2 * tileSize, 1, 9 * tileSize, 17 * tileSize);
+    createMapBorder(1 * tileSize, 1, 10 * tileSize, 16 * tileSize);
+    createMapBorder(1 * tileSize, 1, 9 * tileSize, 14 * tileSize);
+
+
+    // vertical borders
+    createMapBorder(1, 1 * tileSize, 1 * tileSize, 6 * tileSize);
+    createMapBorder(1, 2 * tileSize, 1 * tileSize, 9 * tileSize);
+    createMapBorder(1, 1 * tileSize, 2 * tileSize, 8 * tileSize);
+    createMapBorder(1, 2 * tileSize, 4 * tileSize, 8 * tileSize);
+    createMapBorder(1, 1 * tileSize, 5 * tileSize, 8 * tileSize);
+    createMapBorder(1, 1 * tileSize, 5 * tileSize, 10 * tileSize);
+    createMapBorder(1, 2 * tileSize, 6 * tileSize, 8 * tileSize);
+    createMapBorder(1, 1 * tileSize, 7 * tileSize, 9 * tileSize);
+    createMapBorder(1, 4 * tileSize, 8 * tileSize, 9 * tileSize);
+    createMapBorder(1, 1 * tileSize, 7 * tileSize, 13 * tileSize);
+    createMapBorder(1, 1 * tileSize, 6 * tileSize, 14 * tileSize);
+    createMapBorder(1, 2 * tileSize, 5 * tileSize, 15 * tileSize);
+    createMapBorder(1, 1 * tileSize, 6 * tileSize, 17 * tileSize);
+    createMapBorder(1, 1 * tileSize, 9 * tileSize, 17 * tileSize);
+    createMapBorder(1, 1 * tileSize, 11 * tileSize, 16 * tileSize);
+    createMapBorder(1, 2 * tileSize, 10 * tileSize, 14 * tileSize);
+    createMapBorder(1, 3 * tileSize, 9 * tileSize, 11 * tileSize);
+    createMapBorder(1, 1 * tileSize, 11 * tileSize, 11 * tileSize);
+    createMapBorder(1, 1 * tileSize, 12 * tileSize, 12 * tileSize);
+    createMapBorder(1, 2 * tileSize, 13 * tileSize, 13 * tileSize);
+    createMapBorder(1, 2 * tileSize, 14 * tileSize, 15 * tileSize);
+    createMapBorder(1, 1 * tileSize, 16 * tileSize, 16 * tileSize);
+    createMapBorder(1, 1 * tileSize, 18 * tileSize, 15 * tileSize);
+    createMapBorder(1, 1 * tileSize, 19 * tileSize, 14 * tileSize);
+    createMapBorder(1, 1 * tileSize, 23 * tileSize, 14 * tileSize);
+    createMapBorder(1, 1 * tileSize, 24 * tileSize, 15 * tileSize);
+    createMapBorder(1, 1 * tileSize, 22 * tileSize, 12 * tileSize);
+    createMapBorder(1, 1 * tileSize, 23 * tileSize, 11 * tileSize);
+    createMapBorder(1, 1 * tileSize, 25 * tileSize, 10 * tileSize);
+    createMapBorder(1, 3 * tileSize, 19 * tileSize, 10 * tileSize);
+    createMapBorder(1, 1 * tileSize, 19 * tileSize, 8 * tileSize);
+    createMapBorder(1, 3 * tileSize, 20 * tileSize, 7 * tileSize);
+    createMapBorder(1, 1 * tileSize, 21 * tileSize, 6 * tileSize);
+    createMapBorder(1, 1 * tileSize, 20 * tileSize, 5 * tileSize);
+    createMapBorder(1, 1 * tileSize, 17 * tileSize, 5 * tileSize);
+    createMapBorder(1, 1 * tileSize, 16 * tileSize, 6 * tileSize);
+    createMapBorder(1, 2 * tileSize, 15 * tileSize, 7 * tileSize);
+    createMapBorder(1, 1 * tileSize, 17 * tileSize, 8 * tileSize);
+    createMapBorder(1, 2 * tileSize, 13 * tileSize, 5 * tileSize);
+    createMapBorder(1, 3 * tileSize, 12 * tileSize, 4 * tileSize);
+    createMapBorder(1, 2 * tileSize, 11 * tileSize, 2 * tileSize);
+    createMapBorder(1, 2 * tileSize, 12 * tileSize, 1 * tileSize);
+    createMapBorder(1, 1 * tileSize, 10 * tileSize, 0 * tileSize);
+    createMapBorder(1, 1 * tileSize, 13 * tileSize, 2 * tileSize);
+    createMapBorder(1, 2 * tileSize, 14 * tileSize, 1 * tileSize);
+    createMapBorder(1, 1 * tileSize, 15 * tileSize, 0 * tileSize);
+    createMapBorder(1, 2 * tileSize, 15 * tileSize, 2 * tileSize);
+    createMapBorder(1, 1 * tileSize, 14 * tileSize, 4 * tileSize);
+    createMapBorder(1, 1 * tileSize, 10 * tileSize, 6 * tileSize);
+    createMapBorder(1, 2 * tileSize, 9 * tileSize, 4 * tileSize);
+    createMapBorder(1, 1 * tileSize, 8 * tileSize, 4 * tileSize);
+    createMapBorder(1, 1 * tileSize, 7 * tileSize, 5 * tileSize);
+    createMapBorder(1, 1 * tileSize, 6 * tileSize, 6 * tileSize);
+
+}
+
+
 auto Map::initializeTiles() -> void {
     initializeFoam();
     initializeSand();
@@ -605,6 +723,11 @@ auto Map::initializeBridges() -> void {
     createStaticMapTile(22, 13, Assets::getMapTilesBridge()["MapTileBridgeEndRight"]);
 }
 
+auto Map::createMapBorder(float width, float height, float x, float y) -> void {
+    auto border = MapBorder(width, height, x, y);
+    mapBorders.push_back(&border);
+    mapBordersToRender.push_back(border);
+}
 
 auto Map::createFoam(float x, float y) -> void {
     auto foam = std::make_unique<MapTileAnimated>(Assets::getMapTileFoam());
@@ -635,6 +758,7 @@ auto Map::updateTextures() -> void {
 Map::Map()
     : tileSize(32), scale(sf::Vector2f(0.5f, 0.5f)) {
     initializeTiles();
+    initializeMapBorders();
 }
 
 Map::~Map() = default;
@@ -650,9 +774,16 @@ auto Map::render(sf::RenderTarget *window) -> void {
     for (auto& mapTile : mapTiles) {
         mapTile -> render(window);
     }
+    for (auto& mapBorder : mapBordersToRender) {
+        mapBorder.render(window);
+    }
 }
 
 
 auto Map::getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>& {
     return mapTiles;
+}
+
+auto Map::getMapBorders() -> std::vector<Collidable*> & {
+    return mapBorders;
 }
