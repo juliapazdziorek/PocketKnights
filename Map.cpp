@@ -7,7 +7,7 @@
 auto Map::initializeMapBorders() -> void {
 
     // horizontal borders
-    createMapBorder(1 * tileSize, 1, 0 * tileSize, 6 * tileSize); //TODO to do gry bo cos za chj nie dziala
+    createMapBorder(1 * tileSize, 1, 0 * tileSize, 6 * tileSize);
     createMapBorder(5 * tileSize, 1, 1 * tileSize, 7 * tileSize);
     createMapBorder(1 * tileSize, 1, 1 * tileSize, 9 * tileSize);
     createMapBorder(1 * tileSize, 1, 0 * tileSize, 11 * tileSize);
@@ -173,7 +173,6 @@ auto Map::initializeFoam() -> void {
     createFoam(18, 9);
     createFoam(18, 8);
     createFoam(19, 7);
-    createFoam(19, 6);
     createFoam(4, 15);
     createFoam(4, 16);
     createFoam(5, 17);
@@ -181,8 +180,6 @@ auto Map::initializeFoam() -> void {
     createFoam(7, 17);
     createFoam(8, 17);
     createFoam(9, 16);
-    createFoam(9, 15);
-    createFoam(8, 14);
     createFoam(21, 13);
     createFoam(22, 14);
     createFoam(22, 15);

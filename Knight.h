@@ -11,7 +11,7 @@ class Knight : public Collidable {
 
 private:
 
-    // ----- properties ------------------------------------------------------------------------------------------------
+    // ----- variables ------------------------------------------------------------------------------------------------
     sf::Sprite knight;
     sf::Vector2f position;
     sf::Vector2f scale;
@@ -27,13 +27,13 @@ private:
     bool attacking;
     sf::Vector2f attackPosition;
 
+    std::vector<Collidable*> collidables;
+
     enum class KnightState { STANDING, RUNNING_LEFT, RUNNING_RIGHT, ATTACKING };
     KnightState knightState;
 
     enum class KnightFacing { LEFT, RIGHT, UP, DOWN };
     KnightFacing knightFacing;
-
-    std::vector<Collidable*> collidables;
 
     //TODO TO DELETE
     sf::RectangleShape hitBox;
@@ -55,7 +55,6 @@ public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     Knight();
-    ~Knight() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto isCollidingWith(Collidable& other) -> bool override;

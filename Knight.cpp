@@ -204,7 +204,7 @@ auto Knight::attack() -> void {
 
 //public:
 
-// ----- constructor / destructor --------------------------------------------------------------------------------------
+// ----- constructor ---------------------------------------------------------------------------------------------------
 
 Knight::Knight() {
 
@@ -218,12 +218,12 @@ Knight::Knight() {
     scale = sf::Vector2f(0.5f, 0.5f);
     knight.setScale(scale);
     bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(10, 10));
-    nextPositionBounds = bounds;
 
     // moving variables
     velocity = sf::Vector2f(0, 0);
-    movingSpeed = 3;
+    movingSpeed = 2;
     isColliding = false;
+    nextPositionBounds = bounds;
 
     // attack variables
     attacking = false;
@@ -241,7 +241,6 @@ Knight::Knight() {
     this->nextPositionHitBox.setSize(bounds.getSize());
     this->nextPositionHitBox.setPosition(bounds.getPosition());
     this->nextPositionHitBox.setFillColor(sf::Color::Transparent);
-
 }
 
 

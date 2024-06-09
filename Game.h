@@ -30,7 +30,11 @@ private:
     std::vector<std::unique_ptr<Collidable>> mapBorders;
     std::vector<std::unique_ptr<Collidable>> collidables;
 
-    enum class
+    enum class GameState {MENU, PAUSE, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
+    GameState gameState;
+
+    enum class DifficultyLevel {EASY, MEDIUM, HARD};
+    DifficultyLevel difficultyLevel;
 
     //TODO TO DELETE
     /*sf::Texture gridTexture;
@@ -43,6 +47,7 @@ private:
     // ----- private methods -------------------------------------------------------------------------------------------
     auto updateMap() -> void;
     auto updateKnight() -> void;
+    auto updateGoblins() -> void;
 
 
 public:

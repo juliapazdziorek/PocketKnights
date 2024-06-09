@@ -15,7 +15,6 @@ public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     MapBorder(float width, float height, float x, float y);
-    ~MapBorder() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto getGlobalBounds() const -> sf::FloatRect override;

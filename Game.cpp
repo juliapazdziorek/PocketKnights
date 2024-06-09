@@ -41,6 +41,12 @@ auto Game::updateKnight() -> void {
     knight.updateState();
 }
 
+auto Game::updateGoblins() -> void {
+    for (auto& goblin : goblins) {
+        goblin.updateState();
+    }
+}
+
 
 
 //public
@@ -52,9 +58,16 @@ Game::Game(sf::RenderWindow& window) {
     // window
     this->window = &window;
 
-    // (assets are created by default)
-
     movingCollidables.push_back(&knight);
+
+    gameState = GameState::MENU;
+    difficultyLevel = DifficultyLevel::MEDIUM;
+
+    goblins.emplace_back();
+
+    for (auto& goblin : goblins) {
+        movingCollidables.push_back(&goblin);
+    }
 
 
 
@@ -79,6 +92,7 @@ auto Game::updateState() -> void {
     handleCollision();
 
     updateKnight();
+    updateGoblins();
     updateMap();
 
 }
@@ -91,8 +105,11 @@ auto Game::render() -> void {
     // render map
     map.render(window);
 
-    // render entities //TODO in vector maybe
+    // render entities
     knight.render(window);
+    for (auto& goblin : goblins) {
+        goblin.render(window);
+    }
 
     //TODO TO DELETE
     //this->window->draw(grid);
