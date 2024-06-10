@@ -40,7 +40,7 @@ Animation::~Animation() = default;
 // ----- public methods ------------------------------------------------------------------------------------------------
 
 auto Animation::applyTexture(sf::Sprite& sprite) -> void {
-    sprite.setTexture(this->texture);//TODO teksturana sprite i tu tylkozmiana intrect
+    sprite.setTexture(texture);//TODO teksturana sprite i tu tylkozmiana intrect
     sprite.setTextureRect(frames[currentTextureIndex]);
 }
 

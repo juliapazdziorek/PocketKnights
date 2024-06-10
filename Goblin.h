@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
@@ -21,6 +22,7 @@ private:
     float movingSpeed;
     bool isColliding;
 
+    std::vector<Animation> animations;
     sf::Clock animationClock;
 
     sf::Clock attackClock;
@@ -45,7 +47,7 @@ private:
     auto updateAttack() -> void;
     auto updateTexture() -> void;
     auto updateCollision() -> void;
-    auto updatePosition() -> void;
+    auto updatePositionVariable() -> void;
     auto updateBounds() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
@@ -62,5 +64,6 @@ public:
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
+    auto setPosition(sf::Vector2f position) -> void;
 
 };

@@ -17,7 +17,7 @@ auto Goblin::updateEvents() -> void {
             velocity.y = 0;
             if (!isColliding) goblin.move(velocity);
 
-            updatePosition();
+            updatePositionVariable();
             updateBounds();
             nextPositionBounds.left = bounds.left - movingSpeed;
             nextPositionBounds.top = bounds.top;
@@ -31,7 +31,7 @@ auto Goblin::updateEvents() -> void {
             velocity.y = 0;
             if (!isColliding) goblin.move(velocity);
 
-            updatePosition();
+            updatePositionVariable();
             updateBounds();
             nextPositionBounds.left = bounds.left + movingSpeed;
             nextPositionBounds.top = bounds.top;
@@ -44,7 +44,7 @@ auto Goblin::updateEvents() -> void {
             velocity.y = -movingSpeed;
             if (!isColliding) goblin.move(velocity);
 
-            updatePosition();
+            updatePositionVariable();
             updateBounds();
             nextPositionBounds.left = bounds.left;
             nextPositionBounds.top = bounds.top- movingSpeed;
@@ -62,7 +62,7 @@ auto Goblin::updateEvents() -> void {
             velocity.y = movingSpeed;
             if (!isColliding) goblin.move(velocity);
 
-            updatePosition();
+            updatePositionVariable();
             updateBounds();
             nextPositionBounds.left = bounds.left;
             nextPositionBounds.top = bounds.top + movingSpeed;
@@ -125,20 +125,20 @@ auto Goblin::updateTexture() -> void {
     // apply animations for: standing, running
     switch (this->goblinState) {
         case GoblinState::STANDING: {
-            Assets::getAnimationGoblinStanding().updateFrame(animationClock);
-            Assets::getAnimationGoblinStanding().applyTexture(goblin);
+            animations[0].updateFrame(animationClock);
+            animations[0].applyTexture(goblin);
             break;
         }
 
         case GoblinState::RUNNING_RIGHT: {
-            Assets::getAnimationGoblinRunningRight().updateFrame(animationClock);
-            Assets::getAnimationGoblinRunningRight().applyTexture(goblin);
+            animations[1].updateFrame(animationClock);
+            animations[1].applyTexture(goblin);
             break;
         }
 
         case GoblinState::RUNNING_LEFT: {
-            Assets::getAnimationGoblinRunningLeft().updateFrame(animationClock);
-            Assets::getAnimationGoblinRunningLeft().applyTexture(goblin);
+            animations[2].updateFrame(animationClock);
+            animations[2].applyTexture(goblin);
             break;
         }
 
@@ -146,26 +146,26 @@ auto Goblin::updateTexture() -> void {
         case GoblinState::ATTACKING: {
             switch (goblinFacing) {
                 case GoblinFacing::RIGHT: {
-                    Assets::getAnimationGoblinAttackRight().updateFrame(animationClock);
-                    Assets::getAnimationGoblinAttackRight().applyTexture(goblin);
+                    animations[3].updateFrame(animationClock);
+                    animations[3].applyTexture(goblin);
                     break;
                 }
 
                 case GoblinFacing::LEFT: {
-                    Assets::getAnimationGoblinAttackLeft().updateFrame(animationClock);
-                    Assets::getAnimationGoblinAttackLeft().applyTexture(goblin);
+                    animations[4].updateFrame(animationClock);
+                    animations[4].applyTexture(goblin);
                     break;
                 }
 
                 case GoblinFacing::UP: {
-                    Assets::getAnimationGoblinAttackUp().updateFrame(animationClock);
-                    Assets::getAnimationGoblinAttackUp().applyTexture(goblin);
+                    animations[5].updateFrame(animationClock);
+                    animations[5].applyTexture(goblin);
                     break;
                 }
 
                 case GoblinFacing::DOWN: {
-                    Assets::getAnimationGoblinAttackDown().updateFrame(animationClock);
-                    Assets::getAnimationGoblinAttackDown().applyTexture(goblin);
+                    animations[6].updateFrame(animationClock);
+                    animations[6].applyTexture(goblin);
                     break;
                 }
             }
@@ -175,7 +175,7 @@ auto Goblin::updateTexture() -> void {
 }
 
 
-auto Goblin::updatePosition() -> void {
+auto Goblin::updatePositionVariable() -> void {
     position = goblin.getPosition();
 }
 
@@ -210,11 +210,20 @@ Goblin::Goblin() {
     goblinFacing = GoblinFacing::DOWN;
 
     // sprite variables
-    position = sf::Vector2f(250, 250); //TODO -> będą spawnowane w różnych miejscach, więc to jest do usunięcia w którymś momencie
+    position = sf::Vector2f(-64, 32 * 5 + 16); //TODO -> będą spawnowane w różnych miejscach, więc to jest do usunięcia w którymś momencie
     goblin.setPosition(position);
     scale = sf::Vector2f(0.5f, 0.5f);
     goblin.setScale(scale);
     bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 54), sf::Vector2f(10, 10));
+
+    // animations
+    animations.push_back(Assets::getAnimationGoblinStanding());
+    animations.push_back(Assets::getAnimationGoblinRunningRight());
+    animations.push_back(Assets::getAnimationGoblinRunningLeft());
+    animations.push_back(Assets::getAnimationGoblinAttackRight());
+    animations.push_back(Assets::getAnimationGoblinAttackLeft());
+    animations.push_back(Assets::getAnimationGoblinAttackUp());
+    animations.push_back(Assets::getAnimationGoblinAttackDown());
 
     // moving variables
     velocity = sf::Vector2f(0, 0);
@@ -276,5 +285,12 @@ auto Goblin::render(sf::RenderTarget *window) -> void {
     window->draw(this->hitBox);
     window->draw(this->nextPositionHitBox);
 }
+
+auto Goblin::setPosition(sf::Vector2f position) -> void {
+    this->position = position;
+    goblin.setPosition(position);
+}
+
+
 
 

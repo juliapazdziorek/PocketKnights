@@ -722,7 +722,7 @@ auto Map::initializeBridges() -> void {
 
 auto Map::createMapBorder(float width, float height, float x, float y) -> void {
     auto border = std::make_unique<MapBorder>(width, height, x, y);
-    mapBordersToRender.push_back(border.get()); //TU UNIQE POITERY
+    mapBordersToRender.push_back(border.get());
     mapBorders.push_back(std::move(border));
 }
 
