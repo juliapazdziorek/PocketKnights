@@ -1,14 +1,5 @@
-//
-// Created by Julia Paździorek on 10/06/2024.
-//
+#pragma once
 
-#ifndef CPPGRA_UTILITY_H
-#define CPPGRA_UTILITY_H
+#include <random>
 
-
-class Utility {
-
-};
-
-
-#endif //CPPGRA_UTILITY_H
+auto mathRandomInCpp(int const from, int const to) -> int;

@@ -50,14 +50,66 @@ auto Game::updateGoblins() -> void {
 
 // ---- private methods ------------------------------------------------------------------------------------------------
 
+auto Game::observeGameState() -> void {
+
+    switch (gameState) {
+        case GameState::MENU:
+            break;
+        case GameState::PAUSE:
+            break;
+        case GameState::FIRST_WAVE: {
+            initializeFirstWave();
+            observeFirstWaveState();
+            break;
+        }
+        case GameState::SECOND_WAVE: {
+            initializeSecondWave();
+            observeSecondWaveState();
+            break;
+        }
+        case GameState::THIRD_WAVE: {
+            initializeThirdWave();
+            observeThirdWaveState();
+            break;
+        }
+    }
+}
+
+auto Game::initializeFirstWave() -> void {
+
+}
+
+auto Game::observeFirstWaveState() -> void {
+
+}
+
+auto Game::initializeSecondWave() -> void {
+
+}
+
+auto Game::observeSecondWaveState() -> void {
+
+}
+
+auto Game::initializeThirdWave() -> void {
+
+}
+
+auto Game::observeThirdWaveState() -> void {
+
+}
+
+
+
 auto Game::spawnGoblins(int amount) -> void { //TODO !(not tested)!
 
     enum class Island {
-        WEST, NORTH, EAST
+        WEST = 0, NORTH = 1, EAST = 2
     };
     Island island;
 
-    //generate random number from 0 and set island variable according to enum
+    auto islandId = mathRandomInCpp(0, 2); //TODO czy to zadziała?
+    island = static_cast<Island>(islandId);
 
     switch (island) {
         case Island::WEST: {
@@ -72,7 +124,7 @@ auto Game::spawnGoblins(int amount) -> void { //TODO !(not tested)!
         case Island::NORTH: {
             for (int i = 0; i < amount; ++i) {
                 auto goblin = Goblin();
-                goblin.setPosition(sf::Vector2f(0, 0));
+                goblin.setPosition(sf::Vector2f(384, (float)(-192 * i)));
                 goblins.push_back(goblin);
             }
             break;
@@ -81,16 +133,12 @@ auto Game::spawnGoblins(int amount) -> void { //TODO !(not tested)!
         case Island::EAST: {
             for (int i = 0; i < amount; ++i) {
                 auto goblin = Goblin();
-                goblin.setPosition(sf::Vector2f(0, 0));
+                goblin.setPosition(sf::Vector2f((float)(832 + (192 * i)), 368));
                 goblins.push_back(goblin);
             }
             break;
         }
     }
-
-
-
-
 }
 
 
@@ -113,7 +161,7 @@ Game::Game(sf::RenderWindow& window) {
     auto goblin2 = Goblin();
     goblin2.setPosition(sf::Vector2f((float)(-192 * 2), 176));
     auto goblin3 = Goblin();
-    goblin3.setPosition(sf::Vector2f((float)(-192 * 3), 176));
+    goblin3.setPosition(sf::Vector2f(848 + 192, 368));
     goblins.push_back(goblin1);
     goblins.push_back(goblin2);
     goblins.push_back(goblin3);
@@ -141,6 +189,8 @@ auto Game::isRunning() -> bool {
 }
 
 auto Game::updateState() -> void {
+    observeGameState();
+
     updateEvents();
     handleCollision();
 

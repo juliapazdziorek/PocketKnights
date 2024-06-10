@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine/Collidable.h"
+#include "Engine/Utility.h"
 #include "Assets/Assets.h"
 #include "Assets/MapBorder.h"
 #include "Map.h"
@@ -50,6 +51,13 @@ private:
     auto updateGoblins() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
+    auto observeGameState() -> void;
+    auto initializeFirstWave() -> void;
+    auto observeFirstWaveState() -> void;
+    auto initializeSecondWave() -> void;
+    auto observeSecondWaveState() -> void;
+    auto initializeThirdWave() -> void;
+    auto observeThirdWaveState() -> void;
     auto spawnGoblins(int amount) -> void;
 
 

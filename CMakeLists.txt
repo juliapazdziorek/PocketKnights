@@ -24,6 +24,7 @@ add_executable(PocketKnight main.cpp
         Game.cpp
         Engine/Entity.cpp
         Engine/Collidable.cpp
+        Engine/Utility.cpp
         Assets/Assets.cpp
         Assets/MapBorder.cpp
         Assets/MapTile.cpp
