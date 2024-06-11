@@ -29,6 +29,7 @@ private:
 
     std::vector<Collidable*> movingCollidables;
     std::vector<std::unique_ptr<Collidable>> mapBorders;
+    std::vector<std::unique_ptr<Collidable>> attacks;
     std::vector<std::unique_ptr<Collidable>> collidables;
 
     enum class GameState {MENU, PAUSE, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
@@ -52,6 +53,7 @@ private:
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto observeGameState() -> void;
+    auto observeAttacks() -> void;
     auto initializeFirstWave() -> void;
     auto observeFirstWaveState() -> void;
     auto initializeSecondWave() -> void;

@@ -4,7 +4,7 @@
 
 // ----- event updating ------------------------------------------------------------------------------------------------
 
-auto Knight::updateEvents() -> void {
+auto Knight::updateEvents() -> void { //zrobic wektor obiektow entiites ataku i potem przesylac go grze i te ataki beda sprawdzc czy koliduja z wrogami :))))
 
     // if not in other animation
     if(!attacking) {
@@ -77,10 +77,9 @@ auto Knight::updateEvents() -> void {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             knightState = KnightState::ATTACKING;
             attacking = true;
-            attackClock.restart();
+            attackAnimationClock.restart();
             attackPosition = position;
-            //attack();
-
+            attack();
         }
 
         // standing
@@ -111,12 +110,12 @@ auto Knight::updateAttack() -> void {
     if(attacking) {
 
         // not moving while attack
-        while (attackClock.getElapsedTime() <= sf::seconds(0.1f)) {
+        while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
             knight.setPosition(attackPosition);
         }
 
         // move on after attacking
-        if (attackClock.getElapsedTime() >= sf::seconds(0.6f)) {
+        if (attackAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
             attacking = false;
         }
     }
@@ -151,24 +150,32 @@ auto Knight::updateTexture() -> void {
                 case KnightFacing::RIGHT: {
                     Assets::getAnimationKnightAttackRight().updateFrame(animationClock);
                     Assets::getAnimationKnightAttackRight().applyTexture(knight);
+                    attackBounds.left = bounds.left + 10;
+                    attackBounds.top = bounds.top - 11;
                     break;
                 }
 
                 case KnightFacing::LEFT: {
                     Assets::getAnimationKnightAttackLeft().updateFrame(animationClock);
                     Assets::getAnimationKnightAttackLeft().applyTexture(knight);
+                    attackBounds.left = bounds.left - 32;
+                    attackBounds.top = bounds.top - 11;
                     break;
                 }
 
                 case KnightFacing::UP: {
                     Assets::getAnimationKnightAttackUp().updateFrame(animationClock);
                     Assets::getAnimationKnightAttackUp().applyTexture(knight);
+                    attackBounds.left = bounds.left - 11;
+                    attackBounds.top = bounds.top - 32;
                     break;
                 }
 
                 case KnightFacing::DOWN: {
                     Assets::getAnimationKnightAttackDown().updateFrame(animationClock);
                     Assets::getAnimationKnightAttackDown().applyTexture(knight);
+                    attackBounds.left = bounds.left - 11;
+                    attackBounds.top = bounds.top + 10;
                     break;
                 }
             }
@@ -197,7 +204,13 @@ auto Knight::getGlobalBounds() const -> sf::FloatRect {
 
 
 auto Knight::attack() -> void {
+    currentAttack.setBounds(attackBounds);
 
+    /*if (!currentAttack) {
+        currentAttack = Attack(attackBounds);
+    } else {
+        currentAttack.reset();
+    }*/
 }
 
 
@@ -228,6 +241,9 @@ Knight::Knight() {
     // attack variables
     attacking = false;
     attackPosition = position;
+    attackBounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(32, 32));
+    currentAttack = Attack(attackBounds);
+    previousBeingAttacked = Attack();
 
     //TODO to delete
     this->hitBox.setOutlineColor(sf::Color::Red);
@@ -238,15 +254,21 @@ Knight::Knight() {
 
     this->nextPositionHitBox.setOutlineColor(sf::Color::Blue);
     this->nextPositionHitBox.setOutlineThickness(1);
-    this->nextPositionHitBox.setSize(bounds.getSize());
-    this->nextPositionHitBox.setPosition(bounds.getPosition());
+    this->nextPositionHitBox.setSize(nextPositionBounds.getSize());
+    this->nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
     this->nextPositionHitBox.setFillColor(sf::Color::Transparent);
+
+    this->attackHitBox.setOutlineColor(sf::Color::Yellow);
+    this->attackHitBox.setOutlineThickness(1);
+    this->attackHitBox.setSize(attackBounds.getSize());
+    this->attackHitBox.setPosition(bounds.getPosition());
+    this->attackHitBox.setFillColor(sf::Color::Transparent);
 }
 
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Knight::isCollidingWith(Collidable &other) -> bool {
+auto Knight::isCollidingWith(Collidable &other) const -> bool {
     return nextPositionBounds.intersects(other.getGlobalBounds());
 }
 
@@ -254,6 +276,13 @@ auto Knight::isCollidingWith(Collidable &other) -> bool {
 auto Knight::onCollisionWith(Collidable &other) -> void {
     isColliding = true;
     collidables.push_back(&other);
+
+    if (typeid(other) == typeid(Attack)) {
+        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
+            fmt::println("GOWNO");
+            previousBeingAttacked.setBounds(other.getGlobalBounds());
+        }
+    }
 }
 
 
@@ -269,6 +298,9 @@ auto Knight::updateState() -> void {
     //TODO to delete
     hitBox.setPosition(bounds.getPosition());
     nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
+    attackHitBox.setPosition(attackBounds.getPosition());
+
+
 }
 
 
@@ -278,4 +310,10 @@ auto Knight::render(sf::RenderTarget *window) -> void {
     //TODO to delete
     window->draw(this->hitBox);
     window->draw(this->nextPositionHitBox);
+    window->draw(this->attackHitBox);
+}
+
+
+auto Knight::getCurrentAttack() -> Attack& {
+    return currentAttack;
 }

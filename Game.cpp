@@ -25,6 +25,11 @@ auto Game::handleCollision() -> void {
                 movingCollidable->onCollisionWith(*mapBorder);
             }
         }
+
+        for (auto const& attack : attacks) {
+            movingCollidable->onCollisionWith(*attack);
+        }
+
         for (auto const& collidable : collidables ) {
             if (movingCollidable->isCollidingWith(*collidable)) {
                 movingCollidable->onCollisionWith(*collidable);
@@ -52,6 +57,8 @@ auto Game::updateGoblins() -> void {
 
 auto Game::observeGameState() -> void {
 
+    observeAttacks();
+
     switch (gameState) {
         case GameState::MENU:
             break;
@@ -75,30 +82,48 @@ auto Game::observeGameState() -> void {
     }
 }
 
+
+auto Game::observeAttacks() -> void {
+
+    for (auto& goblin : goblins) {
+        if (knight.getCurrentAttack().isCollidingWith(goblin)) {
+            goblin.onCollisionWith(knight.getCurrentAttack());
+        }
+    }
+
+    //TODO for goblins same
+
+}
+
+
 auto Game::initializeFirstWave() -> void {
 
 }
+
 
 auto Game::observeFirstWaveState() -> void {
 
 }
 
+
 auto Game::initializeSecondWave() -> void {
 
 }
+
 
 auto Game::observeSecondWaveState() -> void {
 
 }
 
+
 auto Game::initializeThirdWave() -> void {
 
 }
 
+
 auto Game::observeThirdWaveState() -> void {
 
 }
-
 
 
 auto Game::spawnGoblins(int amount) -> void { //TODO !(not tested)!
@@ -219,6 +244,7 @@ auto Game::render() -> void {
 
     window->display();
 }
+
 
 
 

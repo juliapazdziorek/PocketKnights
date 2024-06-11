@@ -7,7 +7,7 @@ auto Assets::loadTextures() -> void {
 
     //knightTexture
     auto knightTexture = sf::Texture();
-    if (!knightTexture.loadFromFile("TinySwords/Knight.png")) {
+    if (!knightTexture.loadFromFile("../TinySwords/Knight.png")) { //TODO kropeczki :) 
         fmt::println("File can not load from file: TinySwords/Knight.png");
     }
     knightTexture.setSmooth(true);
@@ -15,7 +15,7 @@ auto Assets::loadTextures() -> void {
 
     //knightTextureFlipped
     auto knightTextureFlipped = sf::Texture();
-    if (!knightTextureFlipped.loadFromFile("TinySwords/KnightFlipped.png")) {
+    if (!knightTextureFlipped.loadFromFile("../TinySwords/KnightFlipped.png")) {
         fmt::println("File can not load from file: TinySwords/KnightFlipped.png");
     }
     knightTextureFlipped.setSmooth(true);
@@ -23,7 +23,7 @@ auto Assets::loadTextures() -> void {
 
     //goblinTexture
     auto goblinTexture = sf::Texture();
-    if (!goblinTexture.loadFromFile("TinySwords/Goblin.png")) {
+    if (!goblinTexture.loadFromFile("../TinySwords/Goblin.png")) {
         fmt::println("File can not load from file: TinySwords/Goblin.png");
     }
     goblinTexture.setSmooth(true);
@@ -31,7 +31,7 @@ auto Assets::loadTextures() -> void {
 
     //goblinTextureFlipped
     auto goblinTextureFlipped = sf::Texture();
-    if (!goblinTextureFlipped.loadFromFile("TinySwords/GoblinFlipped.png")) {
+    if (!goblinTextureFlipped.loadFromFile("../TinySwords/GoblinFlipped.png")) {
         fmt::println("File can not load from file: TinySwords/GoblinFlipped.png");
     }
     goblinTextureFlipped.setSmooth(true);
@@ -39,7 +39,7 @@ auto Assets::loadTextures() -> void {
 
     //mapTileGrassSandTexture
     auto mapTileGrassSandTexture = sf::Texture();
-    if (!mapTileGrassSandTexture.loadFromFile("TinySwords/Terrain/MapTileGrassSand.png")) {
+    if (!mapTileGrassSandTexture.loadFromFile("../TinySwords/Terrain/MapTileGrassSand.png")) {
         fmt::println("File can not load from file: TinySwords/MapTileGrassSand.png");
     }
     mapTileGrassSandTexture.setSmooth(true);
@@ -47,7 +47,7 @@ auto Assets::loadTextures() -> void {
 
     //mapTileWallTexture
     auto mapTileWallTexture = sf::Texture();
-    if (!mapTileWallTexture.loadFromFile("TinySwords/Terrain/MapTileWall.png")) {
+    if (!mapTileWallTexture.loadFromFile("../TinySwords/Terrain/MapTileWall.png")) {
         fmt::println("File can not load from file: TinySwords/MapTileWall.png");
     }
     mapTileWallTexture.setSmooth(true);
@@ -55,7 +55,7 @@ auto Assets::loadTextures() -> void {
 
     //mapTileBridgeTexture
     auto mapTileBridgeTexture = sf::Texture();
-    if (!mapTileBridgeTexture.loadFromFile("TinySwords/Terrain/MapTileBridge.png")) {
+    if (!mapTileBridgeTexture.loadFromFile("../TinySwords/Terrain/MapTileBridge.png")) {
         fmt::println("File can not load from file: TinySwords/MapTileBridge.png");
     }
     mapTileBridgeTexture.setSmooth(true);
@@ -63,7 +63,7 @@ auto Assets::loadTextures() -> void {
 
     //mapTileShadowTexture
     auto mapTileShadowTexture = sf::Texture();
-    if (!mapTileShadowTexture.loadFromFile("TinySwords/Terrain/Shadow.png")) {
+    if (!mapTileShadowTexture.loadFromFile("../TinySwords/Terrain/Shadow.png")) {
         fmt::println("File can not load from file: TinySwords/Shadow.png");
     }
     mapTileShadowTexture.setSmooth(true);
@@ -71,7 +71,7 @@ auto Assets::loadTextures() -> void {
 
     //tileFoamTexture
     auto tileFoamTexture = sf::Texture();
-    if (!tileFoamTexture.loadFromFile("TinySwords/Terrain/Foam.png")) {
+    if (!tileFoamTexture.loadFromFile("../TinySwords/Terrain/Foam.png")) {
         fmt::println("File can not load from file: TinySwords/Foam.png");
     }
     tileFoamTexture.setSmooth(true);
@@ -79,7 +79,7 @@ auto Assets::loadTextures() -> void {
 
     //smallRockTexture
     auto smallRockTexture = sf::Texture();
-    if (!smallRockTexture.loadFromFile("TinySwords/Terrain/SmallRock.png")) {
+    if (!smallRockTexture.loadFromFile("../TinySwords/Terrain/SmallRock.png")) {
         fmt::println("File can not load from file: TinySwords/SmallRock.png");
     }
     smallRockTexture.setSmooth(true);
@@ -87,7 +87,7 @@ auto Assets::loadTextures() -> void {
 
     //mediumRockTexture
     auto mediumRockTexture = sf::Texture();
-    if (!mediumRockTexture.loadFromFile("TinySwords/Terrain/MediumRock.png")) {
+    if (!mediumRockTexture.loadFromFile("../TinySwords/Terrain/MediumRock.png")) {
         fmt::println("File can not load from file: TinySwords/MediumRock.png");
     }
     mediumRockTexture.setSmooth(true);
@@ -95,7 +95,7 @@ auto Assets::loadTextures() -> void {
 
     //bigRockTexture
     auto bigRockTexture = sf::Texture();
-    if (!bigRockTexture.loadFromFile("TinySwords/Terrain/BigRock.png")) {
+    if (!bigRockTexture.loadFromFile("../TinySwords/Terrain/BigRock.png")) {
         fmt::println("File can not load from file: TinySwords/BigRock.png");
     }
     bigRockTexture.setSmooth(true);
@@ -103,7 +103,7 @@ auto Assets::loadTextures() -> void {
 
     //largeRockTexture
     auto largeRockTexture = sf::Texture();
-    if (!largeRockTexture.loadFromFile("TinySwords/Terrain/LargeRock.png")) {
+    if (!largeRockTexture.loadFromFile("../TinySwords/Terrain/LargeRock.png")) {
         fmt::println("File can not load from file: TinySwords/LargeRock.png");
     }
     largeRockTexture.setSmooth(true);

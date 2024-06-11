@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 
 #include "Engine/Collidable.h"
+#include "Engine/Attack.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
@@ -23,9 +24,12 @@ private:
 
     sf::Clock animationClock;
 
-    sf::Clock attackClock;
+    sf::Clock attackAnimationClock;
     bool attacking;
     sf::Vector2f attackPosition;
+    sf::FloatRect attackBounds;
+    Attack currentAttack;
+    Attack previousBeingAttacked;
 
     std::vector<Collidable*> collidables;
 
@@ -38,6 +42,7 @@ private:
     //TODO TO DELETE
     sf::RectangleShape hitBox;
     sf::RectangleShape nextPositionHitBox;
+    sf::RectangleShape attackHitBox;
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
@@ -57,9 +62,11 @@ public:
     Knight();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto isCollidingWith(Collidable& other) -> bool override;
+    auto isCollidingWith(Collidable& other) const -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
+
+    auto getCurrentAttack() -> Attack&;
 
 };

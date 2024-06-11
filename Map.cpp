@@ -386,7 +386,6 @@ auto Map::initializeWallFlorFirstLayer() -> void {
     createStaticMapTile(24, 15, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(25, 15, Assets::getMapTilesWall()["MapTileWallBorderDown"]);
 
-
     //central island
     createStaticMapTile(3, 5, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(4, 7, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);

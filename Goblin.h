@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 
 #include "Engine/Collidable.h"
+#include "Engine/Attack.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
@@ -25,9 +26,12 @@ private:
     std::vector<Animation> animations;
     sf::Clock animationClock;
 
-    sf::Clock attackClock;
+    sf::Clock attackAnimationClock;
     bool attacking;
     sf::Vector2f attackPosition;
+    sf::FloatRect attackBounds;
+    Attack currentAttack;
+    Attack previousBeingAttacked;
 
     std::vector<Collidable*> collidables;
 
@@ -60,10 +64,12 @@ public:
     Goblin();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto isCollidingWith(Collidable& other) -> bool override;
+    auto isCollidingWith(Collidable& other) const -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
+
+    auto getCurrentAttack() -> Attack&;
     auto setPosition(sf::Vector2f position) -> void;
 
 };

@@ -77,7 +77,7 @@ auto Goblin::updateEvents() -> void {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
             this->goblinState = GoblinState::ATTACKING;
             this->attacking = true;
-            this->attackClock.restart();
+            this->attackAnimationClock.restart();
             this->attackPosition = sf::Vector2f(this->position);
         }
 
@@ -108,12 +108,12 @@ auto Goblin::updateAttack() -> void {
     if(this->attacking) {
 
         // not moving while attack
-        while (attackClock.getElapsedTime() <= sf::seconds(0.1f)) {
+        while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
             this->goblin.setPosition(attackPosition);
         }
 
         // move on after attacking
-        if (attackClock.getElapsedTime() >= sf::seconds(0.6f)) {
+        if (attackAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
             this->attacking = false;
         }
     }
@@ -232,8 +232,12 @@ Goblin::Goblin() {
     nextPositionBounds = bounds;
 
     // attack variables
-    this->attacking = false;
-    this->attackPosition = position;
+    attacking = false;
+    attackPosition = position;
+    attackBounds = sf::FloatRect (sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(32, 32)); //TODO
+    currentAttack = Attack(attackBounds);
+    previousBeingAttacked = Attack();
+
 
     //TODO to delete
     this->hitBox.setOutlineColor(sf::Color::Red);
@@ -252,7 +256,7 @@ Goblin::Goblin() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Goblin::isCollidingWith(Collidable &other) -> bool {
+auto Goblin::isCollidingWith(Collidable &other) const -> bool {
     return nextPositionBounds.intersects(other.getGlobalBounds());
 }
 
@@ -260,6 +264,13 @@ auto Goblin::isCollidingWith(Collidable &other) -> bool {
 auto Goblin::onCollisionWith(Collidable &other) -> void {
     isColliding = true;
     collidables.push_back(&other);
+
+    if (typeid(other) == typeid(Attack)) {
+        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
+            fmt::println("GOWNO");
+            previousBeingAttacked.setBounds(other.getGlobalBounds());
+        }
+    }
 }
 
 
@@ -286,9 +297,14 @@ auto Goblin::render(sf::RenderTarget *window) -> void {
     window->draw(this->nextPositionHitBox);
 }
 
+
 auto Goblin::setPosition(sf::Vector2f position) -> void {
     this->position = position;
     goblin.setPosition(position);
+}
+
+auto Goblin::getCurrentAttack() -> Attack& {
+    return currentAttack;
 }
 
 
