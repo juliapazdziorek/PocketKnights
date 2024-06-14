@@ -38,6 +38,8 @@ private:
 
     std::vector<Collidable*> collidables;
 
+    bool readyToChase;
+
     enum class GoblinState { STANDING, RUNNING_LEFT, RUNNING_RIGHT, ATTACKING };
     GoblinState goblinState;
 
@@ -51,15 +53,22 @@ private:
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
+    auto updateMovement() -> void;
     auto updateAttack() -> void;
     auto updateIsAlive() -> void;
     auto updateTexture() -> void;
     auto updateCollision() -> void;
+
     auto updatePositionVariable() -> void;
-    auto updateBounds() -> void;
+    auto updateBoundsVariable() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto getGlobalBounds() const -> sf::FloatRect override;
+    auto moveToChasingPosition() -> void;
+    auto moveLeft() -> void;
+    auto moveRight() -> void;
+    auto moveUp() -> void;
+    auto moveDown() -> void;
     auto attack() -> void;
 
 public:

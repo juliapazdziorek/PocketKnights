@@ -18,7 +18,7 @@ auto Goblin::updateEvents() -> void {
             if (!isColliding) goblin.move(velocity);
 
             updatePositionVariable();
-            updateBounds();
+            updateBoundsVariable();
             nextPositionBounds.left = bounds.left - movingSpeed;
             nextPositionBounds.top = bounds.top;
         }
@@ -32,7 +32,7 @@ auto Goblin::updateEvents() -> void {
             if (!isColliding) goblin.move(velocity);
 
             updatePositionVariable();
-            updateBounds();
+            updateBoundsVariable();
             nextPositionBounds.left = bounds.left + movingSpeed;
             nextPositionBounds.top = bounds.top;
         }
@@ -45,7 +45,7 @@ auto Goblin::updateEvents() -> void {
             if (!isColliding) goblin.move(velocity);
 
             updatePositionVariable();
-            updateBounds();
+            updateBoundsVariable();
             nextPositionBounds.left = bounds.left;
             nextPositionBounds.top = bounds.top- movingSpeed;
 
@@ -63,7 +63,7 @@ auto Goblin::updateEvents() -> void {
             if (!isColliding) goblin.move(velocity);
 
             updatePositionVariable();
-            updateBounds();
+            updateBoundsVariable();
             nextPositionBounds.left = bounds.left;
             nextPositionBounds.top = bounds.top + movingSpeed;
 
@@ -86,6 +86,20 @@ auto Goblin::updateEvents() -> void {
             this->goblinState = GoblinState::STANDING;
         }
     }
+}
+
+
+auto Goblin::updateMovement() -> void {
+
+    if (!readyToChase) {
+        moveToChasingPosition();
+        return;
+    }
+
+
+
+
+
 }
 
 
@@ -183,11 +197,15 @@ auto Goblin::updateTexture() -> void {
 
 
 auto Goblin::updatePositionVariable() -> void {
+
+    // updates position variable
     position = goblin.getPosition();
 }
 
 
-auto Goblin::updateBounds() -> void {
+auto Goblin::updateBoundsVariable() -> void {
+
+    // updates bounds accordingly to position
     bounds.left = position.x + 43;
     bounds.top = position.y + 54;
 }
@@ -198,6 +216,126 @@ auto Goblin::updateBounds() -> void {
 auto Goblin::getGlobalBounds() const -> sf::FloatRect {
     return bounds;
 }
+
+
+auto Goblin::moveToChasingPosition() -> void {
+
+    // starting from west island
+    if (position.x <= 160) {
+        moveRight();
+
+        // check if ready to chase
+        if (position.x == 160) {
+            readyToChase = true;
+        }
+    }
+
+    // starting from north island
+    if (position.y <= 184) {
+        moveDown();
+
+        // check if ready to chase
+        if (position.y == 184) {
+            readyToChase = true;
+        }
+    }
+
+    // starting from east island
+    if (position.x >= 544) {
+        moveLeft();
+
+        // check if ready to chase
+        if (position.x == 544) {
+            readyToChase = true;
+        }
+    }
+}
+
+
+auto Goblin::moveLeft() -> void {
+
+    // goblin state
+    goblinState = GoblinState::RUNNING_LEFT;
+    goblinFacing = GoblinFacing::LEFT;
+
+    // move goblin left
+    velocity.x = -movingSpeed;
+    velocity.y = 0;
+    if (!isColliding) goblin.move(velocity);
+
+    // update variables
+    updatePositionVariable();
+    updateBoundsVariable();
+    nextPositionBounds.left = bounds.left - movingSpeed;
+    nextPositionBounds.top = bounds.top;
+}
+
+
+auto Goblin::moveRight() -> void {
+
+    // goblin state
+    goblinState = GoblinState::RUNNING_RIGHT;
+    goblinFacing = GoblinFacing::RIGHT;
+
+    // move goblin right
+    velocity.x = movingSpeed;
+    velocity.y = 0;
+    if (!isColliding) goblin.move(velocity);
+
+    // update variables
+    updatePositionVariable();
+    updateBoundsVariable();
+    nextPositionBounds.left = bounds.left + movingSpeed;
+    nextPositionBounds.top = bounds.top;
+}
+
+
+auto Goblin::moveUp() -> void {
+
+    // goblin state
+    goblinFacing = GoblinFacing::UP;
+
+    // if first move is up give some animation
+    if (goblinState == GoblinState::STANDING) {
+        goblinState = GoblinState::RUNNING_LEFT;
+    }
+
+    // move goblin up
+    velocity.x = 0;
+    velocity.y = -movingSpeed;
+    if (!isColliding) goblin.move(velocity);
+
+    // update variables
+    updatePositionVariable();
+    updateBoundsVariable();
+    nextPositionBounds.left = bounds.left;
+    nextPositionBounds.top = bounds.top- movingSpeed;
+
+}
+
+auto Goblin::moveDown() -> void {
+
+    // goblin state
+    goblinFacing = GoblinFacing::DOWN;
+
+    // if first move is up give some animation
+    if (this->goblinState == GoblinState::STANDING) {
+        this->goblinState = GoblinState::RUNNING_RIGHT;
+    }
+
+    // move goblin down
+    velocity.x = 0;
+    velocity.y = movingSpeed;
+    if (!isColliding) goblin.move(velocity);
+
+    // update variables
+    updatePositionVariable();
+    updateBoundsVariable();
+    nextPositionBounds.left = bounds.left;
+    nextPositionBounds.top = bounds.top + movingSpeed;
+
+}
+
 
 
 auto Goblin::attack() -> void {
@@ -233,7 +371,8 @@ Goblin::Goblin() {
     animations.push_back(Assets::getAnimationGoblinAttackUp());
     animations.push_back(Assets::getAnimationGoblinAttackDown());
 
-    // moving variables
+    // movement variables
+    readyToChase = false;
     velocity = sf::Vector2f(0, 0);
     movingSpeed = 3;
     isColliding = false;
@@ -286,7 +425,8 @@ auto Goblin::onCollisionWith(Collidable &other) -> void {
 
 
 auto Goblin::updateState() -> void {
-    updateEvents();
+    //updateEvents();
+    updateMovement();
     updateIsAlive();
     updateAttack();
     updateTexture();
@@ -318,3 +458,9 @@ auto Goblin::setPosition(sf::Vector2f position) -> void {
 auto Goblin::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
+
+
+
+
+
+

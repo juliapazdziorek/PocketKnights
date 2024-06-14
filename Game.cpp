@@ -19,7 +19,23 @@ auto Game::updateEvents() -> void {
 // ----- updating events -----------------------------------------------------------------------------------------------
 
 auto Game::handleCollision() -> void {
-    for (auto const& movingCollidable : movingCollidables) {
+
+    for (auto const& mapBorder : map.getMapBorders()) {
+        if (knight.isCollidingWith(*mapBorder)) {
+            knight.onCollisionWith(*mapBorder);
+        }
+    }
+
+    for (auto const& goblin : goblins) {
+        for (auto const& mapBorder : map.getMapBorders()) {
+            if (goblin->isCollidingWith(*mapBorder)) {
+                goblin->onCollisionWith(*mapBorder);
+            }
+        }
+    }
+
+
+/*    for (auto const& movingCollidable : movingCollidables) {
        for (auto const& mapBorder : map.getMapBorders()) {
             if (movingCollidable->isCollidingWith(*mapBorder)) {
                 movingCollidable->onCollisionWith(*mapBorder);
@@ -31,7 +47,7 @@ auto Game::handleCollision() -> void {
                 movingCollidable->onCollisionWith(*collidable);
             }
         }
-    }
+    }*/
 }
 
 auto Game::updateMap() -> void {
@@ -44,15 +60,16 @@ auto Game::updateKnight() -> void {
 
 auto Game::updateGoblins() -> void {
     for (auto& goblin : goblins) {
-        goblin.updateState();
+        goblin->updateState();
     }
 }
 
 auto Game::updateLifeSpan() -> void {
     movingCollidables.erase(std::remove_if(movingCollidables.begin(), movingCollidables.end(),
                               [](Collidable* collidable){return !collidable->isAlive; }), movingCollidables.end());
-    goblins.erase(std::remove_if(goblins.begin(), goblins.end(),
-                                 [](const Goblin& goblin){return !goblin.isAlive; }), goblins.end());
+
+    auto toEraseGoblins = std::ranges::remove_if(goblins, [](std::unique_ptr<Goblin> const& goblin){return !goblin->isAlive; });
+    goblins.erase(toEraseGoblins.begin(), toEraseGoblins.end());
 
 }
 
@@ -120,8 +137,8 @@ auto Game::updateAttacks() -> void {
 
     // goblins being attacked
     for (auto& goblin : goblins) {
-        if (knight.getCurrentAttack().isCollidingWith(goblin)) {
-            goblin.onCollisionWith(knight.getCurrentAttack());
+        if (knight.getCurrentAttack().isCollidingWith(*goblin)) {
+            goblin->onCollisionWith(knight.getCurrentAttack());
         }
     }
 
@@ -146,10 +163,6 @@ auto Game::initializeFirstWave() -> void {
             spawnGoblin(3);
             break;
         }
-    }
-
-    for (auto& goblin : goblins) {
-        movingCollidables.push_back(&goblin);
     }
 
 }
@@ -187,29 +200,29 @@ auto Game::spawnGoblin(int amount) -> void { //TODO !(not tested)!
     };
     Island island;
 
-    for (int i = 0; i < amount; ++i) {
+    for (int i = 1; i <= amount; ++i) {
         auto islandId = mathRandomInCpp(0, 2);
         island = static_cast<Island>(islandId);
 
-        auto goblin = Goblin();
+        auto goblin = std::make_unique<Goblin>();
 
         switch (island) {
             case Island::WEST: {
-                goblin.setPosition(sf::Vector2f(100, 100)); //(float)(-192 * i), 176
+                goblin->setPosition(sf::Vector2f((float)(-192 * i), 180));
                 break;
             }
 
             case Island::NORTH: {
-                goblin.setPosition(sf::Vector2f(200, 200)); //384, (float)(-192 * i))
+                goblin->setPosition(sf::Vector2f(352, (float)(-192 * i)));
                 break;
             }
 
             case Island::EAST: {
-                goblin.setPosition(sf::Vector2f(300, 300)); ///(float)(832 + (192 * i)) / 811, 368
+                goblin->setPosition(sf::Vector2f((float)(832 + (192 * i)), 368));
                 break;
             }
         }
-        goblins.push_back(goblin);
+        goblins.push_back(std::move(goblin));
     }
 
 }
@@ -230,7 +243,7 @@ Game::Game(sf::RenderWindow& window) {
     doInitializeSecondWave = false;
     doInitializeThirdWave = false;
     gameState = GameState::FIRST_WAVE; //TODO : powiino byc menu ale huj
-    difficultyLevel = DifficultyLevel::EASY;
+    difficultyLevel = DifficultyLevel::HARD;
 
     movingCollidables.push_back(&knight);
 
@@ -291,7 +304,7 @@ auto Game::render() -> void {
     // render entities
     knight.render(window);
     for (auto& goblin : goblins) {
-        goblin.render(window);
+        goblin->render(window);
     }
 
     //TODO TO DELETE

@@ -29,7 +29,7 @@ private:
     Map map;
 
     Knight knight;
-    std::vector<Goblin> goblins;
+    std::vector<std::unique_ptr<Goblin>> goblins;
 
     std::vector<Collidable*> movingCollidables;
     std::vector<std::unique_ptr<Collidable>> mapBorders;
