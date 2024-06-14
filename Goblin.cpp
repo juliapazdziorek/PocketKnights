@@ -91,14 +91,14 @@ auto Goblin::updateEvents() -> void {
 
 auto Goblin::updateMovement() -> void {
 
+    // if not ready to chase move to chasing position
     if (!readyToChase) {
         moveToChasingPosition();
         return;
     }
 
-
-
-
+    // chase
+    chase();
 
 }
 
@@ -223,20 +223,26 @@ auto Goblin::moveToChasingPosition() -> void {
     // starting from west island
     if (position.x <= 160) {
         moveRight();
+        fmt::println("x: {}", position.x);
+        fmt::println("y: {}", position.y);
+        fmt::println("");
 
         // check if ready to chase
-        if (position.x == 160) {
+        if (position.x >= 160) {
             readyToChase = true;
+            fmt::println("TWOJA STARA 1");
         }
     }
 
     // starting from north island
-    if (position.y <= 184) {
+    if (position.y <= 176) {
         moveDown();
 
         // check if ready to chase
-        if (position.y == 184) {
+        if (position.y >= 176) {
             readyToChase = true;
+            fmt::println("TWOJA STARA 2");
+
         }
     }
 
@@ -245,10 +251,32 @@ auto Goblin::moveToChasingPosition() -> void {
         moveLeft();
 
         // check if ready to chase
-        if (position.x == 544) {
+        if (position.x <= 544) {
             readyToChase = true;
+            fmt::println("TWOJA STARA 3");
         }
     }
+}
+
+
+auto Goblin::chase() -> void {
+
+    if (position.y > chasingPosition.y) {
+        moveUp();
+    }
+
+    if (position.y < chasingPosition.y) {
+        moveDown();
+    }
+
+    if (position.x < chasingPosition.x) {
+       moveRight();
+    }
+
+    if (position.x > chasingPosition.x) {
+        moveLeft();
+    }
+
 }
 
 
@@ -353,7 +381,7 @@ Goblin::Goblin() {
     goblinState = GoblinState::STANDING;
     goblinFacing = GoblinFacing::DOWN;
     isAlive = true;
-    health = 100;
+    health = 50;
 
     // sprite variables
     position = sf::Vector2f(-64, 32 * 5 + 16); //TODO -> będą spawnowane w różnych miejscach, więc to jest do usunięcia w którymś momencie
@@ -374,8 +402,9 @@ Goblin::Goblin() {
     // movement variables
     readyToChase = false;
     velocity = sf::Vector2f(0, 0);
-    movingSpeed = 3;
+    movingSpeed = 1;
     isColliding = false;
+    chasingPosition = sf::Vector2f(416, 320);
     nextPositionBounds = bounds;
 
     // attack variables
@@ -421,6 +450,11 @@ auto Goblin::onCollisionWith(Collidable &other) -> void {
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
     }
+
+    if (typeid(other) == typeid(Knight)) {
+        attack();
+    }
+
 }
 
 
@@ -457,6 +491,10 @@ auto Goblin::setPosition(sf::Vector2f position) -> void {
 
 auto Goblin::getCurrentAttack() -> Attack& {
     return currentAttack;
+}
+
+auto Goblin::setChasingPosition(sf::Vector2f chasingPosition) -> void {
+    this->chasingPosition = chasingPosition;
 }
 
 

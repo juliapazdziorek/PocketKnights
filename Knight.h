@@ -68,5 +68,6 @@ public:
     auto render(sf::RenderTarget* window) -> void;
 
     auto getCurrentAttack() -> Attack&;
+    auto getPosition() -> sf::Vector2f;
 
 };

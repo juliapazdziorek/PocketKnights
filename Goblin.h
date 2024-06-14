@@ -9,6 +9,7 @@
 #include "Engine/Utility.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
+#include "Knight.h"
 
 class Goblin : public Collidable {
 
@@ -39,6 +40,7 @@ private:
     std::vector<Collidable*> collidables;
 
     bool readyToChase;
+    sf::Vector2f chasingPosition;
 
     enum class GoblinState { STANDING, RUNNING_LEFT, RUNNING_RIGHT, ATTACKING };
     GoblinState goblinState;
@@ -65,6 +67,7 @@ private:
     // ----- private methods -------------------------------------------------------------------------------------------
     auto getGlobalBounds() const -> sf::FloatRect override;
     auto moveToChasingPosition() -> void;
+    auto chase() -> void;
     auto moveLeft() -> void;
     auto moveRight() -> void;
     auto moveUp() -> void;
@@ -84,5 +87,6 @@ public:
 
     auto getCurrentAttack() -> Attack&;
     auto setPosition(sf::Vector2f position) -> void;
+    auto setChasingPosition(sf::Vector2f chasingPosition) -> void;
 
 };

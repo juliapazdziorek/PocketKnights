@@ -317,3 +317,7 @@ auto Knight::render(sf::RenderTarget *window) -> void {
 auto Knight::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
+
+auto Knight::getPosition() -> sf::Vector2f {
+    return position;
+}
