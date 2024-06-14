@@ -75,7 +75,6 @@ private:
     auto moveUp() -> void;
     auto moveDown() -> void;
     auto attack() -> void;
-    auto attackKnight() const -> void;
 
 public:
 
@@ -83,12 +82,13 @@ public:
     Goblin();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto isCollidingWith(Collidable& other) const -> bool override;
+    auto isCollidingWith(Collidable& other) -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
 
     auto getCurrentAttack() -> Attack&;
+    auto getIsAttacking() -> bool;
     auto setPosition(sf::Vector2f position) -> void;
     auto setChasingPosition(sf::Vector2f chasingPosition) -> void;
 

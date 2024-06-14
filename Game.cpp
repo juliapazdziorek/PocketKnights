@@ -254,7 +254,7 @@ Game::Game(sf::RenderWindow& window) {
     doInitializeSecondWave = false;
     doInitializeThirdWave = false;
     gameState = GameState::FIRST_WAVE; //TODO : powiino byc menu ale huj
-    difficultyLevel = DifficultyLevel::HARD;
+    difficultyLevel = DifficultyLevel::EASY;
 
     movingCollidables.push_back(&knight);
 

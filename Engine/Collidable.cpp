@@ -4,7 +4,7 @@
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Collidable::isCollidingWith(Collidable &other) const -> bool {
+auto Collidable::isCollidingWith(Collidable &other) -> bool {
     return getGlobalBounds().intersects(other.getGlobalBounds());
 }
 

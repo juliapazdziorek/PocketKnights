@@ -98,7 +98,9 @@ auto Goblin::updateMovement() -> void {
     }
 
     // chase
-    chase();
+    if(!attacking) {
+        chase();
+    }
 
 }
 
@@ -212,29 +214,32 @@ auto Goblin::updateBoundsVariable() -> void {
 
 
 auto Goblin::updateAttackBoundsVariable() -> void {
-    switch (goblinFacing) {
 
-        case GoblinFacing::LEFT: {
-            attackBounds.left = nextPositionBounds.left - 32;
-            attackBounds.top = nextPositionBounds.top - 11;
-            break;
-        }
+    if (!attacking) {
+        switch (goblinFacing) {
 
-        case GoblinFacing::RIGHT: {
-            attackBounds.left = nextPositionBounds.left + 10;
-            attackBounds.top = nextPositionBounds.top - 11;
-            break;
-        }
+            case GoblinFacing::LEFT: {
+                attackBounds.left = nextPositionBounds.left - 32;
+                attackBounds.top = nextPositionBounds.top - 11;
+                break;
+            }
 
-        case GoblinFacing::UP: {
-            attackBounds.left = nextPositionBounds.left - 11;
-            attackBounds.top = nextPositionBounds.top - 32;
-            break;
-        }
-        case GoblinFacing::DOWN: {
-            attackBounds.left = bounds.left - 11;
-            attackBounds.top = bounds.top + 10;
-            break;
+            case GoblinFacing::RIGHT: {
+                attackBounds.left = nextPositionBounds.left + 10;
+                attackBounds.top = nextPositionBounds.top - 11;
+                break;
+            }
+
+            case GoblinFacing::UP: {
+                attackBounds.left = nextPositionBounds.left - 11;
+                attackBounds.top = nextPositionBounds.top - 32;
+                break;
+            }
+            case GoblinFacing::DOWN: {
+                attackBounds.left = bounds.left - 11;
+                attackBounds.top = bounds.top + 10;
+                break;
+            }
         }
     }
 }
@@ -391,10 +396,6 @@ auto Goblin::moveDown() -> void {
 
 
 auto Goblin::attack() -> void {
-    goblinState = GoblinState::ATTACKING;
-    attacking = true;
-    attackAnimationClock.restart();
-    attackPosition = position;
     currentAttack.setBounds(attackBounds);
 }
 
@@ -466,8 +467,12 @@ Goblin::Goblin() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Goblin::isCollidingWith(Collidable &other) const -> bool {
-    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight)) {
+auto Goblin::isCollidingWith(Collidable &other) -> bool {
+    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight) && attackBounds != currentAttack.getGlobalBounds()) {
+        goblinState = GoblinState::ATTACKING;
+        attacking = true;
+        attackAnimationClock.restart();
+        attackPosition = position;
         attack();
     }
 
@@ -528,6 +533,11 @@ auto Goblin::setPosition(sf::Vector2f position) -> void {
 auto Goblin::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
+
+auto Goblin::getIsAttacking() -> bool {
+    return attacking;
+}
+
 
 auto Goblin::setChasingPosition(sf::Vector2f chasingPosition) -> void {
     this->chasingPosition = chasingPosition;

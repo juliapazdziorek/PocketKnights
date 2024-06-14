@@ -216,12 +216,6 @@ auto Knight::getGlobalBounds() const -> sf::FloatRect {
 
 auto Knight::attack() -> void {
     currentAttack.setBounds(attackBounds);
-
-    /*if (!currentAttack) {
-        currentAttack = Attack(attackBounds);
-    } else {
-        currentAttack.reset();
-    }*/
 }
 
 
@@ -282,7 +276,7 @@ Knight::Knight() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Knight::isCollidingWith(Collidable &other) const -> bool {
+auto Knight::isCollidingWith(Collidable &other) -> bool {
     return nextPositionBounds.intersects(other.getGlobalBounds());
 }
 
@@ -291,10 +285,7 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
 
     if (typeid(other) == typeid(Attack)) {
         if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            fmt::println("GOWNO"); //TO DELETE
-            health -= mathRandomInCpp(10, 15);
-            fmt::println("{}", health); //TO DELETE
-            fmt::println("{}", isAlive); //TO DELETE
+            health -= mathRandomInCpp(1, 2);
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
     }

@@ -66,7 +66,7 @@ public:
     Knight();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto isCollidingWith(Collidable& other) const -> bool override;
+    auto isCollidingWith(Collidable& other) -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
     auto updateState() -> void override;
     auto render(sf::RenderTarget* window) -> void;
