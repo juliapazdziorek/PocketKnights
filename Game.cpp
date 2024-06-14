@@ -32,6 +32,10 @@ auto Game::handleCollision() -> void {
                 goblin->onCollisionWith(*mapBorder);
             }
         }
+
+        if (goblin->isCollidingWith(knight)) {
+           goblin->onCollisionWith(knight);
+        }
     }
 
 
@@ -141,9 +145,15 @@ auto Game::updateAttacks() -> void {
         if (knight.getCurrentAttack().isCollidingWith(*goblin)) {
             goblin->onCollisionWith(knight.getCurrentAttack());
         }
+
+        if (goblin->getCurrentAttack().isCollidingWith(knight)) {
+            knight.onCollisionWith(goblin->getCurrentAttack());
+        }
+
     }
 
     // knight being attacked
+
 
     //TODO for goblins same
 
@@ -303,7 +313,7 @@ auto Game::render() -> void {
     map.render(window);
 
     // render entities
-    knight.render(window);
+    if (knight.isAlive) knight.render(window);
     for (auto& goblin : goblins) {
         goblin->render(window);
     }

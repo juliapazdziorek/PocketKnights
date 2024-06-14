@@ -51,6 +51,7 @@ private:
     //TODO TO DELETE
     sf::RectangleShape hitBox;
     sf::RectangleShape nextPositionHitBox;
+    sf::RectangleShape attackHitBox;
 
 
     // ----- event updating --------------------------------------------------------------------------------------------
@@ -63,6 +64,7 @@ private:
 
     auto updatePositionVariable() -> void;
     auto updateBoundsVariable() -> void;
+    auto updateAttackBoundsVariable() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
     auto getGlobalBounds() const -> sf::FloatRect override;
@@ -73,6 +75,7 @@ private:
     auto moveUp() -> void;
     auto moveDown() -> void;
     auto attack() -> void;
+    auto attackKnight() const -> void;
 
 public:
 

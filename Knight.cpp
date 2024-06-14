@@ -122,6 +122,13 @@ auto Knight::updateAttack() -> void {
 }
 
 
+auto Knight::updateIsAlive() -> void {
+    if (health < 0) {
+        isAlive = false;
+    }
+}
+
+
 auto Knight::updateTexture() -> void {
 
     // apply animations for: standing, running
@@ -186,11 +193,15 @@ auto Knight::updateTexture() -> void {
 
 
 auto Knight::updatePosition() -> void {
+
+    // updates position variable
     position = knight.getPosition();
 }
 
 
 auto Knight::updateBounds() -> void {
+
+    // updates bounds accordingly to position
     bounds.left = position.x + 43;
     bounds.top = position.y + 56;
 }
@@ -231,6 +242,9 @@ Knight::Knight() {
     scale = sf::Vector2f(0.5f, 0.5f);
     knight.setScale(scale);
     bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(10, 10));
+
+    isAlive = true;
+    health = 100;
 
     // moving variables
     velocity = sf::Vector2f(0, 0);
@@ -274,20 +288,27 @@ auto Knight::isCollidingWith(Collidable &other) const -> bool {
 
 
 auto Knight::onCollisionWith(Collidable &other) -> void {
-    isColliding = true;
-    collidables.push_back(&other);
 
     if (typeid(other) == typeid(Attack)) {
         if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            fmt::println("GOWNO");
+            fmt::println("GOWNO"); //TO DELETE
+            health -= mathRandomInCpp(10, 15);
+            fmt::println("{}", health); //TO DELETE
+            fmt::println("{}", isAlive); //TO DELETE
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
+    }
+
+    else {
+        isColliding = true;
+        collidables.push_back(&other);
     }
 }
 
 
 auto Knight::updateState() -> void {
     updateEvents();
+    updateIsAlive();
     updateAttack();
     updateTexture();
 
@@ -321,3 +342,5 @@ auto Knight::getCurrentAttack() -> Attack& {
 auto Knight::getPosition() -> sf::Vector2f {
     return position;
 }
+
+

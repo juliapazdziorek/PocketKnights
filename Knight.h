@@ -5,6 +5,7 @@
 
 #include "Engine/Collidable.h"
 #include "Engine/Attack.h"
+#include "Engine/Utility.h"
 #include "Assets/Assets.h"
 #include "Assets/Animation.h"
 
@@ -21,6 +22,8 @@ private:
     sf::Vector2f velocity;
     float movingSpeed;
     bool isColliding;
+
+    int health;
 
     sf::Clock animationClock;
 
@@ -46,6 +49,7 @@ private:
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
+    auto updateIsAlive() -> void;
     auto updateAttack() -> void;
     auto updateTexture() -> void;
     auto updateCollision() -> void;
