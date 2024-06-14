@@ -120,6 +120,13 @@ auto Goblin::updateAttack() -> void {
 }
 
 
+auto Goblin::updateIsAlive() -> void {
+    if (health < 0) {
+        isAlive = false;
+    }
+}
+
+
 auto Goblin::updateTexture() -> void {
 
     // apply animations for: standing, running
@@ -204,10 +211,11 @@ auto Goblin::attack() -> void {
 // ----- constructor ---------------------------------------------------------------------------------------------------
 
 Goblin::Goblin() {
-
     // goblin state
     goblinState = GoblinState::STANDING;
     goblinFacing = GoblinFacing::DOWN;
+    isAlive = true;
+    health = 100;
 
     // sprite variables
     position = sf::Vector2f(-64, 32 * 5 + 16); //TODO -> będą spawnowane w różnych miejscach, więc to jest do usunięcia w którymś momencie
@@ -267,7 +275,10 @@ auto Goblin::onCollisionWith(Collidable &other) -> void {
 
     if (typeid(other) == typeid(Attack)) {
         if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            fmt::println("GOWNO");
+            fmt::println("GOWNO"); //TO DELETE
+            health -= mathRandomInCpp(10, 20);
+            fmt::println("{}", health); //TO DELETE
+            fmt::println("{}", isAlive); //TO DELETE
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
     }
@@ -276,6 +287,7 @@ auto Goblin::onCollisionWith(Collidable &other) -> void {
 
 auto Goblin::updateState() -> void {
     updateEvents();
+    updateIsAlive();
     updateAttack();
     updateTexture();
 
@@ -306,7 +318,3 @@ auto Goblin::setPosition(sf::Vector2f position) -> void {
 auto Goblin::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
-
-
-
-

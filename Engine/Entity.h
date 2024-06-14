@@ -7,9 +7,11 @@ class Entity {
 protected:
 
     // ---- protected properties ---------------------------------------------------------------------------------------
-    bool isAlive;
+
 
 public:
+
+    bool isAlive;
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     Entity();

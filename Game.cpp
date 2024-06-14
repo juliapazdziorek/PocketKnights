@@ -26,10 +26,6 @@ auto Game::handleCollision() -> void {
             }
         }
 
-        for (auto const& attack : attacks) {
-            movingCollidable->onCollisionWith(*attack);
-        }
-
         for (auto const& collidable : collidables ) {
             if (movingCollidable->isCollidingWith(*collidable)) {
                 movingCollidable->onCollisionWith(*collidable);
@@ -52,6 +48,15 @@ auto Game::updateGoblins() -> void {
     }
 }
 
+auto Game::updateLifeSpan() -> void {
+    movingCollidables.erase(std::remove_if(movingCollidables.begin(), movingCollidables.end(),
+                              [](Collidable* collidable){return !collidable->isAlive; }), movingCollidables.end());
+    goblins.erase(std::remove_if(goblins.begin(), goblins.end(),
+                                 [](const Goblin& goblin){return !goblin.isAlive; }), goblins.end());
+
+}
+
+
 
 // ---- private methods ------------------------------------------------------------------------------------------------
 
@@ -59,31 +64,54 @@ auto Game::observeGameState() -> void {
 
     observeAttacks();
 
-    switch (gameState) {
+    /*switch (gameState) {
         case GameState::MENU:
             break;
         case GameState::PAUSE:
             break;
         case GameState::FIRST_WAVE: {
-            initializeFirstWave();
+
+            // initialize wave
+            if (doInitializeFirstWave) {
+                initializeFirstWave();
+                doInitializeFirstWave = false;
+            }
+
+            // observe wave state
             observeFirstWaveState();
             break;
         }
         case GameState::SECOND_WAVE: {
-            initializeSecondWave();
+
+            // initialize wave
+            if (doInitializeSecondWave) {
+                initializeSecondWave();
+                doInitializeSecondWave = false;
+            }
+
+            // observe wave state
             observeSecondWaveState();
             break;
         }
         case GameState::THIRD_WAVE: {
-            initializeThirdWave();
+
+            // initialize wave
+            if (doInitializeThirdWave) {
+                initializeThirdWave();
+                doInitializeThirdWave = false;
+            }
+
+            // observe wave state
             observeThirdWaveState();
             break;
         }
-    }
+    }*/
 }
 
 
 auto Game::observeAttacks() -> void {
+
+    // maybe change to all moving collifables, and fucking clean this `xd`
 
     for (auto& goblin : goblins) {
         if (knight.getCurrentAttack().isCollidingWith(goblin)) {
@@ -97,7 +125,24 @@ auto Game::observeAttacks() -> void {
 
 
 auto Game::initializeFirstWave() -> void {
-
+    switch (difficultyLevel) {
+        case DifficultyLevel::EASY: {
+            //spawnGoblin();
+            break;
+        }
+        case DifficultyLevel::MEDIUM: {
+            for (int i = 0; i < 2; ++i) {
+                //spawnGoblin();
+            }
+            break;
+        }
+        case DifficultyLevel::HARD: {
+            for (int i = 0; i < 3; ++i) {
+                //spawnGoblin();
+            }
+            break;
+        }
+    }
 }
 
 
@@ -126,45 +171,41 @@ auto Game::observeThirdWaveState() -> void {
 }
 
 
-auto Game::spawnGoblins(int amount) -> void { //TODO !(not tested)!
+/*auto Game::spawnGoblin() -> void { //TODO !(not tested)!
 
+    //petla na cale, bo one sie beda spawnowac na sobie
     enum class Island {
         WEST = 0, NORTH = 1, EAST = 2
     };
     Island island;
 
-    auto islandId = mathRandomInCpp(0, 2); //TODO czy to zadziała?
+    auto islandId = mathRandomInCpp(0, 2);
     island = static_cast<Island>(islandId);
 
     switch (island) {
         case Island::WEST: {
-            for (int i = 1; i <= amount; ++i) {
-                auto goblin = Goblin();
-                goblin.setPosition(sf::Vector2f((float)(-192 * i), 176));
-                goblins.push_back(goblin);
-            }
+            auto goblin = Goblin();
+            goblin.setPosition(sf::Vector2f(10, 176)); //(float)(-192 * i)
+            goblins.push_back(goblin);
             break;
         }
 
         case Island::NORTH: {
-            for (int i = 0; i < amount; ++i) {
-                auto goblin = Goblin();
-                goblin.setPosition(sf::Vector2f(384, (float)(-192 * i)));
-                goblins.push_back(goblin);
-            }
+            auto goblin = Goblin();
+            goblin.setPosition(sf::Vector2f(384, 10)); //(float)(-192 * i))
+            goblins.push_back(goblin);
             break;
         }
 
         case Island::EAST: {
-            for (int i = 0; i < amount; ++i) {
-                auto goblin = Goblin();
-                goblin.setPosition(sf::Vector2f((float)(832 + (192 * i)), 368));
-                goblins.push_back(goblin);
-            }
+            auto goblin = Goblin();
+            goblin.setPosition(sf::Vector2f(822, 368)); ///(float)(832 + (192 * i))
+            goblins.push_back(goblin);
             break;
         }
     }
-}
+}*/
+
 
 
 //public
@@ -176,10 +217,14 @@ Game::Game(sf::RenderWindow& window) {
     // window
     this->window = &window;
 
-    movingCollidables.push_back(&knight);
-
-    gameState = GameState::MENU;
+    //game state
+    /*doInitializeFirstWave = false;
+    doInitializeSecondWave = false;
+    doInitializeThirdWave = false;*/
+    gameState = GameState::MENU; //TODO : powiino byc menu ale huj
     difficultyLevel = DifficultyLevel::MEDIUM;
+
+    movingCollidables.push_back(&knight);
 
     auto goblin1 = Goblin();
     goblin1.setPosition(sf::Vector2f((float)(-192 * 1), 176));
@@ -221,6 +266,7 @@ auto Game::updateState() -> void {
 
     updateKnight();
     updateGoblins();
+    updateLifeSpan();
     updateMap();
 
 }
@@ -244,6 +290,7 @@ auto Game::render() -> void {
 
     window->display();
 }
+
 
 
 
