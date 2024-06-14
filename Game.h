@@ -21,9 +21,9 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::RenderWindow* window;
 
-    /*bool doInitializeFirstWave;
+    bool doInitializeFirstWave;
     bool doInitializeSecondWave;
-    bool doInitializeThirdWave;*/
+    bool doInitializeThirdWave;
 
     Assets assets;
     Map map;
@@ -54,20 +54,21 @@ private:
     auto updateMap() -> void;
     auto updateKnight() -> void;
     auto updateGoblins() -> void;
+    auto updateAttacks() -> void;
     auto updateLifeSpan() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
+
+    // game progress
     auto observeGameState() -> void;
-    auto observeAttacks() -> void;
     auto initializeFirstWave() -> void;
     auto observeFirstWaveState() -> void;
     auto initializeSecondWave() -> void;
     auto observeSecondWaveState() -> void;
     auto initializeThirdWave() -> void;
     auto observeThirdWaveState() -> void;
-    /*auto spawnGoblin() -> void;
+    auto spawnGoblin(int amount) -> void;
 
-*/
 
 public:
 
