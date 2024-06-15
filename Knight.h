@@ -31,7 +31,7 @@ private:
     sf::FloatRect bounds;
 
     // animation variables
-    std::vector<Animation> animations; //TODO convert animation to version with vector as in goblin class
+    std::vector<Animation> animations;
     sf::Clock animationClock;
 
     // movement variables

@@ -42,6 +42,9 @@ private:
     enum class DifficultyLevel {EASY, MEDIUM, HARD};
     DifficultyLevel difficultyLevel;
 
+    sf::Clock progressClock;
+    bool readyToProgress;
+
     //TODO TO DELETE
     /*sf::Texture gridTexture;
     sf::Sprite grid;*/

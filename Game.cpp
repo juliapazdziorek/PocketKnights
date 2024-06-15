@@ -161,6 +161,8 @@ auto Game::updateAttacks() -> void {
 
 
 auto Game::initializeFirstWave() -> void {
+    readyToProgress = false;
+
     switch (difficultyLevel) {
         case DifficultyLevel::EASY: {
             spawnGoblin(1);
@@ -175,27 +177,71 @@ auto Game::initializeFirstWave() -> void {
             break;
         }
     }
-
 }
 
 
 auto Game::observeFirstWaveState() -> void {
+    if (goblins.empty() && !readyToProgress) {
+        readyToProgress = true;
+        progressClock.restart();
+    }
 
+    if (progressClock.getElapsedTime() >= sf::seconds(1) && readyToProgress) {
+        gameState = GameState::SECOND_WAVE;
+        doInitializeSecondWave = true;
+    }
 }
 
 
 auto Game::initializeSecondWave() -> void {
+    readyToProgress = false;
 
+    switch (difficultyLevel) {
+        case DifficultyLevel::EASY: {
+            spawnGoblin(2);
+            break;
+        }
+        case DifficultyLevel::MEDIUM: {
+            spawnGoblin(4);
+            break;
+        }
+        case DifficultyLevel::HARD: {
+            spawnGoblin(6);
+            break;
+        }
+    }
 }
 
 
 auto Game::observeSecondWaveState() -> void {
 
+    if (goblins.empty() && !readyToProgress) {
+        readyToProgress = true;
+        progressClock.restart();
+    }
+
+    if (progressClock.getElapsedTime() >= sf::seconds(7) && readyToProgress) {
+        gameState = GameState::THIRD_WAVE;
+        doInitializeThirdWave = true;
+    }
 }
 
 
 auto Game::initializeThirdWave() -> void {
-
+    switch (difficultyLevel) {
+        case DifficultyLevel::EASY: {
+            spawnGoblin(4);
+            break;
+        }
+        case DifficultyLevel::MEDIUM: {
+            spawnGoblin(8);
+            break;
+        }
+        case DifficultyLevel::HARD: {
+            spawnGoblin(12);
+            break;
+        }
+    }
 }
 
 
