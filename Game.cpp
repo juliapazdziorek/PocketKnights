@@ -78,8 +78,41 @@ auto Game::updateLifeSpan() -> void {
 
 }
 
-auto Game::updateSheep() -> void {
-    sheep.updateState();
+auto Game::updateFlockOfSheep() -> void {
+
+    // if not max number of sheep in the flock add new one
+    if (flockOfSheep.size() < maxNumberOfSheep && spawnSheepClock.getElapsedTime() >= sf::seconds(5)) {
+
+        // find position of new sheep
+        auto positionFound = true;
+        auto positionIndex = mathRandomInCpp(0, maxNumberOfSheep - 1);
+
+        // if there are other sheep compare if position is occupied
+        if (!flockOfSheep.empty()) {
+            auto positionOccupied = false;
+            for (auto const& sheep : flockOfSheep) {
+                if (sheep->getPosition() == sheepPositions[positionIndex]) {
+                    positionOccupied = true;
+                }
+            }
+            if (positionOccupied)  {
+                positionFound = false;
+            }
+        }
+
+        // add new sheep to the flock
+        if (positionFound) {
+            auto sheep = std::make_unique<Sheep>();
+            sheep->setPosition(sheepPositions[positionIndex]);
+            flockOfSheep.push_back(std::move(sheep));
+            spawnSheepClock.restart();
+        }
+    }
+
+    // update sheep state
+    for (auto const& sheep : flockOfSheep) {
+        sheep->updateState();
+    }
 }
 
 
@@ -338,7 +371,23 @@ Game::Game(sf::RenderWindow& window) {
     drawWave2 = false;
     drawWave3 = false;
 
-    sheep = Sheep();
+    maxNumberOfSheep = 8; //TODO set w zaleznosci od poziomu trudnosci
+    sheepPositions.emplace_back(0, 230);
+    sheepPositions.emplace_back(220, 450);
+    sheepPositions.emplace_back(250, 480);
+    sheepPositions.emplace_back(200, 180);
+    sheepPositions.emplace_back(300, 240);
+    sheepPositions.emplace_back(540, 160);
+    sheepPositions.emplace_back(440, 430);
+    sheepPositions.emplace_back(750, 350);
+    spawnSheepClock.restart();
+
+    /*for (auto sheepPosition : sheepPositions) {
+        auto sheep = std::make_unique<Sheep>();
+        sheep->setPosition(sheepPosition);
+        flockOfSheep.push_back(std::move(sheep));
+    }*/
+
 
     /*auto goblin1 = Goblin();
     goblin1.setPosition(sf::Vector2f((float)(-192 * 1), 176));
@@ -380,7 +429,7 @@ auto Game::updateState() -> void {
 
     updateKnight();
     updateGoblins();
-    updateSheep();
+    updateFlockOfSheep();
 
     updateAttacks();
     updateLifeSpan();
@@ -397,12 +446,15 @@ auto Game::render() -> void {
     map.render(window);
 
     // render entities
-    if (knight.isAlive) knight.render(window);
-    for (auto& goblin : goblins) {
+    for (auto const& goblin : goblins) {
         goblin->render(window);
     }
 
-    sheep.render(window);
+    for (auto const& sheep : flockOfSheep) {
+        sheep->render(window);
+    }
+
+    if (knight.isAlive) knight.render(window);
 
     if (drawWave1) { window->draw(Assets::getSubtitles()["wave1"]); }
     if (drawWave2) { window->draw(Assets::getSubtitles()["wave2"]); }

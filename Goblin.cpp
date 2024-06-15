@@ -506,7 +506,7 @@ auto Goblin::setPosition(sf::Vector2f newPosition) -> void {
 
     // set new position
     position = newPosition;
-    goblin.setPosition(newPosition);
+    goblin.setPosition(position);
 }
 
 

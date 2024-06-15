@@ -26,11 +26,10 @@ class Sheep : public Collidable {
     sf::FloatRect bounds;
 
     // animation variables
-    std::vector<Animation> animations;
-    sf::Clock animationClock;
-    bool countBounceTime;
     float timeToBounce;
     bool isBouncing;
+    std::vector<Animation> animations;
+    sf::Clock animationClock;
     sf::Clock bouncingAnimationClock;
     sf::Clock timeToBounceClock;
 
@@ -60,6 +59,12 @@ public:
     auto updateState() -> void override;
     auto isCollidingWith(Collidable& other) -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
+
+    // getters
+    auto getPosition() -> sf::Vector2f;
+
+    //setters
+    auto setPosition(sf::Vector2f newPosition) -> void;
 
 };
 

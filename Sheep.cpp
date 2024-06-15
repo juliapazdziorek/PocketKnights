@@ -5,23 +5,26 @@
 // ----- event updating ------------------------------------------------------------------------------------------------
 
 auto Sheep::updateBouncing() -> void {
+
+    // if it's time start bounding
     if (!isBouncing && timeToBounceClock.getElapsedTime() >= sf::seconds(timeToBounce)) {
-        sheepState = SheepState::BOUNCING;
         isBouncing = true;
+        sheepState = SheepState::BOUNCING;
         bouncingAnimationClock.restart();
     }
 
+    // stop bouncing animation
     if (isBouncing && bouncingAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
-        sheepState = SheepState::STANDING;
         isBouncing = false;
-        timeToBounce = (float)mathRandomInCpp(2,5);
+        sheepState = SheepState::STANDING;
+        timeToBounce = (float)mathRandomInCpp(1,3);
         timeToBounceClock.restart();
     }
-
 }
 
 
 auto Sheep::updateTexture() -> void {
+
     // apply animations for standing and bouncing
     switch (sheepState) {
         case SheepState::STANDING: {
@@ -67,13 +70,12 @@ Sheep::Sheep() {
     sheep.setPosition(position);
     sheep.setScale(scale);
 
-    // animations
+    // animation variables
+    isBouncing = false;
+    timeToBounce = (float)(mathRandomInCpp(1, 3));
     animations.push_back(Assets::getAnimationSheepStanding()); // 0
     animations.push_back(Assets::getAnimationSheepBouncing()); // 1
 
-    countBounceTime = false;
-    isBouncing = false;
-    timeToBounce = (float)(mathRandomInCpp(2, 5));
 }
 
 
@@ -111,4 +113,21 @@ auto Sheep::onCollisionWith(Collidable &other) -> void {
     if (typeid(other) == typeid(Attack)) {
         isAlive = false;
     }
+}
+
+
+// getters
+
+auto Sheep::getPosition() -> sf::Vector2f {
+    return position;
+}
+
+
+// setters
+
+auto Sheep::setPosition(sf::Vector2f newPosition) -> void {
+
+    // set new position
+    position = newPosition;
+    sheep.setPosition(position);
 }

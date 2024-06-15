@@ -407,7 +407,7 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
     // if colliding with new attack subtract health
     if (typeid(other) == typeid(Attack)) {
         if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            health -= mathRandomInCpp(1, 2);
+            health -= 0; //mathRandomInCpp(1, 2); //TODO
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
     }

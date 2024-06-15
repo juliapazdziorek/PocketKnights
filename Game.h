@@ -37,6 +37,17 @@ private:
     std::vector<std::unique_ptr<Collidable>> attacks;
     std::vector<std::unique_ptr<Collidable>> collidables;
 
+    // dlakazdej owcy musze tak:
+    // spawnowac ja na dpzwolonej dla owcy pozycji
+    // patrzyc czy zyje
+    // zamieniac na mięcho
+    // miecho mozna zbierac
+    int maxNumberOfSheep;
+    sf::Clock spawnSheepClock;
+    std::vector<std::unique_ptr<Sheep>> flockOfSheep;
+    std::vector<sf::Vector2f> sheepPositions;
+
+
     enum class GameState {MENU, PAUSE, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
     GameState gameState;
 
@@ -53,7 +64,7 @@ private:
     bool drawVictory;
 
 
-    Sheep sheep;
+    //Sheep sheep;
 
 
     //TODO TO DELETE
@@ -68,7 +79,7 @@ private:
     auto updateMap() -> void;
     auto updateKnight() -> void;
     auto updateGoblins() -> void;
-    auto updateSheep() -> void;
+    auto updateFlockOfSheep() -> void;
     auto updateAttacks() -> void;
     auto updateLifeSpan() -> void;
 
