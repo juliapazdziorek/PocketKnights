@@ -46,6 +46,10 @@ private:
     static inline Animation goblinAttackUp = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 5, 6);
     static inline Animation goblinAttackDown = Animation(Assets::textures["goblinTexture"], 1152, 960, 6, 5, 4, 6);
 
+    // sheep animations
+    static inline Animation sheepStanding = Animation(Assets::textures["sheepTexture"], 1024, 256, 8, 2, 1, 8);
+    static inline Animation sheepBouncing = Animation(Assets::textures["sheepTexture"], 1024, 256, 8, 2, 2, 6);
+
     //mapTiles
     int mapTileSizeInTexture;
     static inline std::map<std::string, MapTile> mapTilesGrass;
@@ -95,6 +99,10 @@ public:
     static auto getAnimationGoblinAttackRight() -> Animation&;
     static auto getAnimationGoblinAttackUp() -> Animation&;
     static auto getAnimationGoblinAttackDown() -> Animation&;
+
+    // sheep animation getters
+    static auto getAnimationSheepStanding() -> Animation&;
+    static auto getAnimationSheepBouncing() -> Animation&;
 
     //mapAnimation getters
     static auto getAnimationFoam() -> Animation&;

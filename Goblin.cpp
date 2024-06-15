@@ -1,13 +1,13 @@
 #include "Goblin.h"
 
-//private:
+// private:
 
 // ----- event updating ------------------------------------------------------------------------------------------------
 
 auto Goblin::updateIsAlive() -> void {
 
     //slay that goblin
-    if (health < 0) {
+    if (health <= 0) {
         isAlive = false;
     }
 }
@@ -354,7 +354,7 @@ auto Goblin::getGlobalBounds() const -> sf::FloatRect {
 
 
 
-//public:
+// public:
 
 // ----- constructor ---------------------------------------------------------------------------------------------------
 
@@ -426,7 +426,7 @@ Goblin::Goblin() {
 auto Goblin::render(sf::RenderTarget *window) -> void {
 
     // render the goblin
-    window->draw(this->goblin);
+    window->draw(goblin);
 
     //TODO to delete
     window->draw(this->hitBox);

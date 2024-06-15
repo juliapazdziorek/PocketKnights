@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Knight.h"
 #include "Goblin.h"
+#include "Sheep.h"
 
 
 class Game {
@@ -50,7 +51,10 @@ private:
     bool drawWave2;
     bool drawWave3;
     bool drawVictory;
-    bool drawGameOver;
+
+
+    Sheep sheep;
+
 
     //TODO TO DELETE
     /*sf::Texture gridTexture;
@@ -64,6 +68,7 @@ private:
     auto updateMap() -> void;
     auto updateKnight() -> void;
     auto updateGoblins() -> void;
+    auto updateSheep() -> void;
     auto updateAttacks() -> void;
     auto updateLifeSpan() -> void;
 

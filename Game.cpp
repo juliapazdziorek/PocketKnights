@@ -78,6 +78,10 @@ auto Game::updateLifeSpan() -> void {
 
 }
 
+auto Game::updateSheep() -> void {
+    sheep.updateState();
+}
+
 
 
 // ---- private methods ------------------------------------------------------------------------------------------------
@@ -334,6 +338,8 @@ Game::Game(sf::RenderWindow& window) {
     drawWave2 = false;
     drawWave3 = false;
 
+    sheep = Sheep();
+
     /*auto goblin1 = Goblin();
     goblin1.setPosition(sf::Vector2f((float)(-192 * 1), 176));
     auto goblin2 = Goblin();
@@ -374,6 +380,8 @@ auto Game::updateState() -> void {
 
     updateKnight();
     updateGoblins();
+    updateSheep();
+
     updateAttacks();
     updateLifeSpan();
     updateMap();
@@ -394,6 +402,8 @@ auto Game::render() -> void {
         goblin->render(window);
     }
 
+    sheep.render(window);
+
     if (drawWave1) { window->draw(Assets::getSubtitles()["wave1"]); }
     if (drawWave2) { window->draw(Assets::getSubtitles()["wave2"]); }
     if (drawWave3) { window->draw(Assets::getSubtitles()["wave3"]); }
@@ -407,6 +417,8 @@ auto Game::render() -> void {
 
     window->display();
 }
+
+
 
 
 

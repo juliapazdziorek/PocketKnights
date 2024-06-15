@@ -1,6 +1,6 @@
 #include "Knight.h"
 
-//private:
+// private:
 
 // ----- event updating ------------------------------------------------------------------------------------------------
 
@@ -115,7 +115,7 @@ auto Knight::updateEvents() -> void {
 auto Knight::updateIsAlive() -> void {
 
     // knight dies :(
-    if (health < 0) {
+    if (health <= 0) {
         isAlive = false;
     }
 }
@@ -297,7 +297,7 @@ auto Knight::getGlobalBounds() const -> sf::FloatRect {
 
 
 
-//public:
+// public:
 
 // ----- constructor ---------------------------------------------------------------------------------------------------
 
@@ -365,7 +365,7 @@ Knight::Knight() {
 auto Knight::render(sf::RenderTarget *window) -> void {
 
     // render the knight
-    window->draw(this->knight);
+    window->draw(knight);
 
     //TODO to delete
     window->draw(this->hitBox);
