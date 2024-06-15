@@ -4,86 +4,26 @@
 
 // ----- event updating ------------------------------------------------------------------------------------------------
 
-auto Goblin::updateEvents() -> void {
+auto Goblin::updateIsAlive() -> void {
 
-    // if not in other animation
-    if(!attacking) {
+    //slay that goblin
+    if (health < 0) {
+        isAlive = false;
+    }
+}
 
-        // moving left
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            goblinState = GoblinState::RUNNING_LEFT;
-            goblinFacing = GoblinFacing::LEFT;
-            velocity.x = -movingSpeed;
-            velocity.y = 0;
-            if (!isColliding) goblin.move(velocity);
 
-            updatePositionVariable();
-            updateBoundsVariable();
-            nextPositionBounds.left = bounds.left - movingSpeed;
-            nextPositionBounds.top = bounds.top;
+auto Goblin::updateAttack() -> void {
+    if(isAttacking) {
+
+        // not move while setAttackBounds
+        while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
+            goblin.setPosition(attackPosition);
         }
 
-        // moving right
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            goblinState = GoblinState::RUNNING_RIGHT;
-            goblinFacing = GoblinFacing::RIGHT;
-            velocity.x = movingSpeed;
-            velocity.y = 0;
-            if (!isColliding) goblin.move(velocity);
-
-            updatePositionVariable();
-            updateBoundsVariable();
-            nextPositionBounds.left = bounds.left + movingSpeed;
-            nextPositionBounds.top = bounds.top;
-        }
-
-        // moving up
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            goblinFacing = GoblinFacing::UP;
-            velocity.x = 0;
-            velocity.y = -movingSpeed;
-            if (!isColliding) goblin.move(velocity);
-
-            updatePositionVariable();
-            updateBoundsVariable();
-            nextPositionBounds.left = bounds.left;
-            nextPositionBounds.top = bounds.top- movingSpeed;
-
-            // some animation while moving up
-            if (goblinState == GoblinState::STANDING) {
-                goblinState = GoblinState::RUNNING_LEFT;
-            }
-        }
-
-            // moving down
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            goblinFacing = GoblinFacing::DOWN;
-            velocity.x = 0;
-            velocity.y = movingSpeed;
-            if (!isColliding) goblin.move(velocity);
-
-            updatePositionVariable();
-            updateBoundsVariable();
-            nextPositionBounds.left = bounds.left;
-            nextPositionBounds.top = bounds.top + movingSpeed;
-
-            // some animation while moving down
-            if (this->goblinState == GoblinState::STANDING) {
-                this->goblinState = GoblinState::RUNNING_RIGHT;
-            }
-        }
-
-        // attack
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
-            this->goblinState = GoblinState::ATTACKING;
-            this->attacking = true;
-            this->attackAnimationClock.restart();
-            this->attackPosition = sf::Vector2f(this->position);
-        }
-
-        // standing
-        if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
-            this->goblinState = GoblinState::STANDING;
+        // move on after setAttackBounds animation
+        if (attackAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
+            isAttacking = false;
         }
     }
 }
@@ -97,56 +37,33 @@ auto Goblin::updateMovement() -> void {
         return;
     }
 
-    // chase
-    if(!attacking) {
+    // chase is not isAttacking
+    if(!isAttacking) {
         chase();
     }
-
 }
 
 
 auto Goblin::updateCollision() -> void {
-    // checking if still colliding
+
+    // check if still colliding
     for (auto const& collidable : collidables) {
         if (!this->isCollidingWith(*collidable)) {
             collidables.erase(std::remove(collidables.begin(), collidables.end(), collidable), collidables.end());
         }
     }
 
-    // if not colliding with anything
+    // if not colliding with anything let the goblin go :'(
     if (collidables.empty()) {
         isColliding = false;
     }
 }
 
 
-auto Goblin::updateAttack() -> void {
-    if(attacking) {
-
-        // not moving while attack
-        while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
-            goblin.setPosition(attackPosition);
-        }
-
-        // move on after attacking
-        if (attackAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
-            attacking = false;
-        }
-    }
-}
-
-
-auto Goblin::updateIsAlive() -> void {
-    if (health < 0) {
-        isAlive = false;
-    }
-}
-
-
 auto Goblin::updateTexture() -> void {
 
-    // apply animations for: standing, running
-    switch (this->goblinState) {
+    // apply animations for standing and running
+    switch (goblinState) {
         case GoblinState::STANDING: {
             animations[0].updateFrame(animationClock);
             animations[0].applyTexture(goblin);
@@ -165,7 +82,7 @@ auto Goblin::updateTexture() -> void {
             break;
         }
 
-        // apply animations for: attacking
+        // apply animations for attacking
         case GoblinState::ATTACKING: {
             switch (goblinFacing) {
                 case GoblinFacing::RIGHT: {
@@ -198,24 +115,58 @@ auto Goblin::updateTexture() -> void {
 }
 
 
+// update variables
+
 auto Goblin::updatePositionVariable() -> void {
 
-    // updates position variable
+    // update position variable
     position = goblin.getPosition();
 }
 
 
 auto Goblin::updateBoundsVariable() -> void {
 
-    // updates bounds accordingly to position
+    // update bounds accordingly to position
     bounds.left = position.x + 43;
     bounds.top = position.y + 54;
 }
 
 
-auto Goblin::updateAttackBoundsVariable() -> void {
+auto Goblin::updateNextPositionBoundsVariable() -> void {
 
-    if (!attacking) {
+    // update next position bounds accordingly
+    switch (goblinFacing) {
+
+        case GoblinFacing::LEFT: {
+            nextPositionBounds.left = bounds.left - movingSpeed;
+            nextPositionBounds.top = bounds.top;
+            break;
+        }
+
+        case GoblinFacing::RIGHT: {
+            nextPositionBounds.left = bounds.left + movingSpeed;
+            nextPositionBounds.top = bounds.top;
+            break;
+        }
+
+        case GoblinFacing::UP: {
+            nextPositionBounds.left = bounds.left;
+            nextPositionBounds.top = bounds.top- movingSpeed;
+            break;
+        }
+        case GoblinFacing::DOWN: {
+            nextPositionBounds.left = bounds.left;
+            nextPositionBounds.top = bounds.top + movingSpeed;
+            break;
+        }
+    }
+}
+
+
+auto Goblin::updateAttackBoundsVariable() -> void {
+    if (!isAttacking) {
+
+        // update attack bounds accordingly
         switch (goblinFacing) {
 
             case GoblinFacing::LEFT: {
@@ -247,10 +198,7 @@ auto Goblin::updateAttackBoundsVariable() -> void {
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
-auto Goblin::getGlobalBounds() const -> sf::FloatRect {
-    return bounds;
-}
-
+// movement
 
 auto Goblin::moveToChasingPosition() -> void {
 
@@ -288,20 +236,26 @@ auto Goblin::moveToChasingPosition() -> void {
 
 auto Goblin::chase() -> void {
 
-    if (position.y > chasingPosition.y) {
+    // chase target accordingly to its position
+
+    // run left
+    if (position.x > chasedPosition.x) {
+        moveLeft();
+    }
+
+    // run right
+    if (position.x < chasedPosition.x) {
+        moveRight();
+    }
+
+    // run up
+    if (position.y > chasedPosition.y) {
         moveUp();
     }
 
-    if (position.y < chasingPosition.y) {
+    // run down
+    if (position.y < chasedPosition.y) {
         moveDown();
-    }
-
-    if (position.x < chasingPosition.x) {
-       moveRight();
-    }
-
-    if (position.x > chasingPosition.x) {
-        moveLeft();
     }
 
 }
@@ -322,8 +276,7 @@ auto Goblin::moveLeft() -> void {
     updatePositionVariable();
     updateBoundsVariable();
     updateAttackBoundsVariable();
-    nextPositionBounds.left = bounds.left - movingSpeed;
-    nextPositionBounds.top = bounds.top;
+    updateNextPositionBoundsVariable();
 }
 
 
@@ -342,8 +295,7 @@ auto Goblin::moveRight() -> void {
     updatePositionVariable();
     updateBoundsVariable();
     updateAttackBoundsVariable();
-    nextPositionBounds.left = bounds.left + movingSpeed;
-    nextPositionBounds.top = bounds.top;
+    updateNextPositionBoundsVariable();
 }
 
 
@@ -366,10 +318,10 @@ auto Goblin::moveUp() -> void {
     updatePositionVariable();
     updateBoundsVariable();
     updateAttackBoundsVariable();
-    nextPositionBounds.left = bounds.left;
-    nextPositionBounds.top = bounds.top- movingSpeed;
+    updateNextPositionBoundsVariable();
 
 }
+
 
 auto Goblin::moveDown() -> void {
 
@@ -389,14 +341,15 @@ auto Goblin::moveDown() -> void {
     // update variables
     updatePositionVariable();
     updateBoundsVariable();
-    nextPositionBounds.left = bounds.left;
-    nextPositionBounds.top = bounds.top + movingSpeed;
-
+    updateAttackBoundsVariable();
+    updateNextPositionBoundsVariable();
 }
 
 
-auto Goblin::attack() -> void {
-    currentAttack.setBounds(attackBounds);
+// overrides
+
+auto Goblin::getGlobalBounds() const -> sf::FloatRect {
+    return bounds;
 }
 
 
@@ -406,43 +359,44 @@ auto Goblin::attack() -> void {
 // ----- constructor ---------------------------------------------------------------------------------------------------
 
 Goblin::Goblin() {
+
     // goblin state
-    goblinState = GoblinState::STANDING;
-    goblinFacing = GoblinFacing::DOWN;
     isAlive = true;
     health = 50;
+    goblinState = GoblinState::STANDING; //TODO (optional) -> gdy goblin stoi, to może stać i w lewo i w prawo - teraz stoi tylko w prawo
+    goblinFacing = GoblinFacing::DOWN;
 
     // sprite variables
     position = sf::Vector2f();
-    goblin.setPosition(position);
     scale = sf::Vector2f(0.5f, 0.5f);
-    goblin.setScale(scale);
     bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 54), sf::Vector2f(10, 10));
+    goblin.setPosition(position);
+    goblin.setScale(scale);
 
     // animations
-    animations.push_back(Assets::getAnimationGoblinStanding());
+    animations.push_back(Assets::getAnimationGoblinStanding()); // 0
     animations.push_back(Assets::getAnimationGoblinRunningRight());
     animations.push_back(Assets::getAnimationGoblinRunningLeft());
     animations.push_back(Assets::getAnimationGoblinAttackRight());
     animations.push_back(Assets::getAnimationGoblinAttackLeft());
     animations.push_back(Assets::getAnimationGoblinAttackUp());
-    animations.push_back(Assets::getAnimationGoblinAttackDown());
+    animations.push_back(Assets::getAnimationGoblinAttackDown()); // 6
 
     // movement variables
+    movingSpeed = 1.5;
     readyToChase = false;
     velocity = sf::Vector2f(0, 0);
-    movingSpeed = 1;
-    isColliding = false;
-    chasingPosition = sf::Vector2f(416, 320);
     nextPositionBounds = bounds;
+    chasedPosition = sf::Vector2f(416, 320); // center of a screen as default
 
     // attack variables
-    attacking = false;
+    isAttacking = false;
     attackPosition = position;
-    attackBounds = sf::FloatRect (sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(32, 32)); //TODO
+    attackBounds = sf::FloatRect (sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(32, 32));
     currentAttack = Attack(attackBounds);
-    previousBeingAttacked = Attack();
 
+    // collision variable
+    isColliding = false;
 
     //TODO to delete
     this->hitBox.setOutlineColor(sf::Color::Red);
@@ -467,55 +421,11 @@ Goblin::Goblin() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Goblin::isCollidingWith(Collidable &other) -> bool {
-    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight) && attackBounds != currentAttack.getGlobalBounds()) {
-        goblinState = GoblinState::ATTACKING;
-        attacking = true;
-        attackAnimationClock.restart();
-        attackPosition = position;
-        attack();
-    }
-
-    return nextPositionBounds.intersects(other.getGlobalBounds());
-}
-
-
-auto Goblin::onCollisionWith(Collidable &other) -> void {
-    if (typeid(other) == typeid(Attack)) {
-        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            health -= mathRandomInCpp(10, 20);
-            previousBeingAttacked.setBounds(other.getGlobalBounds());
-        }
-    }
-
-    else {
-        isColliding = true;
-        collidables.push_back(&other);
-    }
-
-}
-
-
-auto Goblin::updateState() -> void {
-    //updateEvents();
-    updateMovement();
-    updateIsAlive();
-    updateAttackBoundsVariable();
-    updateAttack();
-    updateTexture();
-
-    if(isColliding) {
-        updateCollision();
-    }
-
-    //TODO to delete
-    hitBox.setPosition(bounds.getPosition());
-    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    attackHitBox.setPosition(attackBounds.getPosition());
-}
-
+// render
 
 auto Goblin::render(sf::RenderTarget *window) -> void {
+
+    // render the goblin
     window->draw(this->goblin);
 
     //TODO to delete
@@ -525,29 +435,81 @@ auto Goblin::render(sf::RenderTarget *window) -> void {
 }
 
 
-auto Goblin::setPosition(sf::Vector2f position) -> void {
-    this->position = position;
-    goblin.setPosition(position);
+// overrides
+
+auto Goblin::updateState() -> void {
+
+    // update goblin's state
+    updateIsAlive();
+    updateAttack();
+    updateMovement();
+
+    if(isColliding) {
+        updateCollision();
+    }
+
+    updateTexture();
+
+    //TODO to delete
+    hitBox.setPosition(bounds.getPosition());
+    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
+    attackHitBox.setPosition(attackBounds.getPosition());
 }
+
+
+auto Goblin::isCollidingWith(Collidable &other) -> bool {
+
+    // check if goblin's attack is colliding with an enemy
+    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight) && attackBounds != currentAttack.getGlobalBounds()) {
+
+        // update attack variables
+        goblinState = GoblinState::ATTACKING;
+        isAttacking = true;
+        attackAnimationClock.restart();
+        attackPosition = position;
+        currentAttack.setBounds(attackBounds);
+    }
+
+    // return if goblin is colliding
+    return nextPositionBounds.intersects(other.getGlobalBounds());
+}
+
+
+auto Goblin::onCollisionWith(Collidable &other) -> void {
+
+    // if colliding with new attack subtract health
+    if (typeid(other) == typeid(Attack)) {
+        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
+            health -= mathRandomInCpp(10, 20);
+            previousBeingAttacked.setBounds(other.getGlobalBounds());
+        }
+    }
+
+    // set collision variables
+    else {
+        isColliding = true;
+        collidables.push_back(&other);
+    }
+}
+
+
+// getters
 
 auto Goblin::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
 
-auto Goblin::getIsAttacking() -> bool {
-    return attacking;
+
+// setters
+
+auto Goblin::setPosition(sf::Vector2f newPosition) -> void {
+
+    // set new position
+    position = newPosition;
+    goblin.setPosition(newPosition);
 }
 
 
-auto Goblin::setChasingPosition(sf::Vector2f chasingPosition) -> void {
-    this->chasingPosition = chasingPosition;
+auto Goblin::setChasedPosition(sf::Vector2f newChasedPosition) -> void {
+    chasedPosition = newChasedPosition;
 }
-
-
-
-
-
-
-
-
-

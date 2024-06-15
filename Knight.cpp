@@ -4,85 +4,107 @@
 
 // ----- event updating ------------------------------------------------------------------------------------------------
 
-auto Knight::updateEvents() -> void { //zrobic wektor obiektow entiites ataku i potem przesylac go grze i te ataki beda sprawdzc czy koliduja z wrogami :))))
+auto Knight::updateEvents() -> void {
 
-    // if not in other animation
-    if(!attacking) {
+    // if not in attacking animation
+    if(!isAttacking) {
 
-        // moving left
+        // move left
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+
+            // knight state
             knightState = KnightState::RUNNING_LEFT;
             knightFacing = KnightFacing::LEFT;
+
+            // move goblin left
             velocity.x = -movingSpeed;
             velocity.y = 0;
             if (!isColliding) knight.move(velocity);
 
-            updatePosition();
-            updateBounds();
-            nextPositionBounds.left = bounds.left - movingSpeed;
-            nextPositionBounds.top = bounds.top;
+            // update variables
+            updatePositionVariable();
+            updateBoundsVariable();
+            updateAttackBoundsVariable();
+            updateNextPositionBoundsVariable();
         }
 
-        // moving right
+        // move right
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+
+            // knight state
             knightState = KnightState::RUNNING_RIGHT;
             knightFacing = KnightFacing::RIGHT;
+
+            // move goblin right
             velocity.x = movingSpeed;
             velocity.y = 0;
             if (!isColliding) knight.move(velocity);
 
-            updatePosition();
-            updateBounds();
-            nextPositionBounds.left = bounds.left + movingSpeed;
-            nextPositionBounds.top = bounds.top;
-        };
+            // update variables
+            updatePositionVariable();
+            updateBoundsVariable();
+            updateAttackBoundsVariable();
+            updateNextPositionBoundsVariable();
+        }
 
-        // moving up
+        // move up
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+
+            // knight state
             knightFacing = KnightFacing::UP;
+
+            // if first move is up give some animation
+            if (knightState == KnightState::STANDING) {
+                knightState = KnightState::RUNNING_LEFT;
+            }
+
+            // move goblin up
             velocity.x = 0;
             velocity.y = -movingSpeed;
             if (!isColliding) knight.move(velocity);
 
-            updatePosition();
-            updateBounds();
-            nextPositionBounds.left = bounds.left;
-            nextPositionBounds.top = bounds.top- movingSpeed;
-
-            // some animation while moving up
-            if (knightState == KnightState::STANDING) {
-                knightState = KnightState::RUNNING_LEFT;
-            }
+            // update variables
+            updatePositionVariable();
+            updateBoundsVariable();
+            updateAttackBoundsVariable();
+            updateNextPositionBoundsVariable();
         }
 
-        // moving down
+        // move down
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+
+            // knight state
             knightFacing = KnightFacing::DOWN;
+
+            // if first move is up give some animation
+            if (knightState == KnightState::STANDING) {
+                knightState = KnightState::RUNNING_RIGHT;
+            }
+
+            // move goblin down
             velocity.x = 0;
             velocity.y = movingSpeed;
             if (!isColliding) knight.move(velocity);
 
-            updatePosition();
-            updateBounds();
-            nextPositionBounds.left = bounds.left;
-            nextPositionBounds.top = bounds.top + movingSpeed;
-
-            // some animation while moving down
-            if (knightState == KnightState::STANDING) {
-                knightState = KnightState::RUNNING_RIGHT;
-            }
+            // update variables
+            updatePositionVariable();
+            updateBoundsVariable();
+            updateAttackBoundsVariable();
+            updateNextPositionBoundsVariable();
         }
 
         // attack
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+
+            // update attack variables
             knightState = KnightState::ATTACKING;
-            attacking = true;
+            isAttacking = true;
             attackAnimationClock.restart();
             attackPosition = position;
-            attack();
+            currentAttack.setBounds(attackBounds);
         }
 
-        // standing
+        // stand if nothing pressed
         if(!sf::Keyboard::isKeyPressed(sf::Keyboard::A) && !sf::Keyboard::isKeyPressed(sf::Keyboard::D) && !sf::Keyboard::isKeyPressed(sf::Keyboard::W) && !sf::Keyboard::isKeyPressed(sf::Keyboard::S) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             knightState = KnightState::STANDING;
         }
@@ -90,9 +112,34 @@ auto Knight::updateEvents() -> void { //zrobic wektor obiektow entiites ataku i 
 }
 
 
+auto Knight::updateIsAlive() -> void {
+
+    // knight dies :(
+    if (health < 0) {
+        isAlive = false;
+    }
+}
+
+
+auto Knight::updateAttack() -> void {
+    if(isAttacking) {
+
+        // not moving while setAttackBounds
+        while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
+            knight.setPosition(attackPosition);
+        }
+
+        // move on after isAttacking
+        if (attackAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
+            isAttacking = false;
+        }
+    }
+}
+
+
 auto Knight::updateCollision() -> void {
 
-    // checking if still colliding
+    // check if still colliding
     for (auto const& collidable : collidables) {
         if (!this->isCollidingWith(*collidable)) {
             collidables.erase(std::remove(collidables.begin(), collidables.end(), collidable), collidables.end());
@@ -106,83 +153,52 @@ auto Knight::updateCollision() -> void {
 }
 
 
-auto Knight::updateAttack() -> void {
-    if(attacking) {
-
-        // not moving while attack
-        while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
-            knight.setPosition(attackPosition);
-        }
-
-        // move on after attacking
-        if (attackAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
-            attacking = false;
-        }
-    }
-}
-
-
-auto Knight::updateIsAlive() -> void {
-    if (health < 0) {
-        isAlive = false;
-    }
-}
-
-
 auto Knight::updateTexture() -> void {
 
-    // apply animations for: standing, running
+    // apply animations for standing and running
     switch (knightState) {
         case KnightState::STANDING: {
-            Assets::getAnimationKnightStanding().updateFrame(animationClock);
-            Assets::getAnimationKnightStanding().applyTexture(knight);
+            animations[0].updateFrame(animationClock);
+            animations[0].applyTexture(knight);
             break;
         }
 
         case KnightState::RUNNING_RIGHT: {
-            Assets::getAnimationKnightRunningRight().updateFrame(animationClock);
-            Assets::getAnimationKnightRunningRight().applyTexture(knight);
+            animations[1].updateFrame(animationClock);
+            animations[1].applyTexture(knight);
             break;
         }
 
         case KnightState::RUNNING_LEFT: {
-            Assets::getAnimationKnightRunningLeft().updateFrame(animationClock);
-            Assets::getAnimationKnightRunningLeft().applyTexture(knight);
+            animations[2].updateFrame(animationClock);
+            animations[2].applyTexture(knight);
             break;
         }
 
-        // apply animations for: attacking
+        // apply animations for attacking
         case KnightState::ATTACKING: {
             switch (knightFacing) {
                 case KnightFacing::RIGHT: {
-                    Assets::getAnimationKnightAttackRight().updateFrame(animationClock);
-                    Assets::getAnimationKnightAttackRight().applyTexture(knight);
-                    attackBounds.left = bounds.left + 10;
-                    attackBounds.top = bounds.top - 11;
+                    animations[3].updateFrame(animationClock);
+                    animations[3].applyTexture(knight);
                     break;
                 }
 
                 case KnightFacing::LEFT: {
-                    Assets::getAnimationKnightAttackLeft().updateFrame(animationClock);
-                    Assets::getAnimationKnightAttackLeft().applyTexture(knight);
-                    attackBounds.left = bounds.left - 32;
-                    attackBounds.top = bounds.top - 11;
+                    animations[4].updateFrame(animationClock);
+                    animations[4].applyTexture(knight);
                     break;
                 }
 
                 case KnightFacing::UP: {
-                    Assets::getAnimationKnightAttackUp().updateFrame(animationClock);
-                    Assets::getAnimationKnightAttackUp().applyTexture(knight);
-                    attackBounds.left = bounds.left - 11;
-                    attackBounds.top = bounds.top - 32;
+                    animations[5].updateFrame(animationClock);
+                    animations[5].applyTexture(knight);
                     break;
                 }
 
                 case KnightFacing::DOWN: {
-                    Assets::getAnimationKnightAttackDown().updateFrame(animationClock);
-                    Assets::getAnimationKnightAttackDown().applyTexture(knight);
-                    attackBounds.left = bounds.left - 11;
-                    attackBounds.top = bounds.top + 10;
+                    animations[6].updateFrame(animationClock);
+                    animations[6].applyTexture(knight);
                     break;
                 }
             }
@@ -192,14 +208,16 @@ auto Knight::updateTexture() -> void {
 }
 
 
-auto Knight::updatePosition() -> void {
+// update variables
+
+auto Knight::updatePositionVariable() -> void {
 
     // updates position variable
     position = knight.getPosition();
 }
 
 
-auto Knight::updateBounds() -> void {
+auto Knight::updateBoundsVariable() -> void {
 
     // updates bounds accordingly to position
     bounds.left = position.x + 43;
@@ -207,15 +225,74 @@ auto Knight::updateBounds() -> void {
 }
 
 
-// ----- private methods -----------------------------------------------------------------------------------------------
+auto Knight::updateAttackBoundsVariable() -> void {
 
-auto Knight::getGlobalBounds() const -> sf::FloatRect {
-    return bounds;
+    // update attack bounds accordingly
+    switch (knightFacing) {
+
+        case KnightFacing::LEFT: {
+            attackBounds.left = nextPositionBounds.left - 32;
+            attackBounds.top = nextPositionBounds.top - 11;
+            break;
+        }
+
+        case KnightFacing::RIGHT: {
+            attackBounds.left = nextPositionBounds.left + 10;
+            attackBounds.top = nextPositionBounds.top - 11;
+            break;
+        }
+
+        case KnightFacing::UP: {
+            attackBounds.left = nextPositionBounds.left - 11;
+            attackBounds.top = nextPositionBounds.top - 32;
+            break;
+        }
+        case KnightFacing::DOWN: {
+            attackBounds.left = bounds.left - 11;
+            attackBounds.top = bounds.top + 10;
+            break;
+        }
+    }
 }
 
 
-auto Knight::attack() -> void {
-    currentAttack.setBounds(attackBounds);
+auto Knight::updateNextPositionBoundsVariable() -> void {
+
+    // update next position bounds accordingly
+    switch (knightFacing) {
+
+        case KnightFacing::LEFT: {
+            nextPositionBounds.left = bounds.left - movingSpeed;
+            nextPositionBounds.top = bounds.top;
+            break;
+        }
+
+        case KnightFacing::RIGHT: {
+            nextPositionBounds.left = bounds.left + movingSpeed;
+            nextPositionBounds.top = bounds.top;
+            break;
+        }
+
+        case KnightFacing::UP: {
+            nextPositionBounds.left = bounds.left;
+            nextPositionBounds.top = bounds.top- movingSpeed;
+            break;
+        }
+        case KnightFacing::DOWN: {
+            nextPositionBounds.left = bounds.left;
+            nextPositionBounds.top = bounds.top + movingSpeed;
+            break;
+        }
+    }
+}
+
+
+// ----- private methods -----------------------------------------------------------------------------------------------
+
+// overrides
+
+auto Knight::getGlobalBounds() const -> sf::FloatRect {
+    return bounds;
 }
 
 
@@ -227,31 +304,38 @@ auto Knight::attack() -> void {
 Knight::Knight() {
 
     // knight state
+    isAlive = true;
+    health = 100;
     knightState = KnightState::STANDING;
     knightFacing = KnightFacing::DOWN;
 
     // sprite variables
     position = sf::Vector2f(350, 250);
-    knight.setPosition(position);
     scale = sf::Vector2f(0.5f, 0.5f);
-    knight.setScale(scale);
     bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(10, 10));
+    knight.setPosition(position);
+    knight.setScale(scale);
 
-    isAlive = true;
-    health = 100;
+    // animations
+    animations.push_back(Assets::getAnimationKnightStanding()); // 0
+    animations.push_back(Assets::getAnimationKnightRunningRight());
+    animations.push_back(Assets::getAnimationKnightRunningLeft());
+    animations.push_back(Assets::getAnimationKnightAttackRight());
+    animations.push_back(Assets::getAnimationKnightAttackLeft());
+    animations.push_back(Assets::getAnimationKnightAttackUp());
+    animations.push_back(Assets::getAnimationKnightAttackDown()); // 6
 
-    // moving variables
+    // movement variables
     velocity = sf::Vector2f(0, 0);
     movingSpeed = 2;
     isColliding = false;
     nextPositionBounds = bounds;
 
     // attack variables
-    attacking = false;
+    isAttacking = false;
     attackPosition = position;
     attackBounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(32, 32));
     currentAttack = Attack(attackBounds);
-    previousBeingAttacked = Attack();
 
     //TODO to delete
     this->hitBox.setOutlineColor(sf::Color::Red);
@@ -276,47 +360,11 @@ Knight::Knight() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Knight::isCollidingWith(Collidable &other) -> bool {
-    return nextPositionBounds.intersects(other.getGlobalBounds());
-}
-
-
-auto Knight::onCollisionWith(Collidable &other) -> void {
-
-    if (typeid(other) == typeid(Attack)) {
-        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            health -= mathRandomInCpp(1, 2);
-            previousBeingAttacked.setBounds(other.getGlobalBounds());
-        }
-    }
-
-    else {
-        isColliding = true;
-        collidables.push_back(&other);
-    }
-}
-
-
-auto Knight::updateState() -> void {
-    updateEvents();
-    updateIsAlive();
-    updateAttack();
-    updateTexture();
-
-    if(isColliding) {
-        updateCollision();
-    }
-
-    //TODO to delete
-    hitBox.setPosition(bounds.getPosition());
-    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    attackHitBox.setPosition(attackBounds.getPosition());
-
-
-}
-
+// render
 
 auto Knight::render(sf::RenderTarget *window) -> void {
+
+    // render the knight
     window->draw(this->knight);
 
     //TODO to delete
@@ -326,12 +374,59 @@ auto Knight::render(sf::RenderTarget *window) -> void {
 }
 
 
+// overrides
+
+auto Knight::updateState() -> void {
+
+    // update knight's state
+    updateEvents();
+    updateIsAlive();
+    updateAttack();
+
+    if(isColliding) {
+        updateCollision();
+    }
+    updateTexture();
+
+    //TODO to delete
+    hitBox.setPosition(bounds.getPosition());
+    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
+    attackHitBox.setPosition(attackBounds.getPosition());
+}
+
+
+auto Knight::isCollidingWith(Collidable &other) -> bool {
+
+    // return if knight is colliding
+    return nextPositionBounds.intersects(other.getGlobalBounds());
+}
+
+
+auto Knight::onCollisionWith(Collidable &other) -> void {
+
+    // if colliding with new attack subtract health
+    if (typeid(other) == typeid(Attack)) {
+        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
+            health -= mathRandomInCpp(1, 2);
+            previousBeingAttacked.setBounds(other.getGlobalBounds());
+        }
+    }
+
+        // set collision variables
+    else {
+        isColliding = true;
+        collidables.push_back(&other);
+    }
+}
+
+
+// getters
+
 auto Knight::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
 
+
 auto Knight::getPosition() -> sf::Vector2f {
     return position;
 }
-
-

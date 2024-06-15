@@ -65,7 +65,7 @@ auto Game::updateKnight() -> void {
 auto Game::updateGoblins() -> void {
     for (auto& goblin : goblins) {
         goblin->updateState();
-        goblin->setChasingPosition(knight.getPosition());
+        goblin->setChasedPosition(knight.getPosition());
     }
 }
 
