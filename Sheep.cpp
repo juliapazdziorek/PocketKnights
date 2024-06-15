@@ -4,14 +4,24 @@
 
 // ----- event updating ------------------------------------------------------------------------------------------------
 
-auto Sheep::updateAnimation() -> void {
+auto Sheep::updateBouncing() -> void {
+    if (!isBouncing && timeToBounceClock.getElapsedTime() >= sf::seconds(timeToBounce)) {
+        sheepState = SheepState::BOUNCING;
+        isBouncing = true;
+        bouncingAnimationClock.restart();
+    }
 
+    if (isBouncing && bouncingAnimationClock.getElapsedTime() >= sf::seconds(0.6f)) {
+        sheepState = SheepState::STANDING;
+        isBouncing = false;
+        timeToBounce = (float)mathRandomInCpp(2,5);
+        timeToBounceClock.restart();
+    }
 
 }
 
 
 auto Sheep::updateTexture() -> void {
-
     // apply animations for standing and bouncing
     switch (sheepState) {
         case SheepState::STANDING: {
@@ -23,18 +33,10 @@ auto Sheep::updateTexture() -> void {
         case SheepState::BOUNCING: {
             animations[1].updateFrame(animationClock);
             animations[1].applyTexture(sheep);
+
             break;
         }
     }
-
-    if (countBounceTime) {
-        //eyeyeyye
-    }
-
-
-
-
-    //TODO clock, ktory co losowo 2 - 4 sec powoduje ze owca skacze
 }
 
 
@@ -70,7 +72,8 @@ Sheep::Sheep() {
     animations.push_back(Assets::getAnimationSheepBouncing()); // 1
 
     countBounceTime = false;
-    bounceTime = 0;
+    isBouncing = false;
+    timeToBounce = (float)(mathRandomInCpp(2, 5));
 }
 
 
@@ -90,7 +93,7 @@ auto Sheep::render(sf::RenderTarget *window) -> void {
 auto Sheep::updateState() -> void {
 
     //update sheep's state
-    updateAnimation();
+    updateBouncing();
     updateTexture();
 }
 
@@ -109,7 +112,3 @@ auto Sheep::onCollisionWith(Collidable &other) -> void {
         isAlive = false;
     }
 }
-
-
-
-

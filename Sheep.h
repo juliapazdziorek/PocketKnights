@@ -4,6 +4,7 @@
 #include "Assets/Assets.h"
 #include "Engine/Attack.h"
 #include "Engine/Collidable.h"
+#include "Engine/Utility.h"
 
 
 class Sheep : public Collidable {
@@ -28,12 +29,15 @@ class Sheep : public Collidable {
     std::vector<Animation> animations;
     sf::Clock animationClock;
     bool countBounceTime;
-    int bounceTime;
-    sf::Clock bounceClock;
+    float timeToBounce;
+    bool isBouncing;
+    sf::Clock bouncingAnimationClock;
+    sf::Clock timeToBounceClock;
+
 
 
     // ----- event updating --------------------------------------------------------------------------------------------
-    auto updateAnimation() -> void;
+    auto updateBouncing() -> void;
     auto updateTexture() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
