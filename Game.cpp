@@ -245,6 +245,8 @@ auto Game::observeSecondWaveState() -> void {
 
 
 auto Game::initializeThirdWave() -> void {
+    readyToProgress = false;
+
     switch (difficultyLevel) {
         case DifficultyLevel::EASY: {
             spawnGoblin(4);
@@ -264,10 +266,13 @@ auto Game::initializeThirdWave() -> void {
 
 auto Game::observeThirdWaveState() -> void {
 
+    if (goblins.empty() && !readyToProgress) {
+        drawVictory = true;
+    }
+
     if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
         drawWave3 = false;
     }
-
 }
 
 
@@ -321,7 +326,7 @@ Game::Game(sf::RenderWindow& window) {
     doInitializeSecondWave = false;
     doInitializeThirdWave = false;
     gameState = GameState::FIRST_WAVE; //TODO : powiino byc menu ale huj
-    difficultyLevel = DifficultyLevel::EASY;
+    difficultyLevel = DifficultyLevel::HARD;
 
     movingCollidables.push_back(&knight);
 
@@ -392,6 +397,10 @@ auto Game::render() -> void {
     if (drawWave1) { window->draw(Assets::getSubtitles()["wave1"]); }
     if (drawWave2) { window->draw(Assets::getSubtitles()["wave2"]); }
     if (drawWave3) { window->draw(Assets::getSubtitles()["wave3"]); }
+
+    if (drawVictory) { window->draw(Assets::getSubtitles()["victory!"]); }
+    if (!knight.isAlive) { window->draw(Assets::getSubtitles()["gameOver"]); }
+
 
     //TODO TO DELETE
     //this->window->draw(grid);

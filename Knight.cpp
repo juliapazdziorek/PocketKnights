@@ -7,7 +7,7 @@
 auto Knight::updateEvents() -> void {
 
     // if not in attacking animation
-    if(!isAttacking) {
+    if(!isAttacking && isAlive) {
 
         // move left
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {

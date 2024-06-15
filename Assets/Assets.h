@@ -67,7 +67,7 @@ private:
     static auto loadFont() -> void;
     auto initializeMapTileMaps() -> void;
     auto initializeSubtitles() -> void;
-    auto adjustText(sf::Text& text, std::string string, int size, sf::Color color) -> void;
+    auto adjustText(sf::Text& text, std::string string, int size, sf::Color fillColor, sf::Color outlineColor, float outLineThickness, sf::Vector2f position) -> void;
 
 
 public:

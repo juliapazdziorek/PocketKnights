@@ -49,6 +49,8 @@ private:
     bool drawWave1;
     bool drawWave2;
     bool drawWave3;
+    bool drawVictory;
+    bool drawGameOver;
 
     //TODO TO DELETE
     /*sf::Texture gridTexture;

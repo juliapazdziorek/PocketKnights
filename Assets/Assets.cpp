@@ -206,23 +206,29 @@ auto Assets::initializeMapTileMaps() -> void {
 
 auto Assets::initializeSubtitles() -> void {
     subtitles["wave1"] = sf::Text();
-    adjustText(subtitles["wave1"],"Wave 1", 100, sf::Color::White);
+    adjustText(subtitles["wave1"],"Wave 1", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(256, 128));
 
     subtitles["wave2"] = sf::Text();
-    adjustText(subtitles["wave2"], "Wave 2", 100, sf::Color::White);
+    adjustText(subtitles["wave2"], "Wave 2", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(256, 128));
 
     subtitles["wave3"] = sf::Text();
-    adjustText(subtitles["wave3"], "Wave 3", 100, sf::Color::White);
+    adjustText(subtitles["wave3"], "Wave 3", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(256, 128));
+
+    subtitles["gameOver"] = sf::Text();
+    adjustText(subtitles["gameOver"], "Game over", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(176, 128));
+
+    subtitles["victory!"] = sf::Text();
+    adjustText(subtitles["victory!"], "Victory!", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(224, 128));
 }
 
-auto Assets::adjustText(sf::Text& text, std::string string, int size, sf::Color color) -> void {
+auto Assets::adjustText(sf::Text& text, std::string string, int size, sf::Color fillColor, sf::Color outlineColor, float outLineThickness ,sf::Vector2f position) -> void {
     text.setFont(font);
     text.setString(string);
     text.setCharacterSize(size);
-    text.setFillColor(color);
-    text.setOutlineColor(sf::Color::Black);
-    text.setOutlineThickness(5);
-    text.setPosition(256, 128);
+    text.setFillColor(fillColor);
+    text.setOutlineColor(outlineColor);
+    text.setOutlineThickness(outLineThickness);
+    text.setPosition(position);
 }
 
 
