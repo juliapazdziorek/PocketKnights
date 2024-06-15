@@ -70,11 +70,11 @@ auto Game::updateGoblins() -> void {
 }
 
 auto Game::updateLifeSpan() -> void {
-    movingCollidables.erase(std::remove_if(movingCollidables.begin(), movingCollidables.end(),
-                              [](Collidable* collidable){return !collidable->isAlive; }), movingCollidables.end());
-
     auto toEraseGoblins = std::ranges::remove_if(goblins, [](std::unique_ptr<Goblin> const& goblin){return !goblin->isAlive; });
     goblins.erase(toEraseGoblins.begin(), toEraseGoblins.end());
+
+    auto toEraseSheep = std::ranges::remove_if(flockOfSheep, [](std::unique_ptr<Sheep> const& sheep){return !sheep->isAlive; });
+    flockOfSheep.erase(toEraseSheep.begin(), toEraseSheep.end());
 
 }
 
@@ -194,14 +194,13 @@ auto Game::updateAttacks() -> void {
         if (goblin->getCurrentAttack().isCollidingWith(knight)) {
             knight.onCollisionWith(goblin->getCurrentAttack());
         }
-
     }
 
-    // knight being attacked
-
-
-    //TODO for goblins same
-
+    for (auto const& sheep : flockOfSheep) {
+        if (knight.getCurrentAttack().isCollidingWith(*sheep)) {
+            sheep->onCollisionWith(knight.getCurrentAttack());
+        }
+    }
 }
 
 

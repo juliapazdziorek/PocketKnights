@@ -43,6 +43,14 @@ auto Sheep::updateTexture() -> void {
 }
 
 
+// update variables
+
+auto Sheep::updateBoundsVariable() -> void {
+    bounds.left = position.x + 24;
+    bounds.top = position.y + 24;
+}
+
+
 // ----- private methods -----------------------------------------------------------------------------------------------
 
 // overrides
@@ -64,9 +72,8 @@ Sheep::Sheep() {
     sheepState = SheepState::STANDING;
 
     // sprite variables
-    position = sf::Vector2f(100, 100);
     scale = sf::Vector2f(0.5f, 0.5f);
-    bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 54), sf::Vector2f(10, 10));
+    bounds = sf::FloatRect(sf::Vector2f(position.x, position.y), sf::Vector2f(16, 16));
     sheep.setPosition(position);
     sheep.setScale(scale);
 
@@ -75,6 +82,13 @@ Sheep::Sheep() {
     timeToBounce = (float)(mathRandomInCpp(1, 3));
     animations.push_back(Assets::getAnimationSheepStanding()); // 0
     animations.push_back(Assets::getAnimationSheepBouncing()); // 1
+
+    //TODO to delete
+    this->hitBox.setOutlineColor(sf::Color::Red);
+    this->hitBox.setOutlineThickness(1);
+    this->hitBox.setSize(bounds.getSize());
+    this->hitBox.setPosition(bounds.getPosition());
+    this->hitBox.setFillColor(sf::Color::Transparent);
 
 }
 
@@ -87,6 +101,9 @@ auto Sheep::render(sf::RenderTarget *window) -> void {
 
     // render the sheep
     window->draw(sheep);
+
+    //TODO to delete
+    window->draw(this->hitBox);
 }
 
 
@@ -130,4 +147,8 @@ auto Sheep::setPosition(sf::Vector2f newPosition) -> void {
     // set new position
     position = newPosition;
     sheep.setPosition(position);
+    updateBoundsVariable();
+
+    //TODO to delete
+    hitBox.setPosition(bounds.getPosition());
 }

@@ -33,11 +33,17 @@ class Sheep : public Collidable {
     sf::Clock bouncingAnimationClock;
     sf::Clock timeToBounceClock;
 
+    //TODO TO DELETE
+    sf::RectangleShape hitBox;
+
 
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateBouncing() -> void;
     auto updateTexture() -> void;
+
+    // updating variables
+    auto updateBoundsVariable() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
 

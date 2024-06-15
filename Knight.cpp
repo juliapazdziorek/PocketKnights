@@ -378,6 +378,8 @@ auto Knight::render(sf::RenderTarget *window) -> void {
 
 auto Knight::updateState() -> void {
 
+    fmt::println("{}", health);
+
     // update knight's state
     updateEvents();
     updateIsAlive();
