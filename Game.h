@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "Knight.h"
 #include "Goblin.h"
+#include "Meat.h"
 #include "Sheep.h"
 
 
@@ -47,6 +48,8 @@ private:
     std::vector<std::unique_ptr<Sheep>> flockOfSheep;
     std::vector<sf::Vector2f> sheepPositions;
 
+    std::vector<std::unique_ptr<Meat>> resourcesMeat;
+
 
     enum class GameState {MENU, PAUSE, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
     GameState gameState;
@@ -80,6 +83,7 @@ private:
     auto updateKnight() -> void;
     auto updateGoblins() -> void;
     auto updateFlockOfSheep() -> void;
+    auto updateResourcesMeat() -> void;
     auto updateAttacks() -> void;
     auto updateLifeSpan() -> void;
 
@@ -94,6 +98,7 @@ private:
     auto initializeThirdWave() -> void;
     auto observeThirdWaveState() -> void;
     auto spawnGoblin(int amount) -> void;
+    auto spawnMeat(sf::Vector2f meatPosition) -> void;
 
 
 public:

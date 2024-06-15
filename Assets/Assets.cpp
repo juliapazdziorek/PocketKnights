@@ -85,6 +85,14 @@ auto Assets::loadTextures() -> void {
     sheepTexture.setSmooth(true);
     Assets::textures["sheepTexture"] = sheepTexture;
 
+    //sheepTexture
+    auto meatTexture = sf::Texture();
+    if (!meatTexture.loadFromFile("../TinySwords/Meat.png")) {
+        fmt::println("File can not load from file: TinySwords/Meat.png");
+    }
+    meatTexture.setSmooth(true);
+    Assets::textures["meatTexture"] = meatTexture;
+
     //smallRockTexture
     auto smallRockTexture = sf::Texture();
     if (!smallRockTexture.loadFromFile("../TinySwords/Terrain/SmallRock.png")) {
@@ -282,6 +290,10 @@ auto Assets::getAnimationGoblinAttackDown() -> Animation& { return Assets::gobli
 // sheep animation getters
 auto Assets::getAnimationSheepStanding() -> Animation& { return Assets::sheepStanding; }
 auto Assets::getAnimationSheepBouncing() -> Animation& { return Assets::sheepBouncing; }
+
+// meat assets getters
+auto Assets::getAnimationMeatSpawning() -> Animation& { return Assets::meatSpawning; }
+auto Assets::getTextureMeat() -> sf::Texture& { return Assets::textures["meatTexture"]; }
 
 //mapAnimation getters
 auto Assets::getAnimationFoam() -> Animation& { return Assets::foam; }

@@ -8,6 +8,7 @@
 #include "Engine/Attack.h"
 #include "Engine/Collidable.h"
 #include "Engine/Utility.h"
+#include "Meat.h"
 
 class Knight : public Collidable {
 

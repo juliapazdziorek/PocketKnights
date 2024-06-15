@@ -50,6 +50,9 @@ private:
     static inline Animation sheepStanding = Animation(Assets::textures["sheepTexture"], 1024, 256, 8, 2, 1, 8);
     static inline Animation sheepBouncing = Animation(Assets::textures["sheepTexture"], 1024, 256, 8, 2, 2, 6);
 
+    // resources animations
+    static inline Animation meatSpawning = Animation(Assets::textures["meatTexture"], 896, 128, 7, 1, 1, 7);
+
     //mapTiles
     int mapTileSizeInTexture;
     static inline std::map<std::string, MapTile> mapTilesGrass;
@@ -60,6 +63,8 @@ private:
 
     static inline MapTile mapTileShadow;
     static inline MapTileAnimated mapTileFoam = MapTileAnimated(Assets::foam, true);
+
+
 
     // font
     static inline sf::Font font;
@@ -103,6 +108,10 @@ public:
     // sheep animation getters
     static auto getAnimationSheepStanding() -> Animation&;
     static auto getAnimationSheepBouncing() -> Animation&;
+
+    // meat assets getters
+    static auto getAnimationMeatSpawning() -> Animation&;
+    static auto getTextureMeat() -> sf::Texture&;
 
     //mapAnimation getters
     static auto getAnimationFoam() -> Animation&;

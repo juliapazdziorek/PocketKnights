@@ -38,6 +38,14 @@ auto Game::handleCollision() -> void {
         }
     }
 
+    for (auto const& meat : resourcesMeat) {
+        if (meat->isCollidingWith(knight)) {
+            meat->onCollisionWith(knight);
+            knight.onCollisionWith(*meat);
+        }
+    }
+
+
 
 /*    for (auto const& movingCollidable : movingCollidables) {
        for (auto const& mapBorder : map.getMapBorders()) {
@@ -73,8 +81,17 @@ auto Game::updateLifeSpan() -> void {
     auto toEraseGoblins = std::ranges::remove_if(goblins, [](std::unique_ptr<Goblin> const& goblin){return !goblin->isAlive; });
     goblins.erase(toEraseGoblins.begin(), toEraseGoblins.end());
 
+    for (auto const& sheep : flockOfSheep) {
+        if (!sheep->isAlive) {
+            spawnMeat(sheep->getPosition());
+        }
+    }
+
     auto toEraseSheep = std::ranges::remove_if(flockOfSheep, [](std::unique_ptr<Sheep> const& sheep){return !sheep->isAlive; });
     flockOfSheep.erase(toEraseSheep.begin(), toEraseSheep.end());
+
+    auto toEraseMeat = std::ranges::remove_if(resourcesMeat, [](std::unique_ptr<Meat> const& meat){return !meat->isAlive; });
+    resourcesMeat.erase(toEraseMeat.begin(), toEraseMeat.end());
 
 }
 
@@ -103,6 +120,7 @@ auto Game::updateFlockOfSheep() -> void {
         // add new sheep to the flock
         if (positionFound) {
             auto sheep = std::make_unique<Sheep>();
+            //sheep->isAlive = true;
             sheep->setPosition(sheepPositions[positionIndex]);
             flockOfSheep.push_back(std::move(sheep));
             spawnSheepClock.restart();
@@ -112,6 +130,13 @@ auto Game::updateFlockOfSheep() -> void {
     // update sheep state
     for (auto const& sheep : flockOfSheep) {
         sheep->updateState();
+    }
+}
+
+
+auto Game::updateResourcesMeat() -> void {
+    for (auto const& meat : resourcesMeat) {
+        meat->updateState();
     }
 }
 
@@ -347,6 +372,12 @@ auto Game::spawnGoblin(int amount) -> void { //TODO !(not tested)!
 }
 
 
+auto Game::spawnMeat(sf::Vector2f meatPosition) -> void {
+    auto meat = std::make_unique<Meat>(meatPosition);
+    resourcesMeat.push_back(std::move(meat));
+}
+
+
 
 //public
 
@@ -362,7 +393,7 @@ Game::Game(sf::RenderWindow& window) {
     doInitializeSecondWave = false;
     doInitializeThirdWave = false;
     gameState = GameState::FIRST_WAVE; //TODO : powiino byc menu ale huj
-    difficultyLevel = DifficultyLevel::HARD;
+    difficultyLevel = DifficultyLevel::EASY;
 
     movingCollidables.push_back(&knight);
 
@@ -429,6 +460,7 @@ auto Game::updateState() -> void {
     updateKnight();
     updateGoblins();
     updateFlockOfSheep();
+    updateResourcesMeat();
 
     updateAttacks();
     updateLifeSpan();
@@ -453,6 +485,10 @@ auto Game::render() -> void {
         sheep->render(window);
     }
 
+    for (auto const& meat : resourcesMeat) {
+        meat->render(window);
+    }
+
     if (knight.isAlive) knight.render(window);
 
     if (drawWave1) { window->draw(Assets::getSubtitles()["wave1"]); }
@@ -468,10 +504,6 @@ auto Game::render() -> void {
 
     window->display();
 }
-
-
-
-
 
 
 

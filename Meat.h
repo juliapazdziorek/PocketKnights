@@ -1,47 +1,35 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 #include "Assets/Animation.h"
 #include "Assets/Assets.h"
-#include "Engine/Attack.h"
 #include "Engine/Collidable.h"
-#include "Engine/Utility.h"
+#include "Knight.h"
 
-
-class Sheep : public Collidable {
+class Meat : public Collidable {
 
 private:
 
-    // enums
-    enum class SheepState { STANDING, BOUNCING };
-
     // ----- variables -------------------------------------------------------------------------------------------------
 
-    // sheep state
-    SheepState sheepState;
-
     // sprite variables
-    sf::Sprite sheep;
+    sf::Sprite meat;
     sf::Vector2f position;
     sf::Vector2f scale;
     sf::FloatRect bounds;
+    sf::Texture texture;
 
     // animation variables
-    float timeToBounce;
-    bool isBouncing;
-    std::vector<Animation> animations;
+    bool spawned;
+    sf::Clock spawningClock;
     sf::Clock animationClock;
-    sf::Clock bouncingAnimationClock;
-    sf::Clock timeToBounceClock;
 
     //TODO TO DELETE
     sf::RectangleShape hitBox;
 
     // ----- event updating --------------------------------------------------------------------------------------------
-    auto updateBouncing() -> void;
     auto updateTexture() -> void;
-
-    // updating variables
-    auto updateBoundsVariable() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
 
@@ -52,7 +40,7 @@ private:
 public:
 
     // ----- constructor -----------------------------------------------------------------------------------------------
-    Sheep();
+    explicit Meat(sf::Vector2f newPosition);
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
@@ -64,11 +52,4 @@ public:
     auto isCollidingWith(Collidable& other) -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
 
-    // getters
-    auto getPosition() -> sf::Vector2f;
-
-    //setters
-    auto setPosition(sf::Vector2f newPosition) -> void;
-
 };
-

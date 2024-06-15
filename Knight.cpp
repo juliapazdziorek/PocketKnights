@@ -378,7 +378,7 @@ auto Knight::render(sf::RenderTarget *window) -> void {
 
 auto Knight::updateState() -> void {
 
-    fmt::println("{}", health);
+    //fmt::println("{}", health);
 
     // update knight's state
     updateEvents();
@@ -412,6 +412,10 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
             health -= 0; //mathRandomInCpp(1, 2); //TODO
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
+    }
+
+    else if (typeid(other) == typeid(Meat)) {
+        health += 15;
     }
 
         // set collision variables
