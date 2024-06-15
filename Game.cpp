@@ -101,6 +101,9 @@ auto Game::observeGameState() -> void {
             if (doInitializeFirstWave) {
                 initializeFirstWave();
                 doInitializeFirstWave = false;
+
+                drawWave1 = true;
+                subtitleClock.restart();
             }
 
             // observe wave state
@@ -110,11 +113,13 @@ auto Game::observeGameState() -> void {
 
         case GameState::SECOND_WAVE: {
 
-
             // initialize wave
             if (doInitializeSecondWave) {
                 initializeSecondWave();
                 doInitializeSecondWave = false;
+
+                drawWave2 = true;
+                subtitleClock.restart();
             }
 
             // observe wave state
@@ -128,6 +133,9 @@ auto Game::observeGameState() -> void {
             if (doInitializeThirdWave) {
                 initializeThirdWave();
                 doInitializeThirdWave = false;
+
+                drawWave3 = true;
+                subtitleClock.restart();
             }
 
             // observe wave state
@@ -186,7 +194,12 @@ auto Game::observeFirstWaveState() -> void {
         progressClock.restart();
     }
 
-    if (progressClock.getElapsedTime() >= sf::seconds(1) && readyToProgress) {
+    if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
+        drawWave1 = false;
+    }
+
+
+    if (progressClock.getElapsedTime() >= sf::seconds(5) && readyToProgress) {
         gameState = GameState::SECOND_WAVE;
         doInitializeSecondWave = true;
     }
@@ -220,6 +233,10 @@ auto Game::observeSecondWaveState() -> void {
         progressClock.restart();
     }
 
+    if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
+        drawWave2 = false;
+    }
+
     if (progressClock.getElapsedTime() >= sf::seconds(7) && readyToProgress) {
         gameState = GameState::THIRD_WAVE;
         doInitializeThirdWave = true;
@@ -246,6 +263,10 @@ auto Game::initializeThirdWave() -> void {
 
 
 auto Game::observeThirdWaveState() -> void {
+
+    if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
+        drawWave3 = false;
+    }
 
 }
 
@@ -303,6 +324,10 @@ Game::Game(sf::RenderWindow& window) {
     difficultyLevel = DifficultyLevel::EASY;
 
     movingCollidables.push_back(&knight);
+
+    drawWave1 = false;
+    drawWave2 = false;
+    drawWave3 = false;
 
     /*auto goblin1 = Goblin();
     goblin1.setPosition(sf::Vector2f((float)(-192 * 1), 176));
@@ -363,6 +388,10 @@ auto Game::render() -> void {
     for (auto& goblin : goblins) {
         goblin->render(window);
     }
+
+    if (drawWave1) { window->draw(Assets::getSubtitles()["wave1"]); }
+    if (drawWave2) { window->draw(Assets::getSubtitles()["wave2"]); }
+    if (drawWave3) { window->draw(Assets::getSubtitles()["wave3"]); }
 
     //TODO TO DELETE
     //this->window->draw(grid);

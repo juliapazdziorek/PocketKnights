@@ -7,8 +7,8 @@ auto Assets::loadTextures() -> void {
 
     //knightTexture
     auto knightTexture = sf::Texture();
-    if (!knightTexture.loadFromFile("../TinySwords/Knight.png")) { //TODO kropeczki :) 
-        fmt::println("File can not load from file: TinySwords/Knight.png");
+    if (!knightTexture.loadFromFile("../TinySwords/Knight.png")) {
+        fmt::println("File can not load from file: TinySwords/Knight.png"); //TODO te prompty bo mi sie plakac chce jak to czytam
     }
     knightTexture.setSmooth(true);
     Assets::textures["knightTexture"] = knightTexture;
@@ -111,8 +111,15 @@ auto Assets::loadTextures() -> void {
 
 }
 
+auto Assets::loadFont() -> void {
+    if (!font.loadFromFile("../Fonts/alagard.ttf")) {
+        fmt::println("Font could not be loaded from file: ../Fonts/alagard.ttf");
+    }
+}
 
-auto Assets::initializeMapTileMaps() const -> void {
+
+
+auto Assets::initializeMapTileMaps() -> void {
 
     //mapTileGrass map
     mapTilesGrass["MapTileGrassCornerLeftUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(0 * mapTileSizeInTexture, 0 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture), true);
@@ -197,6 +204,27 @@ auto Assets::initializeMapTileMaps() const -> void {
 
 }
 
+auto Assets::initializeSubtitles() -> void {
+    subtitles["wave1"] = sf::Text();
+    adjustText(subtitles["wave1"],"Wave 1", 100, sf::Color::White);
+
+    subtitles["wave2"] = sf::Text();
+    adjustText(subtitles["wave2"], "Wave 2", 100, sf::Color::White);
+
+    subtitles["wave3"] = sf::Text();
+    adjustText(subtitles["wave3"], "Wave 3", 100, sf::Color::White);
+}
+
+auto Assets::adjustText(sf::Text& text, std::string string, int size, sf::Color color) -> void {
+    text.setFont(font);
+    text.setString(string);
+    text.setCharacterSize(size);
+    text.setFillColor(color);
+    text.setOutlineColor(sf::Color::Black);
+    text.setOutlineThickness(5);
+    text.setPosition(256, 128);
+}
+
 
 
 //public:
@@ -205,9 +233,12 @@ auto Assets::initializeMapTileMaps() const -> void {
 
 Assets::Assets() {
     loadTextures();
+    loadFont();
 
-    this->mapTileSizeInTexture = 64;
+    mapTileSizeInTexture = 64;
     initializeMapTileMaps();
+
+    initializeSubtitles();
 
 }
 
@@ -250,5 +281,9 @@ auto Assets::getMapTilesStairs() -> std::map<std::string, MapTile> { return Asse
 auto Assets::getMapTilesBridge() -> std::map<std::string, MapTile> { return Assets::mapTilesBridge; }
 auto Assets::getMapTileShadow() -> MapTile { return Assets::mapTileShadow; }
 auto Assets::getMapTileFoam() -> MapTileAnimated { return Assets::mapTileFoam; }
+
+auto Assets::getSubtitles() -> std::map<std::string, sf::Text> {return Assets::subtitles; }
+
+
 
 

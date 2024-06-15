@@ -45,6 +45,11 @@ private:
     sf::Clock progressClock;
     bool readyToProgress;
 
+    sf::Clock subtitleClock;
+    bool drawWave1;
+    bool drawWave2;
+    bool drawWave3;
+
     //TODO TO DELETE
     /*sf::Texture gridTexture;
     sf::Sprite grid;*/

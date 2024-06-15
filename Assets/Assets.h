@@ -17,6 +17,8 @@ private:
     // ----- properties ------------------------------------------------------------------------------------------------
     static inline std::map<std::string, sf::Texture> textures;
 
+
+
     //map animations
     static inline Animation foam = Animation(Assets::textures["tileFoamTexture"], 1536, 192, 8, 1, 1, 8);
     static inline Animation smallRock = Animation(Assets::textures["smallRockTexture"], 1024, 128, 8, 1, 1, 8);
@@ -55,10 +57,17 @@ private:
     static inline MapTile mapTileShadow;
     static inline MapTileAnimated mapTileFoam = MapTileAnimated(Assets::foam, true);
 
+    // font
+    static inline sf::Font font;
+    static inline std::map<std::string, sf::Text> subtitles;
+
 
     // ----- private methods -------------------------------------------------------------------------------------------
     static auto loadTextures() -> void;
-    auto initializeMapTileMaps() const -> void;
+    static auto loadFont() -> void;
+    auto initializeMapTileMaps() -> void;
+    auto initializeSubtitles() -> void;
+    auto adjustText(sf::Text& text, std::string string, int size, sf::Color color) -> void;
 
 
 public:
@@ -102,5 +111,7 @@ public:
     static auto getMapTilesBridge() -> std::map<std::string, MapTile>;
     static auto getMapTileShadow() -> MapTile;
     static auto getMapTileFoam() -> MapTileAnimated;
+
+    static auto getSubtitles() -> std::map<std::string, sf::Text>;
 
 };
