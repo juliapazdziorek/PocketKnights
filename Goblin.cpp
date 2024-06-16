@@ -257,7 +257,6 @@ auto Goblin::chase() -> void {
     if (position.y < chasedPosition.y) {
         moveDown();
     }
-
 }
 
 

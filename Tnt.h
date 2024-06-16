@@ -4,15 +4,16 @@
 #include <SFML/Window.hpp>
 
 #include "Assets//Animation.h"
+#include "Assets/Assets.h"
 #include "Engine/Attack.h"
 #include "Engine/Collidable.h"
+#include "TntColor.h"
 
 class Tnt : Collidable {
 
     // enums
-    enum class TntState { STANDING, RUNNING_LEFT, RUNNING_RIGHT, EXPLODING };
+    enum class TntState { OUT, RUNNING, EXPLODING };
     enum class TntFacing { LEFT, RIGHT, UP, DOWN };
-    enum class TntColor { BLUE, RED };
 
     // ----- variables -------------------------------------------------------------------------------------------------
 
@@ -36,9 +37,11 @@ class Tnt : Collidable {
     float movingSpeed;
     sf::Vector2f velocity;
     sf::FloatRect nextPositionBounds;
+    sf::Vector2f chasedPosition;
 
     // explosion variables
-    //TODO
+    bool isExploding;
+    sf::FloatRect explosionBounds;
 
     // collision variables
     bool isColliding;
@@ -50,7 +53,6 @@ class Tnt : Collidable {
     sf::RectangleShape explosionHitBox;
 
     // ----- event updating --------------------------------------------------------------------------------------------
-    auto updateIsAlive() -> void;
     auto updateMovement() -> void;
     auto updateCollision() -> void;
     auto updateTexture() -> void;
@@ -77,7 +79,7 @@ class Tnt : Collidable {
 public:
 
     // ----- constructor -----------------------------------------------------------------------------------------------
-    Tnt();
+    Tnt(TntColor color);
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
@@ -90,7 +92,7 @@ public:
     auto onCollisionWith(Collidable& other) -> void override;
 
     // getters
-    auto getCurrentExcplosion() -> Attack&;
+    //auto getCurrentExplosion() -> Attack&;
 
     // setters
     auto setPosition(sf::Vector2f newPosition) -> void;
