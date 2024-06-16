@@ -61,6 +61,13 @@ private:
     // meat animations
     static inline Animation meatSpawning = Animation(Assets::textures["meatTexture"], 896, 128, 7, 1, 1, 7);
 
+    // tnt animations
+    static inline Animation tntBlueOut = Animation(Assets::textures["tntBlueTexture"], 768, 768, 6, 6, 2, 6);
+    static inline Animation tntBlueRunning = Animation(Assets::textures["tntBlueTexture"], 768, 768, 6, 6, 5, 3);
+    static inline Animation tntBlueFire = Animation(Assets::textures["tntBlueTexture"], 768, 768, 6, 6, 6, 3);
+    static inline Animation tntRedOut = Animation(Assets::textures["tntRedTexture"], 768, 768, 6, 6, 2, 6);
+    static inline Animation tntRedRunning = Animation(Assets::textures["tntRedTexture"], 768, 768, 6, 6, 5, 3);
+    static inline Animation tntRedFire = Animation(Assets::textures["tntRedTexture"], 768, 768, 6, 6, 6, 3);
 
     // ----- private methods -------------------------------------------------------------------------------------------
 
@@ -69,7 +76,7 @@ private:
     static auto loadFont() -> void;
 
     // initialize variables
-    auto initializeMapTileMaps() const -> void;
+    auto initializeMapTileMaps() -> void;
     auto initializeSubtitles() -> void;
 
     // adjust text
@@ -89,8 +96,6 @@ public:
     // subtitle getters
     static auto getSubtitles() -> std::map<std::string, sf::Text>;
 
-    // map animations getters
-    static auto getAnimationFoam() -> Animation&;
 
     // mapTile getters
     static auto getMapTilesGrass() -> std::map<std::string, MapTile>;
@@ -126,5 +131,13 @@ public:
     // meat assets getters
     static auto getAnimationMeatSpawning() -> Animation&;
     static auto getTextureMeat() -> sf::Texture&;
+
+    // tnt animation getters
+    static auto getAnimationTntBlueOut() -> Animation&;
+    static auto getAnimationTntBlueRunning() -> Animation&;
+    static auto getAnimationTntBlueFire() -> Animation&;
+    static auto getAnimationTntRedOut() -> Animation&;
+    static auto getAnimationTntRedRunning() -> Animation&;
+    static auto getAnimationTntRedFire() -> Animation&;
 
 };

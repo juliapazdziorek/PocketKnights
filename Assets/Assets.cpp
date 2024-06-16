@@ -103,6 +103,23 @@ auto Assets::loadTextures() -> void {
     }
     meatTexture.setSmooth(true);
     Assets::textures["meatTexture"] = meatTexture;
+
+    // tntBlueTexture
+    auto tntBlueTexture = sf::Texture();
+    if (!tntBlueTexture.loadFromFile("../TinySwords/TntBlue.png")) {
+        fmt::println("Could not load from file: TinySwords/TntBlue.png");
+    }
+    tntBlueTexture.setSmooth(true);
+    Assets::textures["tntBlueTexture"] = tntBlueTexture;
+
+    // tntRedTexture
+    auto tntRedTexture = sf::Texture();
+    if (!tntRedTexture.loadFromFile("../TinySwords/TntRed.png")) {
+        fmt::println("Could not load from file: TinySwords/TntRed.png");
+    }
+    tntRedTexture.setSmooth(true);
+    Assets::textures["tntRedTexture"] = tntRedTexture;
+
 }
 
 
@@ -116,7 +133,7 @@ auto Assets::loadFont() -> void {
 
 // initialize variables
 
-auto Assets::initializeMapTileMaps() const -> void {
+auto Assets::initializeMapTileMaps() -> void {
 
     // mapTileGrass map
     mapTilesGrass["MapTileGrassCornerLeftUp"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(0 * mapTileSizeInTexture, 0 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
@@ -228,6 +245,10 @@ auto Assets::initializeSubtitles() -> void {
     subtitles["wave3"] = sf::Text();
     adjustText(subtitles["wave3"], "Wave 3", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(256, 128));
 
+    // Attack by hitting SPACE //TODO
+    // Set TNT by hitting T
+    // Beware of TNTs!
+
     // Game over
     subtitles["gameOver"] = sf::Text();
     adjustText(subtitles["gameOver"], "Game over", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(176, 128));
@@ -296,11 +317,6 @@ auto Assets::getMapTileShadow() -> MapTile { return Assets::mapTileShadow; }
 auto Assets::getMapTileFoam() -> MapTileAnimated { return Assets::mapTileFoam; }
 
 
-//mapAnimation getters
-
-auto Assets::getAnimationFoam() -> Animation& { return Assets::foam; }
-
-
 // knight animation getters
 
 auto Assets::getAnimationKnightStanding() -> Animation& { return Assets::knightStanding; }
@@ -333,3 +349,13 @@ auto Assets::getAnimationSheepBouncing() -> Animation& { return Assets::sheepBou
 
 auto Assets::getAnimationMeatSpawning() -> Animation& { return Assets::meatSpawning; }
 auto Assets::getTextureMeat() -> sf::Texture& { return Assets::textures["meatTexture"]; }
+
+
+// tnt animation getters
+
+auto Assets::getAnimationTntBlueOut() -> Animation & { return Assets::tntBlueOut; }
+auto Assets::getAnimationTntBlueRunning() -> Animation & { return Assets::tntBlueRunning; }
+auto Assets::getAnimationTntBlueFire() -> Animation & { return Assets::tntBlueFire; }
+auto Assets::getAnimationTntRedOut() -> Animation & { return Assets::tntRedOut; }
+auto Assets::getAnimationTntRedRunning() -> Animation & { return Assets::tntRedRunning; }
+auto Assets::getAnimationTntRedFire() -> Animation & { return Assets::tntRedFire; }

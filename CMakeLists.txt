@@ -37,6 +37,7 @@ add_executable(PocketKnight main.cpp
         Map.cpp
         Meat.cpp
         Menu.cpp
-        Sheep.cpp)
+        Sheep.cpp
+        Tnt.cpp)
 
 target_link_libraries(PocketKnight fmt sfml-graphics)
