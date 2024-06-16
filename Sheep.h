@@ -4,6 +4,7 @@
 #include "Assets/Assets.h"
 #include "Engine/Attack.h"
 #include "Engine/Collidable.h"
+#include "Engine/Explosion.h"
 #include "Engine/Utility.h"
 
 

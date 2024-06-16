@@ -45,6 +45,13 @@ auto Game::updateGoblins() -> void {
         goblin->updateState();
         goblin->setChasedPosition(knight.getPosition());
     }
+
+    // spawn new tnt if time
+    if (!goblins.empty() && tntRedClock.getElapsedTime() >= sf::seconds(5) && gameState == GameState::THIRD_WAVE) {
+        spawnTnt(TntColor::RED);
+        tntRedClock.restart();
+    }
+
 }
 
 
@@ -185,6 +192,13 @@ auto Game::updateAttacks() -> void {
         for (auto const& goblin : goblins) {
             if (goblin->isCollidingWith(*explosion)) {
                 goblin->onCollisionWith(*explosion);
+            }
+        }
+
+        // sheep in explosion
+        for (auto const& sheep : flockOfSheep) {
+            if (sheep->isCollidingWith(*explosion)) {
+                sheep->onCollisionWith(*explosion);
             }
         }
 
@@ -396,6 +410,7 @@ auto Game::observeSecondWaveState() -> void {
 
 auto Game::initializeThirdWave() -> void {
     readyToProgress = false;
+    tntRedClock.restart();
 
     // spawn goblins accordingly
     switch (difficultyLevel) {

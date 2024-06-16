@@ -439,7 +439,7 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
         }
     }
 
-    // if colliding with explosion subtract additional health
+    // if colliding with explosion subtract health
     else if (typeid(other) == typeid(Explosion)) {
         if (other.isAlive) {
             health -= mathRandomInCpp(4, 8);

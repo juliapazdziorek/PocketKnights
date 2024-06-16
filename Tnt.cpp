@@ -270,9 +270,9 @@ Tnt::Tnt(TntColor color)
     animationsBlue.push_back(Assets::getAnimationTntBlueOut()); //0
     animationsBlue.push_back(Assets::getAnimationTntBlueRunning());
     animationsBlue.push_back(Assets::getAnimationTntBlueFire()); //2
-    animationsBlue.push_back(Assets::getAnimationTntRedOut()); //0
-    animationsBlue.push_back(Assets::getAnimationTntRedRunning());
-    animationsBlue.push_back(Assets::getAnimationTntRedFire()); //2
+    animationsRed.push_back(Assets::getAnimationTntRedOut()); //0
+    animationsRed.push_back(Assets::getAnimationTntRedRunning());
+    animationsRed.push_back(Assets::getAnimationTntRedFire()); //2
 
     // movement variables
     movingSpeed = 1;
@@ -360,6 +360,7 @@ auto Tnt::isCollidingWith(Collidable &other) -> bool {
     // return if tnt is colliding
     return nextPositionBounds.intersects(other.getGlobalBounds());
 }
+
 
 auto Tnt::onCollisionWith(Collidable &other) -> void {
 

@@ -126,10 +126,11 @@ auto Sheep::isCollidingWith(Collidable &other) -> bool {
 
 auto Sheep::onCollisionWith(Collidable &other) -> void {
 
-    // if colliding with new attack kill
-    if (typeid(other) == typeid(Attack)) {
+    // if colliding with new attack or explosion kill
+    if (typeid(other) == typeid(Attack) || (typeid(other) == typeid(Explosion))) {
         isAlive = false;
     }
+
 }
 
 

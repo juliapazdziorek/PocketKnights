@@ -494,10 +494,10 @@ auto Goblin::onCollisionWith(Collidable &other) -> void {
         }
     }
 
-    // if colliding with explosion subtract additional health
+    // if colliding with explosion subtract health
     else if (typeid(other) == typeid(Explosion)) {
         if (other.isAlive) {
-            health -= mathRandomInCpp(15, 30);
+            health -= mathRandomInCpp(20, 30);
         }
     }
 
