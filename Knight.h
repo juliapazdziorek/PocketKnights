@@ -35,6 +35,10 @@ private:
     std::vector<Animation> animations;
     sf::Clock animationClock;
 
+    // health bar variables
+    sf::RectangleShape healthBar;
+    sf::RectangleShape healthInBar;
+
     // movement variables
     float movingSpeed;
     sf::Vector2f velocity;
@@ -53,13 +57,14 @@ private:
     std::vector<Collidable*> collidables;
 
     //TODO to delete
-    /*sf::RectangleShape hitBox;
-    sf::RectangleShape nextPositionHitBox;
-    sf::RectangleShape attackHitBox;*/
+//    sf::RectangleShape hitBox;
+//    sf::RectangleShape nextPositionHitBox;
+//    sf::RectangleShape attackHitBox;
 
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
+    auto updateHealthBar() -> void;
     auto updateIsAlive() -> void;
     auto updateAttack() -> void;
     auto updateCollision() -> void;

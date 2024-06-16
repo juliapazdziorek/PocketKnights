@@ -112,6 +112,13 @@ auto Knight::updateEvents() -> void {
 }
 
 
+auto Knight::updateHealthBar() -> void {
+    healthBar.setPosition(bounds.left - 16, bounds.top - 42);
+    healthInBar.setPosition(healthBar.getPosition().x, healthBar.getPosition().y);
+    healthInBar.setSize(sf::Vector2f((float)health, 5));
+}
+
+
 auto Knight::updateIsAlive() -> void {
 
     // knight dies :(
@@ -305,7 +312,7 @@ Knight::Knight() {
 
     // knight state
     isAlive = true;
-    health = 100;
+    health = 48;
     knightState = KnightState::STANDING;
     knightFacing = KnightFacing::DOWN;
 
@@ -324,6 +331,15 @@ Knight::Knight() {
     animations.push_back(Assets::getAnimationKnightAttackLeft());
     animations.push_back(Assets::getAnimationKnightAttackUp());
     animations.push_back(Assets::getAnimationKnightAttackDown()); // 6
+
+    // health bar variables
+    healthBar.setSize(sf::Vector2f(48, 5));
+    healthBar.setFillColor(sf::Color::White);
+    healthBar.setOutlineColor(sf::Color::Black);
+    healthBar.setOutlineThickness(2);
+    healthInBar.setSize(sf::Vector2f(48, 5));
+    healthInBar.setFillColor(sf::Color::Red);
+    updateHealthBar();
 
     // movement variables
     velocity = sf::Vector2f(0, 0);
@@ -365,6 +381,8 @@ Knight::Knight() {
 auto Knight::render(sf::RenderTarget *window) -> void {
 
     // render the knight
+    window->draw(healthBar);
+    window->draw(healthInBar);
     window->draw(knight);
 
     //TODO to delete
@@ -382,6 +400,7 @@ auto Knight::updateState() -> void {
 
     // update knight's state
     updateEvents();
+    updateHealthBar();
     updateIsAlive();
     updateAttack();
 
@@ -409,13 +428,17 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
     // if colliding with new attack subtract health
     if (typeid(other) == typeid(Attack)) {
         if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            health -= mathRandomInCpp(3, 7);
+            health -= mathRandomInCpp(1, 4);
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
     }
 
     else if (typeid(other) == typeid(Meat)) {
-        health += 20;
+        if (health <= 43) {
+            health += 5;
+        } else {
+            health = 48;
+        }
     }
 
         // set collision variables
