@@ -31,10 +31,12 @@ add_executable(PocketKnight main.cpp
         Assets/MapTile.cpp
         Assets/MapTileAnimated.cpp
         Assets/Animation.cpp
+        DifficultyLevel.h
         Map.cpp
         Knight.cpp
         Goblin.cpp
         Meat.cpp
+        Menu.cpp
         Sheep.cpp)
 
 target_link_libraries(PocketKnight fmt sfml-graphics)

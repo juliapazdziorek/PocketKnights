@@ -131,4 +131,6 @@ public:
 
     static auto getSubtitles() -> std::map<std::string, sf::Text>;
 
+    static auto getTextureBanner() -> sf::Texture&;
+
 };

@@ -9,10 +9,12 @@
 #include "Engine/Utility.h"
 #include "Assets/Assets.h"
 #include "Assets/MapBorder.h"
+#include "DifficultyLevel.h"
 #include "Map.h"
 #include "Knight.h"
 #include "Goblin.h"
 #include "Meat.h"
+#include "Menu.h"
 #include "Sheep.h"
 
 
@@ -22,6 +24,7 @@ private:
 
     // ----- properties ------------------------------------------------------------------------------------------------
     sf::RenderWindow* window;
+    Menu menu;
 
     bool doInitializeFirstWave;
     bool doInitializeSecondWave;
@@ -51,10 +54,9 @@ private:
     std::vector<std::unique_ptr<Meat>> resourcesMeat;
 
 
-    enum class GameState {MENU, PAUSE, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
+    enum class GameState {MENU, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
     GameState gameState;
 
-    enum class DifficultyLevel {EASY, MEDIUM, HARD};
     DifficultyLevel difficultyLevel;
 
     sf::Clock progressClock;
@@ -91,6 +93,7 @@ private:
 
     // game progress
     auto observeGameState() -> void;
+    auto observeMenuState() -> void;
     auto initializeFirstWave() -> void;
     auto observeFirstWaveState() -> void;
     auto initializeSecondWave() -> void;

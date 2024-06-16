@@ -5,6 +5,14 @@
 // ----- private methods ------------------------------------------------------------------------------------------------
 auto Assets::loadTextures() -> void {
 
+    //bannerTexture
+    auto bannerTexture = sf::Texture();
+    if (!bannerTexture.loadFromFile("../TinySwords/Banner.png")) {
+        fmt::println("File can not load from file: TinySwords/Banner.png");
+    }
+    bannerTexture.setSmooth(true);
+    Assets::textures["bannerTexture"] = bannerTexture;
+
     //knightTexture
     auto knightTexture = sf::Texture();
     if (!knightTexture.loadFromFile("../TinySwords/Knight.png")) {
@@ -85,7 +93,7 @@ auto Assets::loadTextures() -> void {
     sheepTexture.setSmooth(true);
     Assets::textures["sheepTexture"] = sheepTexture;
 
-    //sheepTexture
+    //meatTexture
     auto meatTexture = sf::Texture();
     if (!meatTexture.loadFromFile("../TinySwords/Meat.png")) {
         fmt::println("File can not load from file: TinySwords/Meat.png");
@@ -93,15 +101,15 @@ auto Assets::loadTextures() -> void {
     meatTexture.setSmooth(true);
     Assets::textures["meatTexture"] = meatTexture;
 
-    //smallRockTexture
+    /*//smallRockTexture
     auto smallRockTexture = sf::Texture();
     if (!smallRockTexture.loadFromFile("../TinySwords/Terrain/SmallRock.png")) {
         fmt::println("File can not load from file: TinySwords/SmallRock.png");
     }
     smallRockTexture.setSmooth(true);
-    Assets::textures["smallRockTexture"] = smallRockTexture;
+    Assets::textures["smallRockTexture"] = smallRockTexture;*/
 
-    //mediumRockTexture
+    /*//mediumRockTexture
     auto mediumRockTexture = sf::Texture();
     if (!mediumRockTexture.loadFromFile("../TinySwords/Terrain/MediumRock.png")) {
         fmt::println("File can not load from file: TinySwords/MediumRock.png");
@@ -123,7 +131,7 @@ auto Assets::loadTextures() -> void {
         fmt::println("File can not load from file: TinySwords/LargeRock.png");
     }
     largeRockTexture.setSmooth(true);
-    Assets::textures["largeRockTexture"] = largeRockTexture;
+    Assets::textures["largeRockTexture"] = largeRockTexture;*/
 
 }
 
@@ -235,6 +243,17 @@ auto Assets::initializeSubtitles() -> void {
 
     subtitles["victory!"] = sf::Text();
     adjustText(subtitles["victory!"], "Victory!", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(224, 128));
+
+    subtitles["easy"] = sf::Text();
+    adjustText(subtitles["easy"], "1 EASY", 60, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(320, 120));
+
+    subtitles["medium"] = sf::Text();
+    adjustText(subtitles["medium"], "2 MEDIUM", 60, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(280, 260));
+
+    subtitles["hard"] = sf::Text();
+    adjustText(subtitles["hard"], "3 HARD", 60, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(320, 400));
+
+
 }
 
 auto Assets::adjustText(sf::Text& text, std::string string, int size, sf::Color fillColor, sf::Color outlineColor, float outLineThickness ,sf::Vector2f position) -> void {
@@ -313,6 +332,8 @@ auto Assets::getMapTileShadow() -> MapTile { return Assets::mapTileShadow; }
 auto Assets::getMapTileFoam() -> MapTileAnimated { return Assets::mapTileFoam; }
 
 auto Assets::getSubtitles() -> std::map<std::string, sf::Text> {return Assets::subtitles; }
+
+auto Assets::getTextureBanner() -> sf::Texture& { return Assets::textures["bannerTexture"]; }
 
 
 
