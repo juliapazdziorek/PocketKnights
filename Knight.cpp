@@ -102,6 +102,10 @@ auto Knight::updateEvents() -> void {
             attackAnimationClock.restart();
             attackPosition = position;
             currentAttack.setBounds(attackBounds);
+
+            // update attack lifespan
+            currentAttack.isAlive = true;
+            currentAttack.aliveClock.restart();
         }
 
         // stand if nothing pressed
@@ -130,6 +134,9 @@ auto Knight::updateIsAlive() -> void {
 
 auto Knight::updateAttack() -> void {
     if(isAttacking) {
+
+        // update attack state
+        currentAttack.updateState();
 
         // not moving while setAttackBounds
         while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
@@ -427,9 +434,15 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
 
     // if colliding with new attack subtract health
     if (typeid(other) == typeid(Attack)) {
-        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
+        if (other.isAlive) {
             health -= mathRandomInCpp(1, 4);
-            previousBeingAttacked.setBounds(other.getGlobalBounds());
+        }
+    }
+
+    // if colliding with explosion subtract additional health
+    else if (typeid(other) == typeid(Explosion)) {
+        if (other.isAlive) {
+            health -= mathRandomInCpp(4, 8);
         }
     }
 

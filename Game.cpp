@@ -120,6 +120,15 @@ auto Game::updateTnt() -> void {
 }
 
 
+auto Game::updateExplosions() -> void {
+
+    // update explosion state
+    for (auto const& explosion : explosions) {
+        explosion->updateState();
+    }
+}
+
+
 auto Game::updateAttacks() -> void {
 
     // goblins being attacked
@@ -163,6 +172,23 @@ auto Game::updateAttacks() -> void {
             }
         }
     }
+
+    // explosions
+    for (auto const& explosion : explosions) {
+
+        // knight in explosion
+        if (knight.isCollidingWith(*explosion)) {
+            knight.onCollisionWith(*explosion);
+        }
+
+        // goblins in explosion
+        for (auto const& goblin : goblins) {
+            if (goblin->isCollidingWith(*explosion)) {
+                goblin->onCollisionWith(*explosion);
+            }
+        }
+
+    }
 }
 
 
@@ -187,9 +213,20 @@ auto Game::updateLifeSpan() -> void {
     auto toEraseMeat = std::ranges::remove_if(resourcesMeat,[](std::unique_ptr<Meat> const& meat) { return !meat->isAlive; });
     resourcesMeat.erase(toEraseMeat.begin(), toEraseMeat.end());
 
+    for (auto const& tnt : tntVector) {
+        if (!tnt->isAlive) {
+            spawnExplosion(tnt->getPosition());
+        }
+    }
+
     // handle tnt lifespan
     auto toEraseTnt = std::ranges::remove_if(tntVector,[](std::unique_ptr<Tnt> const& tnt) { return !tnt->isAlive; });
     tntVector.erase(toEraseTnt.begin(), toEraseTnt.end());
+
+    // handle explosion lifespan
+    auto toEraseExplosion = std::ranges::remove_if(explosions,[](std::unique_ptr<Explosion> const& explosion) { return !explosion->isAlive && explosion->getTimeOfExplosion().getElapsedTime() >= sf::seconds(0.9f); });
+    explosions.erase(toEraseExplosion.begin(), toEraseExplosion.end());
+
 }
 
 
@@ -463,6 +500,14 @@ auto Game::spawnTnt(TntColor color) -> void {
 }
 
 
+auto Game::spawnExplosion(sf::Vector2f explosionPosition) -> void {
+
+    // spawn new explosion
+    auto explosion = std::make_unique<Explosion>(explosionPosition);
+    explosions.push_back(std::move(explosion));
+}
+
+
 // handling collision
 
 auto Game::handleCollision() -> void {
@@ -600,6 +645,7 @@ auto Game::updateState() -> void {
     updateFlockOfSheep();
     updateResourcesMeat();
     updateTnt();
+    updateExplosions();
     updateAttacks();
     updateLifeSpan();
     updateMap();
@@ -639,6 +685,11 @@ auto Game::render() -> void {
     // render knight
     if (knight.isAlive) knight.render(window);
 
+    // render explosions
+    for (auto const& explosion : explosions) {
+        explosion->render(window);
+    }
+
     // render menu
     if (gameState == GameState::MENU) {
         menu.render(window);
@@ -664,3 +715,4 @@ auto Game::render() -> void {
 auto Game::isRunning() -> bool {
     return window->isOpen();
 }
+

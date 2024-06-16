@@ -29,6 +29,7 @@ add_executable(PocketKnight main.cpp
         Engine/Attack.cpp
         Engine/Collidable.cpp
         Engine/Entity.cpp
+        Engine/Explosion.cpp
         Engine/Utility.cpp
         DifficultyLevel.h
         Game.cpp

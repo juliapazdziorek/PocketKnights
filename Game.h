@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Engine/Collidable.h"
+#include "Engine/Explosion.h"
 #include "Engine/Utility.h"
 #include "Assets/Assets.h"
 #include "Assets/MapBorder.h"
@@ -70,6 +71,9 @@ private:
     sf::Clock tntRedClock;
     std::vector<std::unique_ptr<Tnt>> tntVector;
 
+    // explosions
+    std::vector<std::unique_ptr<Explosion>> explosions;
+
     // collision containers
     std::vector<std::unique_ptr<Collidable>> mapBorders;
     std::vector<std::unique_ptr<Collidable>> attacks;
@@ -94,6 +98,7 @@ private:
     auto updateFlockOfSheep() -> void;
     auto updateResourcesMeat() -> void;
     auto updateTnt() -> void;
+    auto updateExplosions() -> void;
     auto updateAttacks() -> void;
     auto updateLifeSpan() -> void;
 
@@ -113,6 +118,7 @@ private:
     auto spawnGoblin(int amount) -> void;
     auto spawnMeat(sf::Vector2f meatPosition) -> void;
     auto spawnTnt(TntColor color) -> void;
+    auto spawnExplosion(sf::Vector2f explosionPosition) -> void;
 
     // handling collision
     auto handleCollision() -> void;

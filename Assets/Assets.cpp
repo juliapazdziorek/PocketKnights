@@ -126,7 +126,7 @@ auto Assets::loadTextures() -> void {
         fmt::println("Could not load from file: TinySwords/Explosion.png");
     }
     explosionTexture.setSmooth(true);
-    Assets::textures["tntRedTexture"] = explosionTexture;
+    Assets::textures["explosionTexture"] = explosionTexture;
 
 }
 

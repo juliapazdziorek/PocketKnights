@@ -75,9 +75,6 @@ class Tnt : public Collidable {
     auto moveUp() -> void;
     auto moveDown() -> void;
 
-    // explosion
-    auto explode() -> void;
-
     // overrides
     auto getGlobalBounds() const -> sf::FloatRect override;
 
@@ -99,7 +96,7 @@ public:
 
     // getters
     auto getTntColor() -> TntColor;
-    //auto getCurrentExplosion() -> Attack&;
+    auto getPosition() -> sf::Vector2f;
 
     // setters
     auto setPosition(sf::Vector2f newPosition) -> void;

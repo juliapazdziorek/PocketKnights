@@ -238,13 +238,6 @@ auto Tnt::moveDown() -> void {
 }
 
 
-// explosion
-
-auto Tnt::explode() -> void {
-
-}
-
-
 // overrides
 
 auto Tnt::getGlobalBounds() const -> sf::FloatRect {
@@ -364,17 +357,6 @@ auto Tnt::updateState() -> void {
 
 auto Tnt::isCollidingWith(Collidable &other) -> bool {
 
-    /*// check if goblin's attack is colliding with an enemy
-    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight) && attackBounds != currentAttack.getGlobalBounds()) {
-
-        // update attack variables
-        goblinState = GoblinState::ATTACKING;
-        isAttacking = true;
-        attackAnimationClock.restart();
-        attackPosition = position;
-        currentAttack.setBounds(attackBounds); //to jest od goblina
-    }*/
-
     // return if tnt is colliding
     return nextPositionBounds.intersects(other.getGlobalBounds());
 }
@@ -401,9 +383,9 @@ auto Tnt::getTntColor() -> TntColor {
 }
 
 
-/*auto Tnt::getCurrentExplosion() -> Attack & {
-    return ;
-}*/
+auto Tnt::getPosition() -> sf::Vector2f {
+    return position;
+}
 
 
 // setters

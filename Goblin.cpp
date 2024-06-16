@@ -16,6 +16,9 @@ auto Goblin::updateIsAlive() -> void {
 auto Goblin::updateAttack() -> void {
     if(isAttacking) {
 
+        // update attack state
+        currentAttack.updateState();
+
         // not move while setAttackBounds
         while (attackAnimationClock.getElapsedTime() <= sf::seconds(0.1f)) {
             goblin.setPosition(attackPosition);
@@ -458,15 +461,23 @@ auto Goblin::updateState() -> void {
 
 auto Goblin::isCollidingWith(Collidable &other) -> bool {
 
-    // check if goblin's attack is colliding with an enemy
-    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight) && attackBounds != currentAttack.getGlobalBounds()) {
+    // attack enemy if colliding
+    if (attackBounds.intersects(other.getGlobalBounds()) && typeid(other) == typeid(Knight)) {
 
-        // update attack variables
-        goblinState = GoblinState::ATTACKING;
-        isAttacking = true;
-        attackAnimationClock.restart();
-        attackPosition = position;
-        currentAttack.setBounds(attackBounds);
+        // check if attack is active
+        if (!isAttacking) {
+
+            // update attack variables
+            goblinState = GoblinState::ATTACKING;
+            attackAnimationClock.restart();
+            isAttacking = true;
+            attackPosition = position;
+            currentAttack.setBounds(attackBounds);
+
+            // update attack lifespan
+            currentAttack.isAlive = true;
+            currentAttack.aliveClock.restart();
+        }
     }
 
     // return if goblin is colliding
@@ -478,9 +489,15 @@ auto Goblin::onCollisionWith(Collidable &other) -> void {
 
     // if colliding with new attack subtract health
     if (typeid(other) == typeid(Attack)) {
-        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
+        if (other.isAlive) {
             health -= mathRandomInCpp(10, 20);
-            previousBeingAttacked.setBounds(other.getGlobalBounds());
+        }
+    }
+
+    // if colliding with explosion subtract additional health
+    else if (typeid(other) == typeid(Explosion)) {
+        if (other.isAlive) {
+            health -= mathRandomInCpp(15, 30);
         }
     }
 

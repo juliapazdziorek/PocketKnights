@@ -8,6 +8,7 @@
 #include "Assets/Assets.h"
 #include "Engine/Attack.h"
 #include "Engine/Collidable.h"
+#include "Engine/Explosion.h"
 #include "Engine/Utility.h"
 #include "Knight.h"
 
@@ -49,7 +50,6 @@ private:
     sf::Vector2f attackPosition;
     sf::FloatRect attackBounds;
     Attack currentAttack;
-    Attack previousBeingAttacked;
 
     // collision variables
     bool isColliding;
