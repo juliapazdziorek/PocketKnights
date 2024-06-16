@@ -8,18 +8,18 @@ class MapBorder : public Collidable {
 
 private:
 
-    // ----- properties ------------------------------------------------------------------------------------------------
+    // ----- variables -------------------------------------------------------------------------------------------------
     sf::RectangleShape border;
 
 public:
 
-    // ----- constructor / destructor ----------------------------------------------------------------------------------
+    // ----- constructor  ----------------------------------------------------------------------------------------------
     MapBorder(float width, float height, float x, float y);
 
     // ----- public methods --------------------------------------------------------------------------------------------
+
+    // overrides
     auto getGlobalBounds() const -> sf::FloatRect override;
     auto updateState() -> void override;
-
-    auto render(sf::RenderTarget* window) -> void;
 
 };

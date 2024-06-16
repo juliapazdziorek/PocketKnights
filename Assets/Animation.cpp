@@ -1,10 +1,12 @@
 #include "Animation.h"
 
-//private:
+// private:
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
 auto Animation::computeFrames() -> void {
+
+    // compute frames accordingly
     auto recWidth = this->width / this->numberOfFramesInTexture;
     auto recHeight = this->height / this->numberOfRowsInTexture;
 
@@ -14,6 +16,8 @@ auto Animation::computeFrames() -> void {
 }
 
 auto Animation::countCurrentTextureIndex() -> void {
+
+    // set current frame
     if (this->currentTextureIndex < this->framesOfAnimation - 1) {
         currentTextureIndex++;
     } else {
@@ -23,29 +27,30 @@ auto Animation::countCurrentTextureIndex() -> void {
 
 
 
-//public:
+// public:
 
-// ----- constructor / destructor --------------------------------------------------------------------------------------
+// ----- constructor ---------------------------------------------------------------------------------------------------
 
 Animation::Animation(sf::Texture& texture, int const& width, int const& height, int const& numberOfFramesInTexture, int const& numberOfRowsInTexture, int const& rowOfAnimation, int const& framesOfAnimation)
     : texture(texture), currentTextureIndex(0), width(width), height(height), numberOfFramesInTexture(numberOfFramesInTexture), numberOfRowsInTexture(numberOfRowsInTexture), rowOfAnimation(rowOfAnimation), framesOfAnimation(framesOfAnimation) {
     this->frames = std::vector<sf::IntRect>(this->framesOfAnimation);
     computeFrames();
-
 }
-
-Animation::~Animation() = default;
 
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
 auto Animation::applyTexture(sf::Sprite& sprite) -> void {
-    sprite.setTexture(texture);//TODO teksturana sprite i tu tylkozmiana intrect
+
+    // change texture and frame accordingly
+    sprite.setTexture(texture);
     sprite.setTextureRect(frames[currentTextureIndex]);
 }
 
 auto Animation::updateFrame(sf::Clock& clock) -> void {
-    while (clock.getElapsedTime() >= sf::seconds(0.1f)) {
+
+    // change frame every 0,1 sec
+    if (clock.getElapsedTime() >= sf::seconds(0.1f)) {
         countCurrentTextureIndex();
         clock.restart();
     }

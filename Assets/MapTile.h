@@ -7,31 +7,31 @@ class MapTile  {
 
 private:
 
-    // ----- properties ------------------------------------------------------------------------------------------------
+    // ----- variables -------------------------------------------------------------------------------------------------
     sf::Texture texture;
 
 
 protected:
 
-    // ----- protected properties --------------------------------------------------------------------------------------
+    // ----- protected variables ---------------------------------------------------------------------------------------
     sf::Sprite tile;
     sf::Vector2f position;
     sf::Vector2f scale;
-    bool isPassable;
 
 public:
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
     MapTile();
-    MapTile(sf::Texture& texture, sf::IntRect intRect, bool isPassable);
-    virtual ~MapTile();
+    MapTile(sf::Texture& texture, sf::IntRect intRect);
+    virtual ~MapTile() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
-    //setters
+    // render
+    virtual auto render(sf::RenderTarget* window) -> void;
+
+    // setters
     auto setPosition(sf::Vector2f newPosition) -> void;
     auto setScale(sf::Vector2f newScale) -> void;
-
-    virtual auto render(sf::RenderTarget* window) -> void;
 
 };

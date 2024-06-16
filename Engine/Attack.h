@@ -13,14 +13,16 @@ private:
 
 public:
 
-    // ----- constructor / destructor ----------------------------------------------------------------------------------
+    // ----- constructor -----------------------------------------------------------------------------------------------
     Attack() = default;
     explicit Attack(sf::FloatRect attackBounds);
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto getGlobalBounds() const -> sf::FloatRect override;
+
     auto setBounds(sf::FloatRect bounds) -> void;
+
+    // overrides
+    auto getGlobalBounds() const -> sf::FloatRect override;
     auto updateState() -> void override;
 
 };
-

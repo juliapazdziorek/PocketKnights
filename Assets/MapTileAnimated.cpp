@@ -2,12 +2,11 @@
 
 //public:
 
-// ----- constructor / destructor --------------------------------------------------------------------------------------
+// ----- constructor ---------------------------------------------------------------------------------------------------
 
-MapTileAnimated::MapTileAnimated(Animation& animation, bool isPassable)
-    : animation(animation) {
-    this->isPassable = isPassable;
-}
+MapTileAnimated::MapTileAnimated(Animation& animation)
+    : animation(animation) {}
+
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 

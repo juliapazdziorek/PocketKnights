@@ -2,4 +2,5 @@
 
 #include <random>
 
-auto mathRandomInCpp(int const from, int const to) -> int;
+// randomize integers
+auto mathRandomInCpp(int from, int to) -> int;

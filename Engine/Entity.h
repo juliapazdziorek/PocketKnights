@@ -4,13 +4,9 @@
 
 class Entity {
 
-protected:
-
-    // ---- protected properties ---------------------------------------------------------------------------------------
-
-
 public:
 
+    // ----- variables -------------------------------------------------------------------------------------------------
     bool isAlive;
 
     // ----- constructor / destructor ----------------------------------------------------------------------------------
@@ -21,11 +17,5 @@ public:
 
     // update state
     virtual auto updateState() -> void = 0;
-
-    // lifespan
-    auto checkIfAlive() const -> bool; //co on tu podkreśla da fq
-    auto kill() -> void;
-
-    //TODO some is as as
 
 };

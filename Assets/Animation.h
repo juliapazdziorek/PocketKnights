@@ -7,7 +7,7 @@ class Animation {
 
 private:
 
-    // ----- properties ------------------------------------------------------------------------------------------------
+    // ----- variables -------------------------------------------------------------------------------------------------
     sf::Texture& texture;
     std::vector<sf::IntRect> frames;
     int currentTextureIndex;
@@ -25,9 +25,8 @@ private:
 
 public:
 
-    // ----- constructor / destructor ----------------------------------------------------------------------------------
+    // ----- constructor -----------------------------------------------------------------------------------------------
     Animation(sf::Texture& texture, int const& width, int const& height, int const& numberOfFramesInTexture, int const& numberOfRowsInTexture, int const& rowOfAnimation, int const& framesOfAnimation);
-    ~Animation();
 
     // ----- public methods --------------------------------------------------------------------------------------------
     auto applyTexture(sf::Sprite& sprite) -> void;
