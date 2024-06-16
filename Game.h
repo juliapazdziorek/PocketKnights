@@ -16,6 +16,8 @@
 #include "Meat.h"
 #include "Menu.h"
 #include "Sheep.h"
+#include "Tnt.h"
+#include "TntColor.h"
 
 
 class Game {
@@ -63,6 +65,11 @@ private:
     // meat
     std::vector<std::unique_ptr<Meat>> resourcesMeat;
 
+    // tnt
+    sf::Clock tntBlueClock;
+    sf::Clock tntRedClock;
+    std::vector<std::unique_ptr<Tnt>> tntVector;
+
     // collision containers
     std::vector<std::unique_ptr<Collidable>> mapBorders;
     std::vector<std::unique_ptr<Collidable>> attacks;
@@ -86,6 +93,7 @@ private:
     auto updateGoblins() -> void;
     auto updateFlockOfSheep() -> void;
     auto updateResourcesMeat() -> void;
+    auto updateTnt() -> void;
     auto updateAttacks() -> void;
     auto updateLifeSpan() -> void;
 
@@ -104,6 +112,7 @@ private:
     // spawning
     auto spawnGoblin(int amount) -> void;
     auto spawnMeat(sf::Vector2f meatPosition) -> void;
+    auto spawnTnt(TntColor color) -> void;
 
     // handling collision
     auto handleCollision() -> void;

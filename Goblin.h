@@ -105,6 +105,7 @@ public:
 
     // getters
     auto getCurrentAttack() -> Attack&;
+    auto getPosition() -> sf::Vector2f&;
 
     // setters
     auto setPosition(sf::Vector2f newPosition) -> void;

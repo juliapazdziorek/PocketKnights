@@ -9,7 +9,7 @@
 #include "Engine/Collidable.h"
 #include "TntColor.h"
 
-class Tnt : Collidable {
+class Tnt : public Collidable {
 
     // enums
     enum class TntState { OUT, RUNNING, EXPLODING };
@@ -65,7 +65,6 @@ class Tnt : Collidable {
     // ----- private methods -------------------------------------------------------------------------------------------
 
     // movement
-    auto moveToChasingPosition() -> void;
     auto chase() -> void;
     auto moveLeft() -> void;
     auto moveRight() -> void;
@@ -79,7 +78,7 @@ class Tnt : Collidable {
 public:
 
     // ----- constructor -----------------------------------------------------------------------------------------------
-    Tnt(TntColor color);
+    explicit Tnt(TntColor color);
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
@@ -92,6 +91,7 @@ public:
     auto onCollisionWith(Collidable& other) -> void override;
 
     // getters
+    auto getTntColor() -> TntColor;
     //auto getCurrentExplosion() -> Attack&;
 
     // setters

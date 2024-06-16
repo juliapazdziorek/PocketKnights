@@ -12,8 +12,15 @@ auto Game::updateEvents() -> void {
         if (event.type == sf::Event::Closed) {
             window->close();
         }
-
     }
+
+    // spawn blue tnt in second and third wave
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::T) && tntBlueClock.getElapsedTime() >= sf::seconds(5)
+        && (gameState == GameState::SECOND_WAVE || gameState == GameState::THIRD_WAVE)) {
+        spawnTnt(TntColor::BLUE);
+        tntBlueClock.restart();
+    }
+
 }
 
 
@@ -81,9 +88,34 @@ auto Game::updateFlockOfSheep() -> void {
 
 auto Game::updateResourcesMeat() -> void {
 
-    // update meant state
+    // update meat state
     for (auto const& meat : resourcesMeat) {
         meat->updateState();
+    }
+}
+
+
+auto Game::updateTnt() -> void {
+    for (auto const& tnt : tntVector) {
+        switch (tnt->getTntColor()) {
+
+            // set chase position of blue tnt
+            case TntColor::BLUE: {
+                if (!goblins.empty()) {
+                    tnt->setChasedPosition(goblins[0]->getPosition());
+                }
+                break;
+            }
+
+            // set chase position of red tnt
+            case TntColor::RED: {
+                tnt->setChasedPosition(knight.getPosition());
+                break;
+            }
+        }
+
+        // update tnt state
+        tnt->updateState();
     }
 }
 
@@ -114,8 +146,7 @@ auto Game::updateAttacks() -> void {
 auto Game::updateLifeSpan() -> void {
 
     // handle goblins lifespan
-    auto toEraseGoblins = std::ranges::remove_if(goblins,
-                                                 [](std::unique_ptr<Goblin> const &goblin) { return !goblin->isAlive; });
+    auto toEraseGoblins = std::ranges::remove_if(goblins,[](std::unique_ptr<Goblin> const& goblin) { return !goblin->isAlive; });
     goblins.erase(toEraseGoblins.begin(), toEraseGoblins.end());
 
     // if sheep dies spawn meat
@@ -126,14 +157,16 @@ auto Game::updateLifeSpan() -> void {
     }
 
     // handle sheep lifespan
-    auto toEraseSheep = std::ranges::remove_if(flockOfSheep,
-                                               [](std::unique_ptr<Sheep> const &sheep) { return !sheep->isAlive; });
+    auto toEraseSheep = std::ranges::remove_if(flockOfSheep,[](std::unique_ptr<Sheep> const& sheep) { return !sheep->isAlive; });
     flockOfSheep.erase(toEraseSheep.begin(), toEraseSheep.end());
 
     // handle meat lifespan
-    auto toEraseMeat = std::ranges::remove_if(resourcesMeat,
-                                              [](std::unique_ptr<Meat> const &meat) { return !meat->isAlive; });
+    auto toEraseMeat = std::ranges::remove_if(resourcesMeat,[](std::unique_ptr<Meat> const& meat) { return !meat->isAlive; });
     resourcesMeat.erase(toEraseMeat.begin(), toEraseMeat.end());
+
+    // handle tnt lifespan
+    auto toEraseTnt = std::ranges::remove_if(tntVector,[](std::unique_ptr<Tnt> const& tnt) { return !tnt->isAlive; });
+    tntVector.erase(toEraseTnt.begin(), toEraseTnt.end());
 }
 
 
@@ -386,6 +419,27 @@ auto Game::spawnMeat(sf::Vector2f meatPosition) -> void {
 }
 
 
+auto Game::spawnTnt(TntColor color) -> void {
+
+    // spawn new tnt
+    auto tnt = std::make_unique<Tnt>(color);
+
+    // set tnt's position
+    switch (color) {
+        case TntColor::BLUE: {
+            tnt->setPosition(knight.getPosition());
+            break;
+        }
+
+        case TntColor::RED:
+            tnt->setPosition(goblins[0]->getPosition());
+            break;
+    }
+
+    tntVector.push_back(std::move(tnt));
+}
+
+
 // handling collision
 
 auto Game::handleCollision() -> void {
@@ -418,6 +472,28 @@ auto Game::handleCollision() -> void {
         if (meat->isCollidingWith(knight)) {
             meat->onCollisionWith(knight);
             knight.onCollisionWith(*meat);
+        }
+    }
+
+    for (auto const& tnt : tntVector) {
+
+        // tnt colliding with map borders
+        for (auto const &mapBorder: map.getMapBorders()) {
+            if (tnt->isCollidingWith(*mapBorder)) {
+                tnt->isCollidingWith(*mapBorder);
+            }
+        }
+
+        // knight colliding with red tnt
+        if (tnt->isCollidingWith(knight) && tnt->getTntColor() == TntColor::RED) {
+            tnt->isCollidingWith(knight);
+        }
+
+        // goblins are colliding with ble tnt
+        for (auto const &goblin: goblins) {
+            if (tnt->isCollidingWith(*goblin) && tnt->getTntColor() == TntColor::BLUE) {
+                tnt->isCollidingWith(*goblin);
+            }
         }
     }
 }
@@ -500,6 +576,7 @@ auto Game::updateState() -> void {
     updateGoblins();
     updateFlockOfSheep();
     updateResourcesMeat();
+    updateTnt();
     updateAttacks();
     updateLifeSpan();
     updateMap();
@@ -524,6 +601,11 @@ auto Game::render() -> void {
     // render flock of sheep
     for (auto const& sheep : flockOfSheep) {
         sheep->render(window);
+    }
+
+    // render tnt
+    for (auto const& tnt : tntVector) {
+        tnt->render(window);
     }
 
     // render goblins

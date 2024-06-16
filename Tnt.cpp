@@ -99,8 +99,8 @@ auto Tnt::updatePositionVariable() -> void {
 auto Tnt::updateBoundsVariable() -> void {
 
     // update bounds accordingly to position
-    bounds.left = position.x + 43;
-    bounds.top = position.y + 54;
+    bounds.left = position.x + 22;
+    bounds.top = position.y + 24;
 }
 
 
@@ -261,7 +261,7 @@ Tnt::Tnt(TntColor color)
     // sprite variables
     position = sf::Vector2f();
     scale = sf::Vector2f(0.5f, 0.5f);
-    bounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 54), sf::Vector2f(10, 10));
+    bounds = sf::FloatRect(sf::Vector2f(position.x + 22, position.y + 24), sf::Vector2f(20, 20));
     tnt.setPosition(position);
     tnt.setScale(scale);
 
@@ -377,6 +377,11 @@ auto Tnt::onCollisionWith(Collidable &other) -> void {
 
 // getters
 
+auto Tnt::getTntColor() -> TntColor {
+    return tntColor;
+}
+
+
 /*auto Tnt::getCurrentExplosion() -> Attack & {
     return ;
 }*/
@@ -395,6 +400,4 @@ auto Tnt::setPosition(sf::Vector2f newPosition) -> void {
 auto Tnt::setChasedPosition(sf::Vector2f newChasedPosition) -> void {
     chasedPosition = newChasedPosition;
 }
-
-
 

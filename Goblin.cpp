@@ -498,6 +498,10 @@ auto Goblin::getCurrentAttack() -> Attack& {
     return currentAttack;
 }
 
+auto Goblin::getPosition() -> sf::Vector2f & {
+    return position;
+}
+
 
 // setters
 
