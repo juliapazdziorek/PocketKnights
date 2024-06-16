@@ -7,7 +7,7 @@
 auto Tnt::updateMovement() -> void {
 
     // chase is not isAttacking
-    if (!isExploding) {
+    if (!exploding && spawned) {
         chase();
     }
 }
@@ -238,6 +238,13 @@ auto Tnt::moveDown() -> void {
 }
 
 
+// explosion
+
+auto Tnt::explode() -> void {
+
+}
+
+
 // overrides
 
 auto Tnt::getGlobalBounds() const -> sf::FloatRect {
@@ -266,6 +273,7 @@ Tnt::Tnt(TntColor color)
     tnt.setScale(scale);
 
     // animation variables
+    spawned = false;
     animationsBlue.push_back(Assets::getAnimationTntBlueOut()); //0
     animationsBlue.push_back(Assets::getAnimationTntBlueRunning());
     animationsBlue.push_back(Assets::getAnimationTntBlueFire()); //2
@@ -280,7 +288,7 @@ Tnt::Tnt(TntColor color)
     chasedPosition = sf::Vector2f(416, 320); // center of a screen as default
 
     // explosion variables
-    isExploding = false;
+    exploding = false;
 
     // collision variables
     isColliding = false;
@@ -325,6 +333,20 @@ auto Tnt::render(sf::RenderTarget *window) -> void {
 
 auto Tnt::updateState() -> void {
 
+    if (spawningClock.getElapsedTime() >= sf::seconds(0.9f)) {
+        tntState = TntState::RUNNING;
+        spawned = true;
+    }
+
+    if (timeToStartExplosionClock.getElapsedTime() >= sf::seconds(4)) {
+        tntState = TntState::EXPLODING;
+        exploding = true;
+    }
+
+    if (timeToExplodeClock.getElapsedTime() >= sf::seconds(5.8f) && exploding) {
+        isAlive = false;
+    }
+
     // update goblin's state
     updateMovement();
 
@@ -359,19 +381,16 @@ auto Tnt::isCollidingWith(Collidable &other) -> bool {
 
 auto Tnt::onCollisionWith(Collidable &other) -> void {
 
-    // if colliding with new attack subtract health
-    /*if (typeid(other) == typeid(Attack)) {
-        if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            health -= mathRandomInCpp(10, 20);
-            previousBeingAttacked.setBounds(other.getGlobalBounds());
-        }
+    // if colliding with attack kill
+    if (typeid(other) == typeid(Attack)) {
+        isAlive = false;
     }
 
-        // set collision variables
-    else {*/
+    // set collision variables
+    else {
         isColliding = true;
         collidables.push_back(&other);
-    //}
+    }
 }
 
 
@@ -400,4 +419,3 @@ auto Tnt::setPosition(sf::Vector2f newPosition) -> void {
 auto Tnt::setChasedPosition(sf::Vector2f newChasedPosition) -> void {
     chasedPosition = newChasedPosition;
 }
-

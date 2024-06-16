@@ -69,6 +69,9 @@ private:
     static inline Animation tntRedRunning = Animation(Assets::textures["tntRedTexture"], 768, 768, 6, 6, 5, 3);
     static inline Animation tntRedFire = Animation(Assets::textures["tntRedTexture"], 768, 768, 6, 6, 6, 3);
 
+    // explosion animation
+    static inline Animation explosion = Animation(Assets::textures["explosionTexture"], 1728, 192, 9, 1, 1, 9);
+
     // ----- private methods -------------------------------------------------------------------------------------------
 
     // load from files
@@ -139,5 +142,8 @@ public:
     static auto getAnimationTntRedOut() -> Animation&;
     static auto getAnimationTntRedRunning() -> Animation&;
     static auto getAnimationTntRedFire() -> Animation&;
+
+    // explosion animation getters
+    static auto getAnimationExplosion() -> Animation&;
 
 };

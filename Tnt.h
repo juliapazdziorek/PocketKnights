@@ -29,9 +29,12 @@ class Tnt : public Collidable {
     sf::FloatRect bounds;
 
     // animation variables
+    bool spawned;
+    sf::Clock spawningClock;
+    sf::Clock animationClock;
+    sf::Clock timeToExplodeClock;
     std::vector<Animation> animationsBlue;
     std::vector<Animation> animationsRed;
-    sf::Clock animationClock;
 
     // movement variables
     float movingSpeed;
@@ -40,8 +43,9 @@ class Tnt : public Collidable {
     sf::Vector2f chasedPosition;
 
     // explosion variables
-    bool isExploding;
+    bool exploding;
     sf::FloatRect explosionBounds;
+    sf::Clock timeToStartExplosionClock;
 
     // collision variables
     bool isColliding;
@@ -70,6 +74,9 @@ class Tnt : public Collidable {
     auto moveRight() -> void;
     auto moveUp() -> void;
     auto moveDown() -> void;
+
+    // explosion
+    auto explode() -> void;
 
     // overrides
     auto getGlobalBounds() const -> sf::FloatRect override;

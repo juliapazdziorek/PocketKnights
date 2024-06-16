@@ -140,6 +140,29 @@ auto Game::updateAttacks() -> void {
             sheep->onCollisionWith(knight.getCurrentAttack());
         }
     }
+
+    // tnt being attacked
+    for (auto const& tnt : tntVector) {
+        switch (tnt->getTntColor()) {
+
+            // check if blue tnt are getting attacked
+            case TntColor::BLUE: {
+                for (auto const& goblin : goblins) {
+                    if (tnt->isCollidingWith(goblin->getCurrentAttack())) {
+                        tnt->onCollisionWith(goblin->getCurrentAttack());
+                    }
+                }
+                break;
+            }
+
+            // check if red tnt are getting attacked
+            case TntColor::RED: {
+                if (tnt->isCollidingWith(knight.getCurrentAttack())) {
+                    tnt->onCollisionWith(knight.getCurrentAttack());
+                }
+            }
+        }
+    }
 }
 
 
@@ -480,19 +503,19 @@ auto Game::handleCollision() -> void {
         // tnt colliding with map borders
         for (auto const &mapBorder: map.getMapBorders()) {
             if (tnt->isCollidingWith(*mapBorder)) {
-                tnt->isCollidingWith(*mapBorder);
+                tnt->onCollisionWith(*mapBorder);
             }
         }
 
         // knight colliding with red tnt
         if (tnt->isCollidingWith(knight) && tnt->getTntColor() == TntColor::RED) {
-            tnt->isCollidingWith(knight);
+            tnt->onCollisionWith(knight);
         }
 
         // goblins are colliding with ble tnt
         for (auto const &goblin: goblins) {
             if (tnt->isCollidingWith(*goblin) && tnt->getTntColor() == TntColor::BLUE) {
-                tnt->isCollidingWith(*goblin);
+                tnt->onCollisionWith(*goblin);
             }
         }
     }

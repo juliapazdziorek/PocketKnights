@@ -120,6 +120,14 @@ auto Assets::loadTextures() -> void {
     tntRedTexture.setSmooth(true);
     Assets::textures["tntRedTexture"] = tntRedTexture;
 
+    // explosionTexture
+    auto explosionTexture = sf::Texture();
+    if (!explosionTexture.loadFromFile("../TinySwords/Explosion.png")) {
+        fmt::println("Could not load from file: TinySwords/Explosion.png");
+    }
+    explosionTexture.setSmooth(true);
+    Assets::textures["tntRedTexture"] = explosionTexture;
+
 }
 
 
@@ -359,3 +367,8 @@ auto Assets::getAnimationTntBlueFire() -> Animation & { return Assets::tntBlueFi
 auto Assets::getAnimationTntRedOut() -> Animation & { return Assets::tntRedOut; }
 auto Assets::getAnimationTntRedRunning() -> Animation & { return Assets::tntRedRunning; }
 auto Assets::getAnimationTntRedFire() -> Animation & { return Assets::tntRedFire; }
+
+
+// explosion animation getters
+
+auto Assets::getAnimationExplosion() -> Animation& { return Assets::explosion; }
