@@ -4,6 +4,8 @@
 
 // ----- private methods -----------------------------------------------------------------------------------------------
 
+// initialize map objects
+
 auto Map::initializeMapBorders() -> void {
 
     // horizontal borders
@@ -63,7 +65,6 @@ auto Map::initializeMapBorders() -> void {
     createMapBorder(1 * tileSize, 1, 10 * tileSize, 16 * tileSize);
     createMapBorder(1 * tileSize, 1, 9 * tileSize, 14 * tileSize);
 
-
     // vertical borders
     createMapBorder(1, 1 * tileSize, 1 * tileSize, 6 * tileSize);
     createMapBorder(1, 2 * tileSize, 1 * tileSize, 9 * tileSize);
@@ -118,11 +119,12 @@ auto Map::initializeMapBorders() -> void {
     createMapBorder(1, 1 * tileSize, 8 * tileSize, 4 * tileSize);
     createMapBorder(1, 1 * tileSize, 7 * tileSize, 5 * tileSize);
     createMapBorder(1, 1 * tileSize, 6 * tileSize, 6 * tileSize);
-
 }
 
 
 auto Map::initializeTiles() -> void {
+
+    // initialize mapTiles vector
     initializeFoam();
     initializeSand();
     initializeShadowsFirstLayer();
@@ -138,9 +140,10 @@ auto Map::initializeTiles() -> void {
     initializeBridges();
 }
 
-//initialize mapTiles vector
 
 auto Map::initializeFoam() -> void {
+
+    // initialize foam
     createFoam(-1, 11);
     createFoam(0, 10);
     createFoam(0, 9);
@@ -196,6 +199,7 @@ auto Map::initializeFoam() -> void {
     createFoam(14, 0);
 }
 
+
 auto Map::initializeSand() -> void {
 
     // west island
@@ -219,8 +223,8 @@ auto Map::initializeSand() -> void {
     createStaticMapTile(23, 16, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(24, 17, Assets::getMapTilesSand()["MapTileSandCornerLeftDown"]);
     createStaticMapTile(25, 17, Assets::getMapTilesSand()["MapTileSandBorderDown"]);
-
 }
+
 
 auto Map::initializeShadowsFirstLayer() -> void {
     createStaticMapTile(-1, 10, Assets::getMapTileShadow());
@@ -271,21 +275,21 @@ auto Map::initializeShadowsFirstLayer() -> void {
     createStaticMapTile(14, 0, Assets::getMapTileShadow());
     createStaticMapTile(14, 0, Assets::getMapTileShadow());
 
-    //east island
+    // east island
     createStaticMapTile(21, 12, Assets::getMapTileShadow());
     createStaticMapTile(21, 13, Assets::getMapTileShadow());
     createStaticMapTile(22, 14, Assets::getMapTileShadow());
     createStaticMapTile(23, 15, Assets::getMapTileShadow());
     createStaticMapTile(24, 15, Assets::getMapTileShadow());
 
-    //bridges
+    // bridges
     createStaticMapTile(2, 7, Assets::getMapTilesBridge()["MapTileBridgeShadow"]);
     createStaticMapTile(3, 7, Assets::getMapTilesBridge()["MapTileBridgeShadow"]);
     createStaticMapTile(19, 13, Assets::getMapTilesBridge()["MapTileBridgeShadow"]);
     createStaticMapTile(20, 13, Assets::getMapTilesBridge()["MapTileBridgeShadow"]);
     createStaticMapTile(21, 13, Assets::getMapTilesBridge()["MapTileBridgeShadow"]);
-
 }
+
 
 auto Map::initializeWallsFirstLayer() -> void {
     createStaticMapTile(0, 11, Assets::getMapTilesWall()["MapTileWallWallRight"]);
@@ -324,8 +328,8 @@ auto Map::initializeWallsFirstLayer() -> void {
     createStaticMapTile(13, 5, Assets::getMapTilesWall()["MapTileWallWallRight"]);
     createStaticMapTile(14, 4, Assets::getMapTilesWall()["MapTileWallWallRight"]);
     createStaticMapTile(15, 1, Assets::getMapTilesWall()["MapTileWallWallRight"]);
-
 }
+
 
 auto Map::initializeSandDetail() -> void {
     createStaticMapTile(0, 11, Assets::getMapTilesSand()["MapTileSandWall"]);
@@ -340,19 +344,19 @@ auto Map::initializeSandDetail() -> void {
     createStaticMapTile(23, 15, Assets::getMapTilesSand()["MapTileSandWall"]);
     createStaticMapTile(24, 16, Assets::getMapTilesSand()["MapTileSandWall"]);
     createStaticMapTile(25, 16, Assets::getMapTilesSand()["MapTileSandWall"]);
-
 }
+
 
 auto Map::initializeWallFlorFirstLayer() -> void {
 
-    //west island
+    // west island
     createStaticMapTile(0, 6, Assets::getMapTilesWall()["MapTileWallCornerRightUp"]);
     createStaticMapTile(1, 7, Assets::getMapTilesWall()["MapTileWallCornerRightUp"]);
     createStaticMapTile(1, 8, Assets::getMapTilesWall()["MapTileWallCornerRightDown"]);
     createStaticMapTile(0, 9, Assets::getMapTilesWall()["MapTileWallBorderRight"]);
     createStaticMapTile(0, 10, Assets::getMapTilesWall()["MapTileWallCornerRightDown"]);
 
-    //south island
+    // south island
     createStaticMapTile(7, 13, Assets::getMapTilesWall()["MapTileWallCornerLeftUp"]);
     createStaticMapTile(8, 13, Assets::getMapTilesWall()["MapTileWallCornerRightUp"]);
     createStaticMapTile(6, 14, Assets::getMapTilesWall()["MapTileWallCornerLeftUp"]);
@@ -366,7 +370,7 @@ auto Map::initializeWallFlorFirstLayer() -> void {
     createStaticMapTile(7, 17, Assets::getMapTilesWall()["MapTileWallBordersUpDown"]);
     createStaticMapTile(8, 17, Assets::getMapTilesWall()["MapTileWallCornerRightDown"]);
 
-    //north island
+    // north island
     createStaticMapTile(10, 1, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(11, 2, Assets::getMapTilesWall()["MapTileWallBorderLeft"]);
     createStaticMapTile(11, 3, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
@@ -376,7 +380,7 @@ auto Map::initializeWallFlorFirstLayer() -> void {
     createStaticMapTile(14, 2, Assets::getMapTilesWall()["MapTileWallBorderRight"]);
     createStaticMapTile(15, 0, Assets::getMapTilesWall()["MapTileWallCornerRightDown"]);
 
-    //east island
+    // east island
     createStaticMapTile(25, 10, Assets::getMapTilesWall()["MapTileWallCornerLeftUp"]);
     createStaticMapTile(24, 11, Assets::getMapTilesWall()["MapTileWallBorderUp"]);
     createStaticMapTile(23, 11, Assets::getMapTilesWall()["MapTileWallCornerLeftUp"]);
@@ -386,7 +390,7 @@ auto Map::initializeWallFlorFirstLayer() -> void {
     createStaticMapTile(24, 15, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(25, 15, Assets::getMapTilesWall()["MapTileWallBorderDown"]);
 
-    //central island
+    // central island
     createStaticMapTile(3, 5, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(4, 7, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(5, 7, Assets::getMapTilesWall()["MapTileWallBorderDown"]);
@@ -420,12 +424,12 @@ auto Map::initializeWallFlorFirstLayer() -> void {
     createStaticMapTile(12, 7, Assets::getMapTilesWall()["MapTileWallBorderUp"]);
     createStaticMapTile(13, 7, Assets::getMapTilesWall()["MapTileWallBorderUp"]);
     createStaticMapTile(14, 7, Assets::getMapTilesWall()["MapTileWallBorderUp"]);
-
 }
+
 
 auto Map::initializeGrassFirstLayer() -> void {
 
-    //west island
+    // west island
     createStaticMapTile(0, 6, Assets::getMapTilesGrass()["MapTileGrassCornerRightUp"]);
     createStaticMapTile(0, 7, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
     createStaticMapTile(0, 8, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
@@ -434,7 +438,7 @@ auto Map::initializeGrassFirstLayer() -> void {
     createStaticMapTile(1, 7, Assets::getMapTilesGrass()["MapTileGrassCornerRightUp"]);
     createStaticMapTile(1, 8, Assets::getMapTilesGrass()["MapTileGrassCornerRightDown"]);
 
-    //central island
+    // central island
     createStaticMapTile(4, 7, Assets::getMapTilesGrass()["MapTileGrassCornerLeftDown"]);
     createStaticMapTile(5, 7, Assets::getMapTilesGrass()["MapTileGrassBorderDown"]);
     createStaticMapTile(6, 6, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
@@ -529,7 +533,7 @@ auto Map::initializeGrassFirstLayer() -> void {
     createStaticMapTile(18, 8, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
     createStaticMapTile(19, 8, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
 
-    //south island
+    // south island
     createStaticMapTile(5, 15, Assets::getMapTilesGrass()["MapTileGrassCornerLeftUp"]);
     createStaticMapTile(5, 16, Assets::getMapTilesGrass()["MapTileGrassCornerLeftDown"]);
     createStaticMapTile(6, 14, Assets::getMapTilesGrass()["MapTileGrassCornerLeftUp"]);
@@ -551,7 +555,7 @@ auto Map::initializeGrassFirstLayer() -> void {
     createStaticMapTile(9, 16, Assets::getMapTilesGrass()["MapTileGrassBorderDown"]);
     createStaticMapTile(10, 16, Assets::getMapTilesGrass()["MapTileGrassEndRight"]);
 
-    //north island
+    // north island
     createStaticMapTile(11, 2, Assets::getMapTilesGrass()["MapTileGrassBorderLeft"]);
     createStaticMapTile(11, 3, Assets::getMapTilesGrass()["MapTileGrassCornerLeftDown"]);
     createStaticMapTile(12, 3, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
@@ -565,7 +569,7 @@ auto Map::initializeGrassFirstLayer() -> void {
     createStaticMapTile(13, 2, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
     createStaticMapTile(14, 1, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
 
-    //east island
+    // east island
     createStaticMapTile(22, 12, Assets::getMapTilesGrass()["MapTileGrassCornerLeftUp"]);
     createStaticMapTile(22, 13, Assets::getMapTilesGrass()["MapTileGrassCornerLeftDown"]);
     createStaticMapTile(23, 11, Assets::getMapTilesGrass()["MapTileGrassCornerLeftUp"]);
@@ -583,12 +587,12 @@ auto Map::initializeGrassFirstLayer() -> void {
     createStaticMapTile(25, 13, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
     createStaticMapTile(25, 14, Assets::getMapTilesGrass()["MapTileGrassMiddle"]);
     createStaticMapTile(25, 15, Assets::getMapTilesGrass()["MapTileGrassBorderDown"]);
-
 }
+
 
 auto Map::initializeShadowsSecondLayer() -> void {
 
-    //central island
+    // central island
     createStaticMapTile(3, 5, Assets::getMapTileShadow());
     createStaticMapTile(4, 5, Assets::getMapTileShadow());
     createStaticMapTile(5, 4, Assets::getMapTileShadow());
@@ -597,12 +601,12 @@ auto Map::initializeShadowsSecondLayer() -> void {
     createStaticMapTile(15, 7, Assets::getMapTileShadow());
     createStaticMapTile(18, 7, Assets::getMapTileShadow());
 
-    //north island
+    // north island
     createStaticMapTile(10, 0, Assets::getMapTileShadow());
     createStaticMapTile(12, 1, Assets::getMapTileShadow());
     createStaticMapTile(13, 0, Assets::getMapTileShadow());
-
 }
+
 
 auto Map::initializeWallSecondLayer() -> void {
     createStaticMapTile(3, 5, Assets::getMapTilesWall()["MapTileWallWallLeft"]);
@@ -622,8 +626,8 @@ auto Map::initializeWallSecondLayer() -> void {
     createStaticMapTile(13, 2, Assets::getMapTilesWall()["MapTileWallWall"]);
     createStaticMapTile(14, 1, Assets::getMapTilesWall()["MapTileWallWallRight"]);
     createStaticMapTile(15, 0, Assets::getMapTilesWall()["MapTileWallWallRight"]);
-
 }
+
 
 auto Map::initializeGrassDetail() -> void {
     createStaticMapTile(4, 6, Assets::getMapTilesGrass()["MapTileGrassWall"]);
@@ -638,9 +642,10 @@ auto Map::initializeGrassDetail() -> void {
     createStaticMapTile(14, 1, Assets::getMapTilesGrass()["MapTileGrassWall"]);
 }
 
+
 auto Map::initializeWallFlorSecondLayer() -> void {
 
-    //central island
+    // central island
     createStaticMapTile(3, 4, Assets::getMapTilesWall()["MapTileWallEndLeft"]);
     createStaticMapTile(4, 3, Assets::getMapTilesWall()["MapTileWallCornerLeftUp"]);
     createStaticMapTile(5,2, Assets::getMapTilesWall()["MapTileWallCornerLeftUp"]);
@@ -665,7 +670,7 @@ auto Map::initializeWallFlorSecondLayer() -> void {
     createStaticMapTile(17,7, Assets::getMapTilesWall()["MapTileWallMiddle"]);
     createStaticMapTile(18,7, Assets::getMapTilesWall()["MapTileWallMiddle"]);
 
-    //north island
+    // north island
     createStaticMapTile(10,0, Assets::getMapTilesWall()["MapTileWallCornerLeftDown"]);
     createStaticMapTile(11,0, Assets::getMapTilesWall()["MapTileWallBorderDown"]);
     createStaticMapTile(12,0, Assets::getMapTilesWall()["MapTileWallMiddle"]);
@@ -675,6 +680,7 @@ auto Map::initializeWallFlorSecondLayer() -> void {
     createStaticMapTile(13,0, Assets::getMapTilesWall()["MapTileWallMiddle"]);
 
 }
+
 
 auto Map::initializeGrassSecondLayer() -> void {
     createStaticMapTile(4, 4, Assets::getMapTilesGrass()["MapTileGrassCornerLeftUp"]);
@@ -699,6 +705,7 @@ auto Map::initializeGrassSecondLayer() -> void {
     createStaticMapTile(18, 7, Assets::getMapTilesGrass()["MapTileGrassEndRight"]);
 }
 
+
 auto Map::initializeBridges() -> void {
     createStaticMapTile(1, 7, Assets::getMapTilesBridge()["MapTileBridgeEndLeft"]);
     createStaticMapTile(2, 7, Assets::getMapTilesBridge()["MapTileBridgeHorizontal"]);
@@ -719,13 +726,21 @@ auto Map::initializeBridges() -> void {
     createStaticMapTile(22, 13, Assets::getMapTilesBridge()["MapTileBridgeEndRight"]);
 }
 
+
+// create map objects
+
 auto Map::createMapBorder(float width, float height, float x, float y) -> void {
+
+    // create new map border
     auto border = std::make_unique<MapBorder>(width, height, x, y);
     mapBordersToRender.push_back(border.get());
     mapBorders.push_back(std::move(border));
 }
 
+
 auto Map::createFoam(float x, float y) -> void {
+
+    // crate new foam
     auto foam = std::make_unique<MapTileAnimated>(Assets::getMapTileFoam());
     foam->setPosition(sf::Vector2f(x * tileSize, y * tileSize));
     foam->setScale(scale);
@@ -733,12 +748,18 @@ auto Map::createFoam(float x, float y) -> void {
     mapTiles.push_back(std::move(foam));
 }
 
+
 auto Map::createStaticMapTile(float x, float y, MapTile const& asset) -> void {
+
+    // create new static map tile
     auto mapTile = std::make_unique<MapTile>(asset);
     mapTile->setPosition(sf::Vector2f(x * tileSize, y * tileSize));
     mapTile->setScale(scale);
     mapTiles.push_back(std::move(mapTile));
 }
+
+
+// update textures on the map
 
 auto Map::updateTextures() -> void {
     for (auto mapTileAnimated : mapTilesAnimated) {
@@ -747,9 +768,10 @@ auto Map::updateTextures() -> void {
 }
 
 
+
 //public:
 
-// ----- constructor / destructor --------------------------------------------------------------------------------------
+// ----- constructor ---------------------------------------------------------------------------------------------------
 
 Map::Map()
     : tileSize(32), scale(sf::Vector2f(0.5f, 0.5f)) {
@@ -757,28 +779,29 @@ Map::Map()
     initializeMapBorders();
 }
 
-Map::~Map() = default;
-
 
 // ----- public methods --------------------------------------------------------------------------------------------
+
+
+//render
+
+auto Map::render(sf::RenderTarget *window) -> void {
+
+    // render mapTiles
+    for (auto& mapTile : mapTiles) {
+        mapTile -> render(window);
+    }
+}
+
+
+// update state
 
 auto Map::updateState() -> void {
     updateTextures();
 }
 
-auto Map::render(sf::RenderTarget *window) -> void {
-    for (auto& mapTile : mapTiles) {
-        mapTile -> render(window);
-    }
-/*    for (auto& mapBorder : mapBordersToRender) {
-        mapBorder->render(window);
-    }*/
-}
 
-
-auto Map::getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>& {
-    return mapTiles;
-}
+// getters
 
 auto Map::getMapBorders() -> std::vector<std::unique_ptr<Collidable>> & {
     return mapBorders;

@@ -21,5 +21,4 @@ auto main() -> int {
         game.render();
 
     }
-
 }

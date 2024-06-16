@@ -363,7 +363,7 @@ Goblin::Goblin() {
     // goblin state
     isAlive = true;
     health = 50;
-    goblinState = GoblinState::STANDING; //TODO (optional) -> gdy goblin stoi, to może stać i w lewo i w prawo - teraz stoi tylko w prawo
+    goblinState = GoblinState::STANDING;
     goblinFacing = GoblinFacing::DOWN;
 
     // sprite variables
@@ -399,7 +399,7 @@ Goblin::Goblin() {
     isColliding = false;
 
     //TODO to delete
-    this->hitBox.setOutlineColor(sf::Color::Red);
+    /*this->hitBox.setOutlineColor(sf::Color::Red);
     this->hitBox.setOutlineThickness(1);
     this->hitBox.setSize(bounds.getSize());
     this->hitBox.setPosition(bounds.getPosition());
@@ -415,7 +415,7 @@ Goblin::Goblin() {
     this->attackHitBox.setOutlineThickness(1);
     this->attackHitBox.setSize(attackBounds.getSize());
     this->attackHitBox.setPosition(bounds.getPosition());
-    this->attackHitBox.setFillColor(sf::Color::Transparent);
+    this->attackHitBox.setFillColor(sf::Color::Transparent);*/
 }
 
 
@@ -429,9 +429,9 @@ auto Goblin::render(sf::RenderTarget *window) -> void {
     window->draw(goblin);
 
     //TODO to delete
-    window->draw(this->hitBox);
+    /*window->draw(this->hitBox);
     window->draw(this->nextPositionHitBox);
-    window->draw(this->attackHitBox);
+    window->draw(this->attackHitBox);*/
 }
 
 
@@ -451,9 +451,9 @@ auto Goblin::updateState() -> void {
     updateTexture();
 
     //TODO to delete
-    hitBox.setPosition(bounds.getPosition());
+    /*hitBox.setPosition(bounds.getPosition());
     nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    attackHitBox.setPosition(attackBounds.getPosition());
+    attackHitBox.setPosition(attackBounds.getPosition());*/
 }
 
 

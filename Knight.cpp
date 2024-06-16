@@ -338,7 +338,7 @@ Knight::Knight() {
     currentAttack = Attack(attackBounds);
 
     //TODO to delete
-    this->hitBox.setOutlineColor(sf::Color::Red);
+    /*this->hitBox.setOutlineColor(sf::Color::Red);
     this->hitBox.setOutlineThickness(1);
     this->hitBox.setSize(bounds.getSize());
     this->hitBox.setPosition(bounds.getPosition());
@@ -354,7 +354,7 @@ Knight::Knight() {
     this->attackHitBox.setOutlineThickness(1);
     this->attackHitBox.setSize(attackBounds.getSize());
     this->attackHitBox.setPosition(bounds.getPosition());
-    this->attackHitBox.setFillColor(sf::Color::Transparent);
+    this->attackHitBox.setFillColor(sf::Color::Transparent);*/
 }
 
 
@@ -368,9 +368,9 @@ auto Knight::render(sf::RenderTarget *window) -> void {
     window->draw(knight);
 
     //TODO to delete
-    window->draw(this->hitBox);
+    /*window->draw(this->hitBox);
     window->draw(this->nextPositionHitBox);
-    window->draw(this->attackHitBox);
+    window->draw(this->attackHitBox);*/
 }
 
 
@@ -391,9 +391,9 @@ auto Knight::updateState() -> void {
     updateTexture();
 
     //TODO to delete
-    hitBox.setPosition(bounds.getPosition());
+    /*hitBox.setPosition(bounds.getPosition());
     nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    attackHitBox.setPosition(attackBounds.getPosition());
+    attackHitBox.setPosition(attackBounds.getPosition());*/
 }
 
 
@@ -409,13 +409,13 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
     // if colliding with new attack subtract health
     if (typeid(other) == typeid(Attack)) {
         if (other.getGlobalBounds() != previousBeingAttacked.getGlobalBounds()) {
-            health -= 0; //mathRandomInCpp(1, 2); //TODO
+            health -= mathRandomInCpp(3, 7);
             previousBeingAttacked.setBounds(other.getGlobalBounds());
         }
     }
 
     else if (typeid(other) == typeid(Meat)) {
-        health += 15;
+        health += 20;
     }
 
         // set collision variables

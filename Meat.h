@@ -25,8 +25,8 @@ private:
     sf::Clock spawningClock;
     sf::Clock animationClock;
 
-    //TODO TO DELETE
-    sf::RectangleShape hitBox;
+    //TODO to delete
+    /*sf::RectangleShape hitBox;*/
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateTexture() -> void;

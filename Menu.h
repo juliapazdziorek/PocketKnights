@@ -29,11 +29,11 @@ public:
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
-    // render
-    auto render(sf::RenderTarget* window) -> void;
-
     // update state
     auto updateState() -> void;
+
+    // render
+    auto render(sf::RenderTarget* window) -> void;
 
     // getters
     auto getDifficultyLevel() -> DifficultyLevel;

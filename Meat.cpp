@@ -6,11 +6,15 @@
 
 auto Meat::updateTexture() -> void {
     if (!spawned) {
+
+        // if not finished spawning continue with spawning animation
         Assets::getAnimationMeatSpawning().updateFrame(animationClock);
         Assets::getAnimationMeatSpawning().applyTexture(meat);
     }
 
     if (!spawned && spawningClock.getElapsedTime() >= sf::seconds(0.7f)) {
+
+        // if animation finished set static frame
         meat.setTexture(Assets::getTextureMeat());
         meat.setTextureRect(sf::IntRect(768, 0, 128, 128));
         spawned = true;
@@ -50,11 +54,11 @@ Meat::Meat(sf::Vector2f newPosition) {
     spawningClock.restart();
 
     //TODO to delete
-    this->hitBox.setOutlineColor(sf::Color::Red);
+    /*this->hitBox.setOutlineColor(sf::Color::Red);
     this->hitBox.setOutlineThickness(1);
     this->hitBox.setSize(bounds.getSize());
     this->hitBox.setPosition(bounds.getPosition());
-    this->hitBox.setFillColor(sf::Color::Transparent);
+    this->hitBox.setFillColor(sf::Color::Transparent);*/
 }
 
 
@@ -64,11 +68,11 @@ Meat::Meat(sf::Vector2f newPosition) {
 
 auto Meat::render(sf::RenderTarget *window) -> void {
 
-    // render the sheep
+    // render the meat
     window->draw(meat);
 
     //TODO to delete
-    window->draw(this->hitBox);
+    /*window->draw(this->hitBox);*/
 }
 
 
@@ -90,7 +94,7 @@ auto Meat::isCollidingWith(Collidable &other) -> bool {
 
 auto Meat::onCollisionWith(Collidable &other) -> void {
 
-    // if colliding with new attack destroy
+    // if colliding with knight be eaten
     if (typeid(other) == typeid(Knight)) {
         isAlive = false;
     }

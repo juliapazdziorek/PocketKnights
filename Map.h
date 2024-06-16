@@ -14,17 +14,22 @@ class Map {
 
 private:
 
-    // ----- properties ------------------------------------------------------------------------------------------------
+    // ----- variables -------------------------------------------------------------------------------------------------
+
+    // map tiles variables
     float tileSize;
     sf::Vector2f scale;
+
+    // containers
     std::vector<std::unique_ptr<Collidable>> mapBorders;
     std::vector<MapBorder*> mapBordersToRender;
     std::vector<std::unique_ptr<MapTile>> mapTiles;
     std::vector<MapTileAnimated*> mapTilesAnimated;
 
     // ----- private methods -------------------------------------------------------------------------------------------
-    auto initializeMapBorders() -> void;
 
+    // initialize map objects
+    auto initializeMapBorders() -> void;
     auto initializeTiles() -> void;
     auto initializeFoam() -> void;
     auto initializeSand() -> void;
@@ -40,26 +45,31 @@ private:
     auto initializeGrassSecondLayer() -> void;
     auto initializeBridges() -> void;
 
+    // create map objects
     auto createMapBorder(float width, float height, float x, float y) -> void;
     auto createFoam(float x, float y) -> void;
     auto createStaticMapTile(float x, float y, MapTile const& asset) -> void;
 
+    // update textures on the map
     auto updateTextures() -> void;
 
 
 
 public:
 
-    // ----- constructor / destructor ----------------------------------------------------------------------------------
+    // ----- constructor -----------------------------------------------------------------------------------------------
     Map();
-    ~Map();
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto updateState() -> void;
+
+    // render
     auto render(sf::RenderTarget* window) -> void;
 
-    auto getMapTilesMap() -> std::vector<std::unique_ptr<MapTile>>&;
+    // update state
+    auto updateState() -> void;
+
+    // getters
+
     auto getMapBorders() -> std::vector<std::unique_ptr<Collidable>>&;
 
 };
-

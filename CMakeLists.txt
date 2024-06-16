@@ -21,20 +21,20 @@ FetchContent_MakeAvailable(SFML)
 FetchContent_MakeAvailable(fmt)
 
 add_executable(PocketKnight main.cpp
-        Game.cpp
-        Engine/Entity.cpp
-        Engine/Collidable.cpp
-        Engine/Utility.cpp
-        Engine/Attack.cpp
+        Assets/Animation.cpp
         Assets/Assets.cpp
         Assets/MapBorder.cpp
         Assets/MapTile.cpp
         Assets/MapTileAnimated.cpp
-        Assets/Animation.cpp
+        Engine/Attack.cpp
+        Engine/Collidable.cpp
+        Engine/Entity.cpp
+        Engine/Utility.cpp
         DifficultyLevel.h
-        Map.cpp
-        Knight.cpp
+        Game.cpp
         Goblin.cpp
+        Knight.cpp
+        Map.cpp
         Meat.cpp
         Menu.cpp
         Sheep.cpp)

@@ -22,65 +22,65 @@ class Game {
 
 private:
 
-    // ----- properties ------------------------------------------------------------------------------------------------
-    sf::RenderWindow* window;
-    Menu menu;
+    // enums
+    enum class GameState {MENU, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
 
+    // ----- variables -------------------------------------------------------------------------------------------------
+
+    // window
+    sf::RenderWindow* window;
+
+    // game state
+    GameState gameState;
+    DifficultyLevel difficultyLevel;
+    sf::Clock progressClock;
+    bool readyToProgress;
     bool doInitializeFirstWave;
     bool doInitializeSecondWave;
     bool doInitializeThirdWave;
 
+    // menu
+    Menu menu;
+
+    // assets
     Assets assets;
+
+    // map
     Map map;
 
+    // knight
     Knight knight;
+
+    // goblins
     std::vector<std::unique_ptr<Goblin>> goblins;
 
-    std::vector<Collidable*> movingCollidables;
-    std::vector<std::unique_ptr<Collidable>> mapBorders;
-    std::vector<std::unique_ptr<Collidable>> attacks;
-    std::vector<std::unique_ptr<Collidable>> collidables;
-
-    // dlakazdej owcy musze tak:
-    // spawnowac ja na dpzwolonej dla owcy pozycji
-    // patrzyc czy zyje
-    // zamieniac na mięcho
-    // miecho mozna zbierac
+    // flock of sheep
     int maxNumberOfSheep;
     sf::Clock spawnSheepClock;
     std::vector<std::unique_ptr<Sheep>> flockOfSheep;
     std::vector<sf::Vector2f> sheepPositions;
 
+    // meat
     std::vector<std::unique_ptr<Meat>> resourcesMeat;
 
+    // collision containers
+    std::vector<std::unique_ptr<Collidable>> mapBorders;
+    std::vector<std::unique_ptr<Collidable>> attacks;
 
-    enum class GameState {MENU, FIRST_WAVE, SECOND_WAVE, THIRD_WAVE};
-    GameState gameState;
-
-    DifficultyLevel difficultyLevel;
-
-    sf::Clock progressClock;
-    bool readyToProgress;
-
+    // subtitles variables
     sf::Clock subtitleClock;
     bool drawWave1;
     bool drawWave2;
     bool drawWave3;
     bool drawVictory;
 
-
-    //Sheep sheep;
-
-
-    //TODO TO DELETE
+    //TODO to delete
     /*sf::Texture gridTexture;
     sf::Sprite grid;*/
 
 
-    // ----- event polling ---------------------------------------------------------------------------------------------
+    // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
-
-    // ----- update events ---------------------------------------------------------------------------------------------
     auto updateMap() -> void;
     auto updateKnight() -> void;
     auto updateGoblins() -> void;
@@ -100,20 +100,29 @@ private:
     auto observeSecondWaveState() -> void;
     auto initializeThirdWave() -> void;
     auto observeThirdWaveState() -> void;
+
+    // spawning
     auto spawnGoblin(int amount) -> void;
     auto spawnMeat(sf::Vector2f meatPosition) -> void;
+
+    // handling collision
+    auto handleCollision() -> void;
 
 
 public:
 
-    // ----- constructor / destructor ----------------------------------------------------------------------------------
+    // ----- constructor -----------------------------------------------------------------------------------------------
     explicit Game(sf::RenderWindow& window);
-    ~Game() = default;
 
     // ----- public methods --------------------------------------------------------------------------------------------
-    auto isRunning() -> bool;
-    auto handleCollision() -> void;
+
+    // update state
     auto updateState() -> void;
+
+    // render
     auto render() -> void;
+
+    // isRunning
+    auto isRunning() -> bool;
 
 };

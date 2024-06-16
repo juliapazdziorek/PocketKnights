@@ -33,8 +33,8 @@ private:
     sf::Clock bouncingAnimationClock;
     sf::Clock timeToBounceClock;
 
-    //TODO TO DELETE
-    sf::RectangleShape hitBox;
+    //TODO to delete
+    /*sf::RectangleShape hitBox;*/
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateBouncing() -> void;
@@ -71,4 +71,3 @@ public:
     auto setPosition(sf::Vector2f newPosition) -> void;
 
 };
-

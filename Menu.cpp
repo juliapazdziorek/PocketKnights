@@ -20,7 +20,6 @@ auto Menu::updateEvents() -> void {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
         difficultyLevel = DifficultyLevel::HARD;
     }
-
 }
 
 
@@ -54,6 +53,15 @@ Menu::Menu() {
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
+// update state
+
+auto Menu::updateState() -> void {
+
+    // update events
+    updateEvents();
+}
+
+
 // render
 
 auto Menu::render(sf::RenderTarget *window) -> void {
@@ -68,21 +76,8 @@ auto Menu::render(sf::RenderTarget *window) -> void {
 }
 
 
-// update states
-
-auto Menu::updateState() -> void {
-
-    // update events
-    updateEvents();
-}
-
-
 // getters
 
 auto Menu::getDifficultyLevel() -> DifficultyLevel {
     return difficultyLevel;
 }
-
-
-
-

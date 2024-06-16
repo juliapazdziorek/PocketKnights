@@ -50,12 +50,12 @@ private:
 
     // collision variables
     bool isColliding;
-    std::vector<Collidable*> collidables; //TODO przerobić na unique pointery
+    std::vector<Collidable*> collidables;
 
-    //TODO TO DELETE
-    sf::RectangleShape hitBox;
+    //TODO to delete
+    /*sf::RectangleShape hitBox;
     sf::RectangleShape nextPositionHitBox;
-    sf::RectangleShape attackHitBox;
+    sf::RectangleShape attackHitBox;*/
 
 
     // ----- event updating --------------------------------------------------------------------------------------------

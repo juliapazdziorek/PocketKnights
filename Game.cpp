@@ -2,12 +2,13 @@
 
 //private
 
-// ----- event polling -------------------------------------------------------------------------------------------------
+
+// ----- event updating  -----------------------------------------------------------------------------------------------
 
 auto Game::updateEvents() -> void {
     for (auto event = sf::Event(); this->window->pollEvent(event); ) {
 
-        // closing game
+        // close game
         if (event.type == sf::Event::Closed) {
             window->close();
         }
@@ -16,85 +17,29 @@ auto Game::updateEvents() -> void {
 }
 
 
-// ----- updating events -----------------------------------------------------------------------------------------------
-
-auto Game::handleCollision() -> void {
-
-    for (auto const& mapBorder : map.getMapBorders()) {
-        if (knight.isCollidingWith(*mapBorder)) {
-            knight.onCollisionWith(*mapBorder);
-        }
-    }
-
-    for (auto const& goblin : goblins) {
-        for (auto const& mapBorder : map.getMapBorders()) {
-            if (goblin->isCollidingWith(*mapBorder)) {
-                goblin->onCollisionWith(*mapBorder);
-            }
-        }
-
-        if (goblin->isCollidingWith(knight)) {
-           goblin->onCollisionWith(knight);
-        }
-    }
-
-    for (auto const& meat : resourcesMeat) {
-        if (meat->isCollidingWith(knight)) {
-            meat->onCollisionWith(knight);
-            knight.onCollisionWith(*meat);
-        }
-    }
-
-
-
-/*    for (auto const& movingCollidable : movingCollidables) {
-       for (auto const& mapBorder : map.getMapBorders()) {
-            if (movingCollidable->isCollidingWith(*mapBorder)) {
-                movingCollidable->onCollisionWith(*mapBorder);
-            }
-        }
-
-        for (auto const& collidable : collidables ) {
-            if (movingCollidable->isCollidingWith(*collidable)) {
-                movingCollidable->onCollisionWith(*collidable);
-            }
-        }
-    }*/
-}
-
 auto Game::updateMap() -> void {
+
+    // update map state
     map.updateState();
 }
 
+
 auto Game::updateKnight() -> void {
+
+    // update knight state
     knight.updateState();
 }
 
+
 auto Game::updateGoblins() -> void {
+
+    // update goblins state and chasing position
     for (auto& goblin : goblins) {
         goblin->updateState();
         goblin->setChasedPosition(knight.getPosition());
     }
 }
 
-auto Game::updateLifeSpan() -> void {
-    auto toEraseGoblins = std::ranges::remove_if(goblins, [](std::unique_ptr<Goblin> const& goblin){return !goblin->isAlive; });
-    goblins.erase(toEraseGoblins.begin(), toEraseGoblins.end());
-
-    for (auto const& sheep : flockOfSheep) {
-        if (!sheep->isAlive) {
-            spawnMeat(sheep->getPosition());
-        }
-    }
-
-    auto toEraseSheep = std::ranges::remove_if(flockOfSheep, [](std::unique_ptr<Sheep> const& sheep){return !sheep->isAlive; });
-    flockOfSheep.erase(toEraseSheep.begin(), toEraseSheep.end());
-
-
-    auto toEraseMeat = std::ranges::remove_if(resourcesMeat, [](std::unique_ptr<Meat> const& meat){return !meat->isAlive; });
-    resourcesMeat.erase(toEraseMeat.begin(), toEraseMeat.end());
-
-}
 
 auto Game::updateFlockOfSheep() -> void {
 
@@ -135,6 +80,8 @@ auto Game::updateFlockOfSheep() -> void {
 
 
 auto Game::updateResourcesMeat() -> void {
+
+    // update meant state
     for (auto const& meat : resourcesMeat) {
         meat->updateState();
     }
@@ -149,11 +96,13 @@ auto Game::updateAttacks() -> void {
             goblin->onCollisionWith(knight.getCurrentAttack());
         }
 
+        // knight being attacked
         if (goblin->getCurrentAttack().isCollidingWith(knight)) {
             knight.onCollisionWith(goblin->getCurrentAttack());
         }
     }
 
+    // sheep being attacked
     for (auto const& sheep : flockOfSheep) {
         if (knight.getCurrentAttack().isCollidingWith(*sheep)) {
             sheep->onCollisionWith(knight.getCurrentAttack());
@@ -162,13 +111,42 @@ auto Game::updateAttacks() -> void {
 }
 
 
+auto Game::updateLifeSpan() -> void {
+
+    // handle goblins lifespan
+    auto toEraseGoblins = std::ranges::remove_if(goblins,
+                                                 [](std::unique_ptr<Goblin> const &goblin) { return !goblin->isAlive; });
+    goblins.erase(toEraseGoblins.begin(), toEraseGoblins.end());
+
+    // if sheep dies spawn meat
+    for (auto const &sheep: flockOfSheep) {
+        if (!sheep->isAlive) {
+            spawnMeat(sheep->getPosition());
+        }
+    }
+
+    // handle sheep lifespan
+    auto toEraseSheep = std::ranges::remove_if(flockOfSheep,
+                                               [](std::unique_ptr<Sheep> const &sheep) { return !sheep->isAlive; });
+    flockOfSheep.erase(toEraseSheep.begin(), toEraseSheep.end());
+
+    // handle meat lifespan
+    auto toEraseMeat = std::ranges::remove_if(resourcesMeat,
+                                              [](std::unique_ptr<Meat> const &meat) { return !meat->isAlive; });
+    resourcesMeat.erase(toEraseMeat.begin(), toEraseMeat.end());
+}
+
 
 // ---- private methods ------------------------------------------------------------------------------------------------
 
-auto Game::observeGameState() -> void {
+// game progress
 
+auto Game::observeGameState() -> void {
     switch (gameState) {
+
         case GameState::MENU: {
+
+            // observe menu state
             observeMenuState();
             break;
         }
@@ -225,6 +203,8 @@ auto Game::observeGameState() -> void {
 
 
 auto Game::observeMenuState() -> void {
+
+    // when difficulty level chosen start first wave
     if (menu.getDifficultyLevel() != DifficultyLevel::NONE) {
         difficultyLevel = menu.getDifficultyLevel();
         gameState = GameState::FIRST_WAVE;
@@ -236,6 +216,7 @@ auto Game::observeMenuState() -> void {
 auto Game::initializeFirstWave() -> void {
     readyToProgress = false;
 
+    // spawn goblins accordingly
     switch (difficultyLevel) {
         case DifficultyLevel::EASY: {
             spawnGoblin(1);
@@ -249,21 +230,26 @@ auto Game::initializeFirstWave() -> void {
             spawnGoblin(3);
             break;
         }
+        case DifficultyLevel::NONE:
+            break;
     }
 }
 
 
 auto Game::observeFirstWaveState() -> void {
+
+    // check if all the goblins have been killed
     if (goblins.empty() && !readyToProgress) {
         readyToProgress = true;
         progressClock.restart();
     }
 
+    // stop drawing subtitles after few seconds
     if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
         drawWave1 = false;
     }
 
-
+    // start another wave after goblins have been killed and few seconds
     if (progressClock.getElapsedTime() >= sf::seconds(5) && readyToProgress) {
         gameState = GameState::SECOND_WAVE;
         doInitializeSecondWave = true;
@@ -274,6 +260,7 @@ auto Game::observeFirstWaveState() -> void {
 auto Game::initializeSecondWave() -> void {
     readyToProgress = false;
 
+    // spawn goblins accordingly
     switch (difficultyLevel) {
         case DifficultyLevel::EASY: {
             spawnGoblin(2);
@@ -287,21 +274,26 @@ auto Game::initializeSecondWave() -> void {
             spawnGoblin(6);
             break;
         }
+        case DifficultyLevel::NONE:
+            break;
     }
 }
 
 
 auto Game::observeSecondWaveState() -> void {
 
+    // check if all the goblins have been killed
     if (goblins.empty() && !readyToProgress) {
         readyToProgress = true;
         progressClock.restart();
     }
 
+    // stop drawing subtitles after few seconds
     if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
         drawWave2 = false;
     }
 
+    // start another wave after goblins have been killed and few seconds
     if (progressClock.getElapsedTime() >= sf::seconds(7) && readyToProgress) {
         gameState = GameState::THIRD_WAVE;
         doInitializeThirdWave = true;
@@ -312,6 +304,7 @@ auto Game::observeSecondWaveState() -> void {
 auto Game::initializeThirdWave() -> void {
     readyToProgress = false;
 
+    // spawn goblins accordingly
     switch (difficultyLevel) {
         case DifficultyLevel::EASY: {
             spawnGoblin(4);
@@ -325,35 +318,45 @@ auto Game::initializeThirdWave() -> void {
             spawnGoblin(12);
             break;
         }
+        case DifficultyLevel::NONE:
+            break;
     }
 }
 
 
 auto Game::observeThirdWaveState() -> void {
 
+    // draw Victory! when goblins have been killed
     if (goblins.empty() && !readyToProgress) {
         drawVictory = true;
     }
 
+    // stop drawing subtitles after few seconds
     if (subtitleClock.getElapsedTime() >= sf::seconds(3)) {
         drawWave3 = false;
     }
 }
 
 
+// spawning
+
 auto Game::spawnGoblin(int amount) -> void { //TODO !(not tested)!
 
+    // island enum
     enum class Island {
         WEST = 0, NORTH = 1, EAST = 2
     };
     Island island;
 
     for (int i = 1; i <= amount; ++i) {
+
+        // choose random island
         auto islandId = mathRandomInCpp(0, 2);
         island = static_cast<Island>(islandId);
 
         auto goblin = std::make_unique<Goblin>();
 
+        // spawn new goblin accordingly
         switch (island) {
             case Island::WEST: {
                 goblin->setPosition(sf::Vector2f((float)(-192 * i), 180));
@@ -372,42 +375,90 @@ auto Game::spawnGoblin(int amount) -> void { //TODO !(not tested)!
         }
         goblins.push_back(std::move(goblin));
     }
-
 }
 
 
 auto Game::spawnMeat(sf::Vector2f meatPosition) -> void {
+
+    // spawn new meat
     auto meat = std::make_unique<Meat>(meatPosition);
     resourcesMeat.push_back(std::move(meat));
+}
+
+
+// handling collision
+
+auto Game::handleCollision() -> void {
+
+    // knight colliding with map borders
+    for (auto const& mapBorder : map.getMapBorders()) {
+        if (knight.isCollidingWith(*mapBorder)) {
+            knight.onCollisionWith(*mapBorder);
+        }
+    }
+
+
+    for (auto const& goblin : goblins) {
+
+        // goblins colliding with map borders
+        for (auto const& mapBorder : map.getMapBorders()) {
+            if (goblin->isCollidingWith(*mapBorder)) {
+                goblin->onCollisionWith(*mapBorder);
+            }
+        }
+
+        // goblins colliding with knight
+        if (goblin->isCollidingWith(knight)) {
+            goblin->onCollisionWith(knight);
+        }
+    }
+
+    // meat and knight colliding
+    for (auto const& meat : resourcesMeat) {
+        if (meat->isCollidingWith(knight)) {
+            meat->onCollisionWith(knight);
+            knight.onCollisionWith(*meat);
+        }
+    }
 }
 
 
 
 //public
 
-// ----- constructor / destructor --------------------------------------------------------------------------------------
+// ----- constructor ---------------------------------------------------------------------------------------------------
 
 Game::Game(sf::RenderWindow& window) {
 
     // window
     this->window = &window;
 
-    menu = Menu();
-
-    //game state
-    doInitializeFirstWave = true;
+    // game state
+    gameState = GameState::MENU;
+    difficultyLevel = DifficultyLevel::NONE;
+    readyToProgress = false;
+    doInitializeFirstWave = false;
     doInitializeSecondWave = false;
     doInitializeThirdWave = false;
-    gameState = GameState::MENU; //TODO : powiino byc menu ale huj
-    difficultyLevel = DifficultyLevel::EASY;
 
-    movingCollidables.push_back(&knight);
+    // menu
+    menu = Menu();
 
-    drawWave1 = false;
-    drawWave2 = false;
-    drawWave3 = false;
+    // assets
+    assets = Assets();
 
-    maxNumberOfSheep = 8; //TODO set w zaleznosci od poziomu trudnosci
+    // map
+    map = Map();
+
+    // knight
+    knight = Knight();
+
+    // goblins
+    goblins = std::vector<std::unique_ptr<Goblin>>();
+
+    // flock of sheep
+    maxNumberOfSheep = 8;
+    flockOfSheep = std::vector<std::unique_ptr<Sheep>>();
     sheepPositions.emplace_back(0, 230);
     sheepPositions.emplace_back(220, 450);
     sheepPositions.emplace_back(250, 480);
@@ -416,108 +467,95 @@ Game::Game(sf::RenderWindow& window) {
     sheepPositions.emplace_back(540, 160);
     sheepPositions.emplace_back(440, 430);
     sheepPositions.emplace_back(750, 350);
-    spawnSheepClock.restart();
 
-    /*for (auto sheepPosition : sheepPositions) {
-        auto sheep = std::make_unique<Sheep>();
-        sheep->setPosition(sheepPosition);
-        flockOfSheep.push_back(std::move(sheep));
-    }*/
+    // subtitles variables
+    drawWave1 = false;
+    drawWave2 = false;
+    drawWave3 = false;
+    drawVictory = false;
 
-
-    /*auto goblin1 = Goblin();
-    goblin1.setPosition(sf::Vector2f((float)(-192 * 1), 176));
-    auto goblin2 = Goblin();
-    goblin2.setPosition(sf::Vector2f((float)(-192 * 2), 176));
-    auto goblin3 = Goblin();
-    goblin3.setPosition(sf::Vector2f(848 + 192, 368));
-    goblins.push_back(goblin1);
-    goblins.push_back(goblin2);
-    goblins.push_back(goblin3);*/
-
-    /*for (auto& goblin : goblins) {
-        movingCollidables.push_back(&goblin);
-    }*/
-
-
-
-    //TODO TO DELETE
+    //TODO to delete
     /*if (!gridTexture.loadFromFile("grid.png")) {
         fmt::println("File can not load from file: grid.png");
     }
     gridTexture.setSmooth(true);
     grid.setTexture(gridTexture);*/
-
 }
 
 
 // ----- public methods ------------------------------------------------------------------------------------------------
 
-auto Game::isRunning() -> bool {
-    return window->isOpen();
-}
+// update state
 
 auto Game::updateState() -> void {
+
+    // observe game state
     observeGameState();
 
-    if (gameState == GameState::MENU) {
-        menu.updateState();
-    }
-
+    // update game state
+    if (gameState == GameState::MENU) menu.updateState();
     updateEvents();
     handleCollision();
-
     updateKnight();
     updateGoblins();
     updateFlockOfSheep();
     updateResourcesMeat();
-
     updateAttacks();
     updateLifeSpan();
     updateMap();
-
 }
+
+
+// render
 
 auto Game::render() -> void {
 
-    // render window
+    // clear window
     window->clear(sf::Color(71, 171, 169));
 
     // render map
     map.render(window);
 
-    // render entities
-    for (auto const& goblin : goblins) {
-        goblin->render(window);
-    }
-
-    for (auto const& sheep : flockOfSheep) {
-        sheep->render(window);
-    }
-
+    // render meat
     for (auto const& meat : resourcesMeat) {
         meat->render(window);
     }
 
+    // render flock of sheep
+    for (auto const& sheep : flockOfSheep) {
+        sheep->render(window);
+    }
+
+    // render goblins
+    for (auto const& goblin : goblins) {
+        goblin->render(window);
+    }
+
+    // render knight
     if (knight.isAlive) knight.render(window);
 
+    // render menu
     if (gameState == GameState::MENU) {
         menu.render(window);
     }
 
-    if (drawWave1) { window->draw(Assets::getSubtitles()["wave1"]); }
-    if (drawWave2) { window->draw(Assets::getSubtitles()["wave2"]); }
-    if (drawWave3) { window->draw(Assets::getSubtitles()["wave3"]); }
+    // render subtitles
+    if (drawWave1) window->draw(Assets::getSubtitles()["wave1"]);
+    if (drawWave2) window->draw(Assets::getSubtitles()["wave2"]);
+    if (drawWave3) window->draw(Assets::getSubtitles()["wave3"]);
+    if (drawVictory) window->draw(Assets::getSubtitles()["victory!"]);
+    if (!knight.isAlive) window->draw(Assets::getSubtitles()["gameOver"]);
 
-    if (drawVictory) { window->draw(Assets::getSubtitles()["victory!"]); }
-    if (!knight.isAlive) { window->draw(Assets::getSubtitles()["gameOver"]); }
-
-
-    //TODO TO DELETE
+    //TODO to delete
     //this->window->draw(grid);
 
+    // display window
     window->display();
 }
 
 
+// isRunning
 
+auto Game::isRunning() -> bool {
+    return window->isOpen();
+}
