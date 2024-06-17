@@ -22,3 +22,17 @@ auto main() -> int {
 
     }
 }
+
+// CREDITS:
+
+// grafiki pobrane z:
+// https://pixelfrog-assets.itch.io/tiny-swords
+
+// inspirajca strukturą klas z:
+// https://www.youtube.com/playlist?list=PL6xSOsbVA1eb_QqMTTcql_3PdOiE928up
+
+
+// INSTRUKCE DO FOLDERÓW:
+
+// do folderu TinySwords wrzucić wszystkie pgn
+// do folderu Fonts wrzucić czczcionkę

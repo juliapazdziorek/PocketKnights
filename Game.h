@@ -16,6 +16,7 @@
 #include "Goblin.h"
 #include "Meat.h"
 #include "Menu.h"
+#include "Mushroom.h"
 #include "Sheep.h"
 #include "Tnt.h"
 #include "TntColor.h"
@@ -74,6 +75,12 @@ private:
     // explosions
     std::vector<std::unique_ptr<Explosion>> explosions;
 
+    // mushrooms
+    int maxNumberOfMushrooms;
+    sf::Clock spawnMushroomClock;
+    std::vector<std::unique_ptr<Mushroom>> mushrooms;
+    std::vector<sf::Vector2f> mushroomsPositions;
+
     // collision containers
     std::vector<std::unique_ptr<Collidable>> mapBorders;
     std::vector<std::unique_ptr<Collidable>> attacks;
@@ -85,10 +92,6 @@ private:
     bool drawWave3;
     bool drawVictory;
 
-    //TODO to delete
-    /*sf::Texture gridTexture;
-    sf::Sprite grid;*/
-
 
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateEvents() -> void;
@@ -97,6 +100,7 @@ private:
     auto updateGoblins() -> void;
     auto updateFlockOfSheep() -> void;
     auto updateResourcesMeat() -> void;
+    auto updateMushrooms() -> void;
     auto updateTnt() -> void;
     auto updateExplosions() -> void;
     auto updateAttacks() -> void;

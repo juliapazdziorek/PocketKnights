@@ -146,4 +146,7 @@ public:
     // explosion animation getters
     static auto getAnimationExplosion() -> Animation&;
 
+    // mushroom assets getters
+    static auto getTextureMushroom() -> sf::Texture&;
+
 };

@@ -399,25 +399,6 @@ Goblin::Goblin() {
 
     // collision variable
     isColliding = false;
-
-    //TODO to delete
-    /*this->hitBox.setOutlineColor(sf::Color::Red);
-    this->hitBox.setOutlineThickness(1);
-    this->hitBox.setSize(bounds.getSize());
-    this->hitBox.setPosition(bounds.getPosition());
-    this->hitBox.setFillColor(sf::Color::Transparent);
-
-    this->nextPositionHitBox.setOutlineColor(sf::Color::Blue);
-    this->nextPositionHitBox.setOutlineThickness(1);
-    this->nextPositionHitBox.setSize(bounds.getSize());
-    this->nextPositionHitBox.setPosition(bounds.getPosition());
-    this->nextPositionHitBox.setFillColor(sf::Color::Transparent);
-
-    this->attackHitBox.setOutlineColor(sf::Color::Yellow);
-    this->attackHitBox.setOutlineThickness(1);
-    this->attackHitBox.setSize(attackBounds.getSize());
-    this->attackHitBox.setPosition(bounds.getPosition());
-    this->attackHitBox.setFillColor(sf::Color::Transparent);*/
 }
 
 
@@ -429,11 +410,6 @@ auto Goblin::render(sf::RenderTarget *window) -> void {
 
     // render the goblin
     window->draw(goblin);
-
-    //TODO to delete
-    /*window->draw(this->hitBox);
-    window->draw(this->nextPositionHitBox);
-    window->draw(this->attackHitBox);*/
 }
 
 
@@ -451,11 +427,6 @@ auto Goblin::updateState() -> void {
     }
 
     updateTexture();
-
-    //TODO to delete
-    /*hitBox.setPosition(bounds.getPosition());
-    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    attackHitBox.setPosition(attackBounds.getPosition());*/
 }
 
 

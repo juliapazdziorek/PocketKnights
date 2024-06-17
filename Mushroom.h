@@ -2,30 +2,21 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Assets/Animation.h"
 #include "Assets/Assets.h"
 #include "Engine/Collidable.h"
 #include "Knight.h"
 
-class Meat : public Collidable {
+class Mushroom : public Collidable {
 
 private:
 
     // ----- variables -------------------------------------------------------------------------------------------------
 
     // sprite variables
-    sf::Sprite meat;
+    sf::Sprite mushroom;
     sf::Vector2f position;
     sf::Vector2f scale;
     sf::FloatRect bounds;
-
-    // animation variables
-    bool spawned;
-    sf::Clock spawningClock;
-    sf::Clock animationClock;
-
-    // ----- event updating --------------------------------------------------------------------------------------------
-    auto updateTexture() -> void;
 
     // ----- private methods -------------------------------------------------------------------------------------------
 
@@ -36,7 +27,7 @@ private:
 public:
 
     // ----- constructor -----------------------------------------------------------------------------------------------
-    explicit Meat(sf::Vector2f newPosition);
+    explicit Mushroom(sf::Vector2f newPosition);
 
     // ----- public methods --------------------------------------------------------------------------------------------
 
@@ -48,4 +39,9 @@ public:
     auto isCollidingWith(Collidable& other) -> bool override;
     auto onCollisionWith(Collidable& other) -> void override;
 
+    // getters
+    auto getPosition() -> sf::Vector2f;
+
 };
+
+

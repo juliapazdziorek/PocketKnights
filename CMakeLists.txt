@@ -38,6 +38,7 @@ add_executable(PocketKnight main.cpp
         Map.cpp
         Meat.cpp
         Menu.cpp
+        Mushroom.cpp
         Sheep.cpp
         Tnt.cpp
         TntColor.h)

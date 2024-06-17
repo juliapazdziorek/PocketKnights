@@ -285,25 +285,6 @@ Tnt::Tnt(TntColor color)
 
     // collision variables
     isColliding = false;
-
-    //TODO to delete
-    this->hitBox.setOutlineColor(sf::Color::Red);
-    this->hitBox.setOutlineThickness(1);
-    this->hitBox.setSize(bounds.getSize());
-    this->hitBox.setPosition(bounds.getPosition());
-    this->hitBox.setFillColor(sf::Color::Transparent);
-
-    this->nextPositionHitBox.setOutlineColor(sf::Color::Blue);
-    this->nextPositionHitBox.setOutlineThickness(1);
-    this->nextPositionHitBox.setSize(bounds.getSize());
-    this->nextPositionHitBox.setPosition(bounds.getPosition());
-    this->nextPositionHitBox.setFillColor(sf::Color::Transparent);
-
-    this->explosionHitBox.setOutlineColor(sf::Color::Yellow);
-    this->explosionHitBox.setOutlineThickness(1);
-    this->explosionHitBox.setSize(explosionBounds.getSize());
-    this->explosionHitBox.setPosition(bounds.getPosition());
-    this->explosionHitBox.setFillColor(sf::Color::Transparent);
 }
 
 
@@ -315,10 +296,6 @@ auto Tnt::render(sf::RenderTarget *window) -> void {
 
     // render the goblin
     window->draw(tnt);
-
-    //TODO to delete
-    window->draw(this->hitBox);
-    window->draw(this->nextPositionHitBox);
 }
 
 
@@ -349,9 +326,6 @@ auto Tnt::updateState() -> void {
 
     updateTexture();
 
-    //TODO to delete
-    hitBox.setPosition(bounds.getPosition());
-    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
 }
 
 

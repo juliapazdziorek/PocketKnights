@@ -45,7 +45,6 @@ Meat::Meat(sf::Vector2f newPosition) {
     position = newPosition;
     scale = sf::Vector2f(0.5f, 0.5f);
     bounds = sf::FloatRect(sf::Vector2f(newPosition.x + 28, newPosition.y + 28), sf::Vector2f(16, 16));
-    //texture = Assets::getTextureMeat();
     meat.setPosition(position);
     meat.setScale(scale);
 
@@ -53,12 +52,6 @@ Meat::Meat(sf::Vector2f newPosition) {
     spawned = false;
     spawningClock.restart();
 
-    //TODO to delete
-    /*this->hitBox.setOutlineColor(sf::Color::Red);
-    this->hitBox.setOutlineThickness(1);
-    this->hitBox.setSize(bounds.getSize());
-    this->hitBox.setPosition(bounds.getPosition());
-    this->hitBox.setFillColor(sf::Color::Transparent);*/
 }
 
 
@@ -70,9 +63,6 @@ auto Meat::render(sf::RenderTarget *window) -> void {
 
     // render the meat
     window->draw(meat);
-
-    //TODO to delete
-    /*window->draw(this->hitBox);*/
 }
 
 

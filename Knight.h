@@ -9,6 +9,7 @@
 #include "Engine/Collidable.h"
 #include "Engine/Explosion.h"
 #include "Engine/Utility.h"
+#include "Mushroom.h"
 #include "Meat.h"
 
 class Knight : public Collidable {
@@ -52,14 +53,13 @@ private:
     sf::FloatRect attackBounds;
     Attack currentAttack;
 
+    // mushrooms variables
+    bool onMushrooms;
+    sf::Clock mushroomClock;
+
     // collision variables
     bool isColliding;
     std::vector<Collidable*> collidables;
-
-    //TODO to delete
-//    sf::RectangleShape hitBox;
-//    sf::RectangleShape nextPositionHitBox;
-//    sf::RectangleShape attackHitBox;
 
 
     // ----- event updating --------------------------------------------------------------------------------------------
@@ -67,6 +67,7 @@ private:
     auto updateHealthBar() -> void;
     auto updateIsAlive() -> void;
     auto updateAttack() -> void;
+    auto updateMushrooms() -> void;
     auto updateCollision() -> void;
     auto updateTexture() -> void;
 

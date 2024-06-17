@@ -83,13 +83,6 @@ Sheep::Sheep() {
     animations.push_back(Assets::getAnimationSheepStanding()); // 0
     animations.push_back(Assets::getAnimationSheepBouncing()); // 1
 
-    //TODO to delete
-    /*this->hitBox.setOutlineColor(sf::Color::Red);
-    this->hitBox.setOutlineThickness(1);
-    this->hitBox.setSize(bounds.getSize());
-    this->hitBox.setPosition(bounds.getPosition());
-    this->hitBox.setFillColor(sf::Color::Transparent);*/
-
 }
 
 
@@ -102,8 +95,6 @@ auto Sheep::render(sf::RenderTarget *window) -> void {
     // render the sheep
     window->draw(sheep);
 
-    //TODO to delete
-    /*window->draw(this->hitBox);*/
 }
 
 
@@ -149,7 +140,4 @@ auto Sheep::setPosition(sf::Vector2f newPosition) -> void {
     position = newPosition;
     sheep.setPosition(position);
     updateBoundsVariable();
-
-    //TODO to delete
-    /*hitBox.setPosition(bounds.getPosition());*/
 }

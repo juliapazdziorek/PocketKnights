@@ -34,9 +34,6 @@ private:
     sf::Clock bouncingAnimationClock;
     sf::Clock timeToBounceClock;
 
-    //TODO to delete
-    /*sf::RectangleShape hitBox;*/
-
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateBouncing() -> void;
     auto updateTexture() -> void;

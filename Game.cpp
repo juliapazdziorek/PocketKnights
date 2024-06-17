@@ -47,7 +47,7 @@ auto Game::updateGoblins() -> void {
     }
 
     // spawn new tnt if time
-    if (!goblins.empty() && tntRedClock.getElapsedTime() >= sf::seconds(5) && gameState == GameState::THIRD_WAVE) {
+    if (!goblins.empty() && tntRedClock.getElapsedTime() >= sf::seconds(7) && gameState == GameState::THIRD_WAVE) {
         spawnTnt(TntColor::RED);
         tntRedClock.restart();
     }
@@ -62,7 +62,7 @@ auto Game::updateFlockOfSheep() -> void {
 
         // find position of new sheep
         auto positionFound = true;
-        auto positionIndex = mathRandomInCpp(0, maxNumberOfSheep - 1);
+        auto positionIndex = mathRandomInCpp(0, 7);
 
         // if there are other sheep compare if position is occupied
         if (!flockOfSheep.empty()) {
@@ -98,6 +98,38 @@ auto Game::updateResourcesMeat() -> void {
     // update meat state
     for (auto const& meat : resourcesMeat) {
         meat->updateState();
+    }
+}
+
+
+auto Game::updateMushrooms() -> void {
+
+    // if not max number of mushrooms add new one
+    if (mushrooms.size() < maxNumberOfMushrooms && spawnMushroomClock.getElapsedTime() >= sf::seconds(10)) {
+
+        // find position of new sheep
+        auto positionFound = true;
+        auto positionIndex = mathRandomInCpp(0, 2);
+
+        // if there are other mushrooms compare if position is occupied
+        if (!mushrooms.empty()) {
+            auto positionOccupied = false;
+            for (auto const& mushroom : mushrooms) {
+                if (mushroom->getPosition() == mushroomsPositions[positionIndex]) {
+                    positionOccupied = true;
+                }
+            }
+            if (positionOccupied)  {
+                positionFound = false;
+            }
+        }
+
+        // add new mushroom
+        if (positionFound) {
+            auto mushroom = std::make_unique<Mushroom>(mushroomsPositions[positionIndex]);
+            mushrooms.push_back(std::move(mushroom));
+            spawnMushroomClock.restart();
+        }
     }
 }
 
@@ -240,6 +272,10 @@ auto Game::updateLifeSpan() -> void {
     // handle explosion lifespan
     auto toEraseExplosion = std::ranges::remove_if(explosions,[](std::unique_ptr<Explosion> const& explosion) { return !explosion->isAlive && explosion->getTimeOfExplosion().getElapsedTime() >= sf::seconds(0.9f); });
     explosions.erase(toEraseExplosion.begin(), toEraseExplosion.end());
+
+    // handle mushrooms lifespan
+    auto toEraseMushrooms = std::ranges::remove_if(mushrooms,[](std::unique_ptr<Mushroom> const& mushroom) { return !mushroom->isAlive; });
+    mushrooms.erase(toEraseMushrooms.begin(), toEraseMushrooms.end());
 
 }
 
@@ -448,7 +484,7 @@ auto Game::observeThirdWaveState() -> void {
 
 // spawning
 
-auto Game::spawnGoblin(int amount) -> void { //TODO !(not tested)!
+auto Game::spawnGoblin(int amount) -> void {
 
     // island enum
     enum class Island {
@@ -579,6 +615,15 @@ auto Game::handleCollision() -> void {
             }
         }
     }
+
+    for (auto const& mushroom : mushrooms) {
+        if (knight.isCollidingWith(*mushroom)) {
+            mushroom->onCollisionWith(knight);
+            knight.onCollisionWith(*mushroom);
+        }
+    }
+
+
 }
 
 
@@ -627,18 +672,18 @@ Game::Game(sf::RenderWindow& window) {
     sheepPositions.emplace_back(440, 430);
     sheepPositions.emplace_back(750, 350);
 
+    // mushrooms
+    maxNumberOfMushrooms = 1;
+    mushrooms = std::vector<std::unique_ptr<Mushroom>>();
+    mushroomsPositions.emplace_back(352, 210);
+    mushroomsPositions.emplace_back(160, 480);
+    mushroomsPositions.emplace_back(500, 470);
+
     // subtitles variables
     drawWave1 = false;
     drawWave2 = false;
     drawWave3 = false;
     drawVictory = false;
-
-    //TODO to delete
-    /*if (!gridTexture.loadFromFile("grid.png")) {
-        fmt::println("File can not load from file: grid.png");
-    }
-    gridTexture.setSmooth(true);
-    grid.setTexture(gridTexture);*/
 }
 
 
@@ -659,6 +704,7 @@ auto Game::updateState() -> void {
     updateGoblins();
     updateFlockOfSheep();
     updateResourcesMeat();
+    updateMushrooms();
     updateTnt();
     updateExplosions();
     updateAttacks();
@@ -676,6 +722,11 @@ auto Game::render() -> void {
 
     // render map
     map.render(window);
+
+    // render mushrooms
+    for (auto const& mushroom : mushrooms) {
+        mushroom->render(window);
+    }
 
     // render meat
     for (auto const& meat : resourcesMeat) {
@@ -711,14 +762,23 @@ auto Game::render() -> void {
     }
 
     // render subtitles
-    if (drawWave1) window->draw(Assets::getSubtitles()["wave1"]);
-    if (drawWave2) window->draw(Assets::getSubtitles()["wave2"]);
-    if (drawWave3) window->draw(Assets::getSubtitles()["wave3"]);
+    if (drawWave1) {
+        window->draw(Assets::getSubtitles()["wave1"]);
+        window->draw(Assets::getSubtitles()["attackBySpace"]);
+    }
+    if (drawWave2) {
+        window->draw(Assets::getSubtitles()["wave2"]);
+        window->draw(Assets::getSubtitles()["plantTnt"]);
+    }
+
+    if (drawWave3) {
+        window->draw(Assets::getSubtitles()["wave3"]);
+        window->draw(Assets::getSubtitles()["bewareOfTnt"]);
+    }
+
+
     if (drawVictory) window->draw(Assets::getSubtitles()["victory!"]);
     if (!knight.isAlive) window->draw(Assets::getSubtitles()["gameOver"]);
-
-    //TODO to delete
-    //this->window->draw(grid);
 
     // display window
     window->display();

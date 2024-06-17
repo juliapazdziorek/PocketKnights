@@ -50,7 +50,7 @@ auto Assets::loadTextures() -> void {
 
     // mapTileGrassSandTexture
     auto mapTileGrassSandTexture = sf::Texture();
-    if (!mapTileGrassSandTexture.loadFromFile("../TinySwords/Terrain/MapTileGrassSand.png")) {
+    if (!mapTileGrassSandTexture.loadFromFile("../TinySwords/MapTileGrassSand.png")) {
         fmt::println("Could not load from file: TinySwords/MapTileGrassSand.png");
     }
     mapTileGrassSandTexture.setSmooth(true);
@@ -58,7 +58,7 @@ auto Assets::loadTextures() -> void {
 
     // mapTileWallTexture
     auto mapTileWallTexture = sf::Texture();
-    if (!mapTileWallTexture.loadFromFile("../TinySwords/Terrain/MapTileWall.png")) {
+    if (!mapTileWallTexture.loadFromFile("../TinySwords/MapTileWall.png")) {
         fmt::println("Could not load from file: TinySwords/MapTileWall.png");
     }
     mapTileWallTexture.setSmooth(true);
@@ -66,7 +66,7 @@ auto Assets::loadTextures() -> void {
 
     // mapTileBridgeTexture
     auto mapTileBridgeTexture = sf::Texture();
-    if (!mapTileBridgeTexture.loadFromFile("../TinySwords/Terrain/MapTileBridge.png")) {
+    if (!mapTileBridgeTexture.loadFromFile("../TinySwords/MapTileBridge.png")) {
         fmt::println("Could not load from file: TinySwords/MapTileBridge.png");
     }
     mapTileBridgeTexture.setSmooth(true);
@@ -74,7 +74,7 @@ auto Assets::loadTextures() -> void {
 
     // mapTileShadowTexture
     auto mapTileShadowTexture = sf::Texture();
-    if (!mapTileShadowTexture.loadFromFile("../TinySwords/Terrain/Shadow.png")) {
+    if (!mapTileShadowTexture.loadFromFile("../TinySwords/Shadow.png")) {
         fmt::println("Could not load from file: TinySwords/Shadow.png");
     }
     mapTileShadowTexture.setSmooth(true);
@@ -82,7 +82,7 @@ auto Assets::loadTextures() -> void {
 
     // tileFoamTexture
     auto tileFoamTexture = sf::Texture();
-    if (!tileFoamTexture.loadFromFile("../TinySwords/Terrain/Foam.png")) {
+    if (!tileFoamTexture.loadFromFile("../TinySwords/Foam.png")) {
         fmt::println("Could not load from file: TinySwords/Foam.png");
     }
     tileFoamTexture.setSmooth(true);
@@ -127,6 +127,14 @@ auto Assets::loadTextures() -> void {
     }
     explosionTexture.setSmooth(true);
     Assets::textures["explosionTexture"] = explosionTexture;
+
+    // mushroom Texture
+    auto mushroomTexture = sf::Texture();
+    if (!mushroomTexture.loadFromFile("../TinySwords/Mushroom.png")) {
+        fmt::println("Could not load from file: TinySwords/Mushroom.png");
+    }
+    mushroomTexture.setSmooth(true);
+    Assets::textures["mushroomTexture"] = mushroomTexture;
 
 }
 
@@ -253,9 +261,17 @@ auto Assets::initializeSubtitles() -> void {
     subtitles["wave3"] = sf::Text();
     adjustText(subtitles["wave3"], "Wave 3", 100, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(256, 128));
 
-    // Attack by hitting SPACE //TODO
-    // Set TNT by hitting T
+    // Attack by hitting SPACE
+    subtitles["attackBySpace"] = sf::Text();
+    adjustText(subtitles["attackBySpace"], "Attack goblins by hitting SPACE", 50, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(48, 256));
+
+    // Plant TNTs by hitting T
+    subtitles["plantTnt"] = sf::Text();
+    adjustText(subtitles["plantTnt"], "Plant TNTs by hitting T", 50, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(148, 256));
+
     // Beware of TNTs!
+    subtitles["bewareOfTnt"] = sf::Text();
+    adjustText(subtitles["bewareOfTnt"], "Beware of TNTs!", 50, sf::Color::White, sf::Color::Black, (float)5, sf::Vector2f(248, 256));
 
     // Game over
     subtitles["gameOver"] = sf::Text();
@@ -372,3 +388,9 @@ auto Assets::getAnimationTntRedFire() -> Animation & { return Assets::tntRedFire
 // explosion animation getters
 
 auto Assets::getAnimationExplosion() -> Animation& { return Assets::explosion; }
+
+
+// mushroom assets getters
+
+auto Assets::getTextureMushroom() -> sf::Texture& { return Assets::textures["mushroomTexture"]; }
+

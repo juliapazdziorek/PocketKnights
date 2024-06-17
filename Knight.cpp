@@ -151,6 +151,14 @@ auto Knight::updateAttack() -> void {
 }
 
 
+auto Knight::updateMushrooms() -> void {
+    if (onMushrooms && mushroomClock.getElapsedTime() >= sf::seconds(3)) {
+        onMushrooms = false;
+        movingSpeed = 2;
+    }
+}
+
+
 auto Knight::updateCollision() -> void {
 
     // check if still colliding
@@ -360,24 +368,6 @@ Knight::Knight() {
     attackBounds = sf::FloatRect(sf::Vector2f(position.x + 43, position.y + 56) ,sf::Vector2f(32, 32));
     currentAttack = Attack(attackBounds);
 
-    //TODO to delete
-    /*this->hitBox.setOutlineColor(sf::Color::Red);
-    this->hitBox.setOutlineThickness(1);
-    this->hitBox.setSize(bounds.getSize());
-    this->hitBox.setPosition(bounds.getPosition());
-    this->hitBox.setFillColor(sf::Color::Transparent);
-
-    this->nextPositionHitBox.setOutlineColor(sf::Color::Blue);
-    this->nextPositionHitBox.setOutlineThickness(1);
-    this->nextPositionHitBox.setSize(nextPositionBounds.getSize());
-    this->nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    this->nextPositionHitBox.setFillColor(sf::Color::Transparent);
-
-    this->attackHitBox.setOutlineColor(sf::Color::Yellow);
-    this->attackHitBox.setOutlineThickness(1);
-    this->attackHitBox.setSize(attackBounds.getSize());
-    this->attackHitBox.setPosition(bounds.getPosition());
-    this->attackHitBox.setFillColor(sf::Color::Transparent);*/
 }
 
 
@@ -391,11 +381,6 @@ auto Knight::render(sf::RenderTarget *window) -> void {
     window->draw(healthBar);
     window->draw(healthInBar);
     window->draw(knight);
-
-    //TODO to delete
-    /*window->draw(this->hitBox);
-    window->draw(this->nextPositionHitBox);
-    window->draw(this->attackHitBox);*/
 }
 
 
@@ -410,16 +395,12 @@ auto Knight::updateState() -> void {
     updateHealthBar();
     updateIsAlive();
     updateAttack();
+    updateMushrooms();
 
     if(isColliding) {
         updateCollision();
     }
     updateTexture();
-
-    //TODO to delete
-    /*hitBox.setPosition(bounds.getPosition());
-    nextPositionHitBox.setPosition(nextPositionBounds.getPosition());
-    attackHitBox.setPosition(attackBounds.getPosition());*/
 }
 
 
@@ -446,6 +427,7 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
         }
     }
 
+    // if colliding with meat add healts
     else if (typeid(other) == typeid(Meat)) {
         if (health <= 43) {
             health += 5;
@@ -454,7 +436,14 @@ auto Knight::onCollisionWith(Collidable &other) -> void {
         }
     }
 
-        // set collision variables
+    // if colliding with mushroom speed
+    else if (typeid(other) == typeid(Mushroom)) {
+        onMushrooms = true;
+        mushroomClock.restart();
+        movingSpeed = 5;
+    }
+
+    // set collision variables
     else {
         isColliding = true;
         collidables.push_back(&other);

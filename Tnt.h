@@ -51,11 +51,6 @@ class Tnt : public Collidable {
     bool isColliding;
     std::vector<Collidable*> collidables;
 
-    //TODO to delete
-    sf::RectangleShape hitBox;
-    sf::RectangleShape nextPositionHitBox;
-    sf::RectangleShape explosionHitBox;
-
     // ----- event updating --------------------------------------------------------------------------------------------
     auto updateMovement() -> void;
     auto updateCollision() -> void;
