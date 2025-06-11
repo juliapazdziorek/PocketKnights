@@ -22,7 +22,7 @@ private:
 
     // containers
     std::vector<std::unique_ptr<Collidable>> mapBorders;
-    std::vector<MapBorder*> mapBordersToRender;
+    std::vector<MapBorder*> mapBordersToRender; // only to draw to check if works
     std::vector<std::unique_ptr<MapTile>> mapTiles;
     std::vector<MapTileAnimated*> mapTilesAnimated;
 

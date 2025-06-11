@@ -777,7 +777,7 @@ auto Game::render() -> void {
     }
 
 
-    if (drawVictory) window->draw(Assets::getSubtitles()["victory!"]);
+    if (drawVictory && knight.isAlive) window->draw(Assets::getSubtitles()["victory!"]);
     if (!knight.isAlive) window->draw(Assets::getSubtitles()["gameOver"]);
 
     // display window
@@ -790,4 +790,3 @@ auto Game::render() -> void {
 auto Game::isRunning() -> bool {
     return window->isOpen();
 }
-

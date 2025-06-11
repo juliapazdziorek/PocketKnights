@@ -185,7 +185,7 @@ auto Assets::initializeMapTileMaps() -> void {
     mapTilesSand["MapTileSandCornerRightDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(7 * mapTileSizeInTexture, 2 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
     mapTilesSand["MapTileSandEndDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(8 * mapTileSizeInTexture, 2 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
     mapTilesSand["MapTileSandEndLeft"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(5 * mapTileSizeInTexture, 3 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
-    mapTilesSand["MapTileSandBordersUpDown"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(6 * mapTileSizeInTexture, 3 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
+    mapTilesSand["MapTileSandBordersUpDown"] = MapTile(Assets::textures["mapTileGralssSandTexture"], sf::IntRect(6 * mapTileSizeInTexture, 3 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
     mapTilesSand["MapTileSandEndRight"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(7 * mapTileSizeInTexture, 3 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
     mapTilesSand["MapTileSand"] = MapTile(Assets::textures["mapTileGrassSandTexture"], sf::IntRect(8 * mapTileSizeInTexture, 3 * mapTileSizeInTexture, mapTileSizeInTexture, mapTileSizeInTexture));
 
